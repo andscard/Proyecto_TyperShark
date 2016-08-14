@@ -5,12 +5,25 @@
  */
 package Buceador;
 
+import Utils.Posicion;
+
 /**
  *
  * @author Mayken
  */
 public class Buceador {
-    private String nombre;
+     private String nombre;
     private int vidas;
-    private int puntos;
+    private int puntaje;
+    private boolean arma_especial;
+    private Posicion posicion;
+    
+    public Buceador(String nombre){
+    this.nombre=nombre;
+    this.vidas=3;
+    this.puntaje=0;
+    this.arma_especial=false;
+    posicion=new Posicion(0,10);
+    }
+   
 }

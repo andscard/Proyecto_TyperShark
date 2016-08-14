@@ -6,10 +6,12 @@
 package typershark;
 
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -21,12 +23,16 @@ public class TyperShark extends Application {
     
     @Override
     public void start(Stage stage) {
-        PanelOrganizador organizer = new PanelOrganizador();
-        //Scene scene = new Scene(root, 300, 250);
-        
-        stage.setTitle("Hello World!");
-        //stage.setScene(scene);
-        stage.show();
+      MenuPrincipal menu=new MenuPrincipal();
+      MarFX  mar=new MarFX();
+      Scene scene2 = new Scene (mar.getMarFX());
+      Scene scene1 = new Scene(menu.getMenuPrincipal());
+      stage.setTitle("Typer Shark");
+      stage.getIcons().add(new Image("/Imagenes/tiburon.png"));
+      stage.setResizable(true);
+      stage.setScene(scene1);
+      stage.show();
+     
     }
 
     /**

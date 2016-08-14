@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package typershark;
+package Pez;
 
 /**
  *
- * @author Mayken
+ * @author User
  */
-public class PanelOrganizador {
-   
+public class TiburonNegroFX {
     
-    
-    
-    public PanelOrganizador(){
- 
-    }
 }
