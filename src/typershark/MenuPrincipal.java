@@ -5,7 +5,9 @@
  */
 package typershark;
 
+import Buceador.Buceador;
 import Buceador.Formulario;
+import Buceador.TopJugadores;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,16 +34,19 @@ public class MenuPrincipal {
     private Mar mar;
     private Formulario formulario;
     private Ayuda ayuda;
-    Stage stage1,stage2;
+    private TopJugadores top;
+    Stage stage1,stage2,stage3;
     Stage stage_menu;
     
     public MenuPrincipal(){
     panel= new Pane();
     mar=new Mar();
     formulario=new Formulario();
+    top=new TopJugadores();
     ayuda= new Ayuda();
     stage1= formulario.crearStage();
     stage2= ayuda.crearStage();
+    stage3= top.crearStage();
     stage_menu=new Stage();
     vbox = this.createVbox();
     Button bt_salir = new Button(" SALIR ");
@@ -66,6 +71,7 @@ public class MenuPrincipal {
      Button b3 = new Button("TOP-SCORES");
      b3.setPrefSize(150, 50);
      b3.setShape(elipse);
+     b3.setOnAction(new ClickHandler3());
      
      vbox.relocate(160, 215);
      vbox.getChildren().addAll(b1,b2,b3);
@@ -108,6 +114,16 @@ public class MenuPrincipal {
         @Override
         public void handle(ActionEvent action) {
             stage2.show();
+        }
+    }
+    
+    private class ClickHandler3 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            top.escribirArchivoTop(new Buceador("Mayken"));
+            top.listaTopJugadores();
+            top.llenarListView();
+            stage3.show();
         }
     }
     

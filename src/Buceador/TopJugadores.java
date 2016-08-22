@@ -15,10 +15,19 @@ import java.util.Collections;
 import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import typershark.Ayuda;
 
 /**
  *
@@ -28,14 +37,22 @@ public class TopJugadores {
     private ListView<String> lista;
     private ArrayList <Buceador> top_buceadores;
     private Pane panel;
+    private Stage stage;
+    private Button boton;
     private ImageView fondo;
     private ObservableList<String> nombres;
     
     public TopJugadores (){
     this.panel=new Pane();
+    this.stage= new Stage();
     this.lista=new ListView<String>();
-    nombres =FXCollections.observableArrayList ();
+    this.nombres =FXCollections.observableArrayList ();
     this.top_buceadores= new ArrayList<Buceador>(10);
+     this.boton=new Button(" SALIR ");
+        boton.setTranslateX(780);
+        boton.setTranslateY(550);
+        boton.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
+        boton.setOnAction(new ClickHandler());
     fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondo10.jpg"),800,700,true,true));
     panel.getChildren().addAll(fondo,lista);
     
@@ -99,7 +116,22 @@ public class TopJugadores {
         this.lista.setItems(nombres);}
     }
    
+   public Pane getTopJugadores(){
+   return this.panel;}
    
-   
-   
+    public Stage crearStage(){
+        Scene scene1 = new Scene(this.getTopJugadores());
+        stage.setTitle("TyperShark Help");
+        stage.getIcons().add(new Image("/Imagenes/tiburon.png"));
+        stage.setScene(scene1);
+        stage.setResizable(true);
+        stage.initModality(Modality.APPLICATION_MODAL);
+     return this.stage;}
+    
+    private class ClickHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            stage.close();
+        }
+    }
 }
