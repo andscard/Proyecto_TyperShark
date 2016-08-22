@@ -5,33 +5,35 @@
  */
 package typershark;
 
-import Buceador.BuceadorFX;
-import Pez.TiburonFX;
+import Buceador.Buceador;
+import Pez.Tiburon;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  *
  * @author User
  */
-public class MarFX {
+public class Mar {
      private BorderPane panel_mar;
      private ImageView fondo;
-     private TiburonFX tiburon;
-     private BuceadorFX buceador;
+     private Tiburon tiburon;
+     private Buceador buceador;
      private VBox vbox1;
      private Pane panel_peces_buceador;
 
      
     // private 
      
-    public MarFX(){
+    public Mar(){
     panel_mar=new BorderPane();
-    tiburon=new TiburonFX();
-    buceador= new BuceadorFX("");
+    tiburon=new Tiburon();
+    buceador= new Buceador("");
     panel_peces_buceador=this.setPanelPeces();
     panel_mar.setCenter(panel_peces_buceador);
     panel_mar.setRight(vbox1);
@@ -48,6 +50,7 @@ public class MarFX {
     }
     
     
-    public BorderPane getMarFX(){
+    public BorderPane getMar(){
     return this.panel_mar;}
+   
 }

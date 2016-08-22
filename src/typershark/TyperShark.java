@@ -20,17 +20,12 @@ import javafx.stage.Stage;
  * @author User
  */
 public class TyperShark extends Application {
-    
+     MenuPrincipal menu=new MenuPrincipal(); 
+    Stage stage_menu= menu.getStageMenu();
     @Override
     public void start(Stage stage) {
-      MenuPrincipal menu=new MenuPrincipal();
-      MarFX  mar=new MarFX();
-      Scene scene2 = new Scene (mar.getMarFX());
-      Scene scene1 = new Scene(menu.getMenuPrincipal());
-      stage.setTitle("Typer Shark");
-      stage.getIcons().add(new Image("/Imagenes/tiburon.png"));
-      stage.setResizable(true);
-      stage.setScene(scene1);
+     
+      stage=stage_menu;
       stage.show();
      
     }
