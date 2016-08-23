@@ -38,6 +38,7 @@ public class Mar {
     private BorderPane panel_mar;
     private ImageView fondo;
     //private Tiburon tiburon;
+    private Pane pan1, pan2,pan3,pan4,pan5;
     private Pez[] tiburon;
     private Pez[] tiburones_negro;
     private Pez[] piraña;
@@ -51,15 +52,24 @@ public class Mar {
     public Mar() {
         panel_mar = new BorderPane();
         tiburon = new Tiburon[5];
-        tiburones_negro = new Tiburon[5];
-        piraña = new Tiburon[5];
-
+       // tiburones_negro = new Tiburon[5];
+       // piraña = new Tiburon[5];        
         palabra = new Palabra();
         buceador = new Buceador("");
         barra = this.getToolBar();
+        this.arregloDeTiburones();
         panel_peces_buceador = this.setPanelPeces();
         panel_mar.setTop(barra);
         panel_mar.setCenter(panel_peces_buceador);
+        
+        
+        pan1= new Pane();
+        pan2= new Pane();
+        pan3= new Pane();
+        pan4= new Pane();
+        pan5= new Pane();
+        
+        
         //panel_mar.setRight(vbox1);
 
     }
@@ -67,6 +77,13 @@ public class Mar {
     public Pane setPanelPeces() {
         this.panel_peces_buceador = new Pane();
         fondo = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/mar.jpg"), 900, 600, false, false));
+        pan1= tiburon[0].getPane();
+        pan2=tiburon[1].getPane();
+        pan3=tiburon[2].getPane();
+        pan4=tiburon[3].getPane();
+        pan5=tiburon[4].getPane();;
+         
+        panel_peces_buceador.getChildren().addAll(fondo,pan1,pan2,pan3,pan4,pan5);
 
         //this.tiburon
         return panel_peces_buceador;

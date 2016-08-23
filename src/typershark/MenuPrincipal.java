@@ -103,7 +103,7 @@ public class MenuPrincipal {
     private class ClickHandler1 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-        stage1.show();
+        stage1.showAndWait();
         
         Scene scene2 = new Scene (mar.getMar());
         stage_menu.setScene(scene2);

@@ -38,6 +38,7 @@ public class Pez extends Thread{
         this.velocidad = velocidad;
         this.estado=Estado.VIVO;
         this.pane= new Pane();
+        label=new Label(palabra);
         pane.getChildren().addAll(label);
         this.pane.setLayoutX(posicion.getPos_x());
         this.pane.setLayoutY(posicion.getPos_y());
@@ -61,6 +62,9 @@ public class Pez extends Thread{
         this.velocidad = velocidad;
     }
     
+     public Pane getPane(){
+            return this.pane;
+    }
     
     
     @Override
@@ -69,12 +73,12 @@ public class Pez extends Thread{
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    pane.setTranslateX(pane.getTranslateX()+ getVelocidad());
+                    pane.setTranslateX(pane.getTranslateX()-2 );
                 }
 
                });
            try {
-               Tiburon.sleep(20);
+               Tiburon.sleep(200);
            } catch (InterruptedException ex) {
                Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
            }
