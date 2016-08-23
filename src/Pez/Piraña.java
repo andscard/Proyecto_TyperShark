@@ -16,8 +16,8 @@ import javafx.scene.image.ImageView;
 public class Piraña extends Pez{
      private ImageView imagen_piraña;
      
-    public Piraña(){
-     super(5,100,1);
+    public Piraña(int puntos, double velocidad,double x, double y, String palabra){
+     super(puntos,velocidad,x,y,palabra);
     this.imagen_piraña=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/piraña.PNG"),80,120,true,true));}
     
     public ImageView getImagenPiraña(){

@@ -15,14 +15,19 @@ import javafx.scene.image.ImageView;
  * @author Mayken
  */
 public class TiburonNegro extends Pez{
+    private int num_palabras;
     private ImageView imagen_tiburonNegro;
     
-    public TiburonNegro(){
-    super(25,50,(int)Math.random()*3+2);
-    this.imagen_tiburonNegro=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/tiburon_negro.png"),250,100,true,true));}
+    public TiburonNegro(int puntos, double velocidad,double x, double y, String palabra){
+    super(puntos,velocidad,x,y, palabra);
+    this.imagen_tiburonNegro=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/tiburon_negro.png"),250,100,true,true));
+    this.num_palabras=(int)Math.random()*3+2;}
     
     public ImageView getImagenTiburonNegro(){
     return this.imagen_tiburonNegro;}
+    
+    public int num_Palabras(){
+        return this.num_palabras;}
 
     
 }

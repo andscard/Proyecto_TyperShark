@@ -28,11 +28,11 @@ public class Pez extends Thread{
     private Pane pane;
     private Label label;
     private Posicion posicion;
+    private String palabra;
     
     
-    
-    public Pez( int puntos, double velocidad,int x, int y) {
-         
+    public Pez( int puntos, double velocidad,double x, double y, String palabra) {
+        this.palabra=palabra;
         this.posicion=new Posicion(x,y);        
         this.puntos = puntos;
         this.velocidad = velocidad;
@@ -41,6 +41,7 @@ public class Pez extends Thread{
         pane.getChildren().addAll(label);
         this.pane.setLayoutX(posicion.getPos_x());
         this.pane.setLayoutY(posicion.getPos_y());
+        
     }
 
 

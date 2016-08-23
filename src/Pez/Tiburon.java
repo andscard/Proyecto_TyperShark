@@ -14,12 +14,11 @@ import javafx.scene.layout.Pane;
  * @author Mayken
  */
 public class Tiburon extends Pez {
-    
     private ImageView imagen_tiburon;
     
     
-    public Tiburon(int puntos, double velocidad,int x, int y){
-        super(puntos,velocidad,x,y);
+    public Tiburon(int puntos, double velocidad,double x, double y, String palabra){
+        super(puntos,velocidad,x,y,palabra);
         this.imagen_tiburon=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/shark.png"), 200, 150, true, true));
        
     }

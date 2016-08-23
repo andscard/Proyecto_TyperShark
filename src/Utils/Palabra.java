@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class Palabra {
     private ArrayList<String> palabras ;
     private ArrayList<String> bonus ;
-    private ArrayList<Character> letras ;
+    private ArrayList<String> letras ;
     private String archivo_palabras="ListaPalabras.txt";
     private String archivo_bonus;
     
@@ -80,9 +80,9 @@ public class Palabra {
     }
     
    
-    public ArrayList<Character> llenarArregloLetras(){
-        ArrayList<Character> letras = new ArrayList<Character>();
-        ArrayList<Character> abecedario = this.llenarArregloAbecedario();
+    public ArrayList<String> llenarArregloLetras(){
+        ArrayList<String> letras = new ArrayList<String>();
+        ArrayList<String> abecedario = this.llenarArregloAbecedario();
         int generar;
         
        
@@ -111,13 +111,37 @@ public class Palabra {
     }
     
     
-      public ArrayList<Character> llenarArregloAbecedario(){
+      public ArrayList<String> llenarArregloAbecedario(){
      
-            ArrayList<Character> letras =new ArrayList<Character>();
-            for(int i=65;i<91;i++){
-                letras.add((char)i);
-                                     
-            }
+            ArrayList<String> letras =new ArrayList<String>();
+            
+            letras.add("A");
+            letras.add("B");
+            letras.add("C");
+            letras.add("D");
+            letras.add("E");
+            letras.add("F");
+            letras.add("G");
+            letras.add("H");
+            letras.add("I");
+            letras.add("J");
+            letras.add("K");
+            letras.add("L");
+            letras.add("M");
+            letras.add("N");
+            letras.add("O");
+            letras.add("P");
+            letras.add("Q");
+            letras.add("R");
+            letras.add("S");
+            letras.add("T");
+            letras.add("U");
+            letras.add("V");
+            letras.add("W");
+            letras.add("X");
+            letras.add("Y");
+            letras.add("Z");
+             
      return letras;
      }       
    
@@ -143,14 +167,14 @@ public class Palabra {
     /**
      * @return the letras
      */
-    public ArrayList<Character> getLetras() {
+    public ArrayList<String> getLetras() {
         return letras;
     }
 
     /**
      * @param letras the letras to set
      */
-    public void setLetras(ArrayList<Character> letras) {
+    public void setLetras(ArrayList<String> letras) {
         this.letras = letras;
     }
      
