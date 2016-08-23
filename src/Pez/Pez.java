@@ -6,34 +6,43 @@
 package Pez;
 
 import Utils.Palabra;
+import Utils.Posicion;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 /**
  *
  * @author Mayken
  */
-public class Pez {
-    private String []lista_palabra;   
-    private Palabra palabra;
+public class Pez extends Thread{
+    
     private int puntos;
     private double velocidad;
     private final Estado estado;
     private enum Estado{VIVO,MUERTO};
-
-    public Pez( int puntos, double velocidad, int n) {
-        this.lista_palabra = new String[n];
-        this.palabra = new Palabra();
+    private Pane pane;
+    private Label label;
+    private Posicion posicion;
+    
+    
+    
+    public Pez( int puntos, double velocidad,int x, int y) {
+         
+        this.posicion=new Posicion(x,y);        
         this.puntos = puntos;
         this.velocidad = velocidad;
         this.estado=Estado.VIVO;
+        this.pane= new Pane();
+        pane.getChildren().addAll(label);
+        this.pane.setLayoutX(posicion.getPos_x());
+        this.pane.setLayoutY(posicion.getPos_y());
     }
 
-    public String[] getLista_palabra() {
-        return lista_palabra;
-    }
-
-    public void setLista_palabra(String[] lista_palabra) {
-        this.lista_palabra = lista_palabra;
-    }
 
     public int getPuntos() {
         return puntos;
@@ -50,6 +59,29 @@ public class Pez {
     public void setVelocidad(double velocidad) {
         this.velocidad = velocidad;
     }
+    
+    
+    
+    @Override
+    public void run(){
+        while(true){
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    pane.setTranslateX(pane.getTranslateX()+ getVelocidad());
+                }
+
+               });
+           try {
+               Tiburon.sleep(20);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+    }
+    
+    
+    
     
     
     

@@ -6,7 +6,9 @@
 package typershark;
 
 import Buceador.Buceador;
+import Pez.Pez;
 import Pez.Tiburon;
+import Utils.Palabra;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -33,7 +35,9 @@ import javafx.stage.Stage;
 public class Mar {
      private BorderPane panel_mar;
      private ImageView fondo;
-     private Tiburon tiburon;
+     //private Tiburon tiburon;
+     private Pez []pez; 
+     private Palabra palabra;
      private Buceador buceador;
      private VBox vbox1;
      private ToolBar barra;
@@ -44,7 +48,8 @@ public class Mar {
      
     public Mar(){
     panel_mar=new BorderPane();
-    tiburon=new Tiburon();
+    pez= new Tiburon[5];
+    palabra= new Palabra();
     buceador= new Buceador("");
     barra=this.getToolBar();
     panel_peces_buceador=this.setPanelPeces();
@@ -96,4 +101,17 @@ public class Mar {
     public BorderPane getMar(){
     return this.panel_mar;}
    
+    public void arregloDeTiburones(){
+    
+            for(int i=0;i<5;i++){
+            
+            this.pez[i]= new Tiburon()
+            
+            }
+    
+    
+    
+    }
+    
+    
 }

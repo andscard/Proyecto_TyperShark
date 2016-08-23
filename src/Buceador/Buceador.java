@@ -106,7 +106,7 @@ public class Buceador extends Thread implements Comparable<Buceador> {
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    pane.setTranslateY(pane.getTranslateX()-2);
+                    pane.setTranslateY(pane.getTranslateX()+2);
                 }
 
                });
