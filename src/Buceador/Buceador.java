@@ -34,7 +34,7 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     this.puntaje=0;
     this.arma_especial=false;
     this.posicion=new Posicion(0,10);
-    this.imagen_buceador=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/buceador.png"),80,120,true,true));
+    this.imagen_buceador=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/buceador2.gif"),80,120,true,true));
     this.pane.getChildren().addAll(imagen_buceador);
     
     }

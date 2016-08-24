@@ -48,13 +48,18 @@ public class TopJugadores {
     this.lista=new ListView<String>();
     this.nombres =FXCollections.observableArrayList ();
     this.top_buceadores= new ArrayList<Buceador>(10);
-     this.boton=new Button(" SALIR ");
-        boton.setTranslateX(780);
-        boton.setTranslateY(550);
+    this.boton=new Button(" SALIR ");
+        boton.setTranslateX(700);
+        boton.setTranslateY(490);
         boton.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
         boton.setOnAction(new ClickHandler());
-    fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondo10.jpg"),800,700,true,true));
-    panel.getChildren().addAll(fondo,lista);
+        lista.setPrefWidth(150);
+        lista.setPrefHeight(230);
+        lista.setTranslateX(350);
+        lista.setTranslateY(100);
+        lista.backgroundProperty();
+    fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondoTop.jpg"),800,540,false,false));
+    panel.getChildren().addAll(fondo,lista,boton);
     
     }
     
@@ -113,7 +118,12 @@ public class TopJugadores {
     int n=this.top_buceadores.size();
         for (int i=0; i<n;i++){
         nombres.add(top_buceadores.get(i).infoJugadorPuntaje());
-        this.lista.setItems(nombres);}
+        this.lista.setItems(nombres);
+        lista.setStyle("-fx-text-fill: black;"+
+    "-fx-font: Courier New;"+
+    "-fx-font-family: Courier New;"+
+    "-fx-font-weight: bold;"+
+    "-fx-font-size: 18;");}
     }
    
    public Pane getTopJugadores(){
