@@ -6,28 +6,37 @@
 package Buceador;
 
 import Utils.Posicion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 /**
  * 
  * @author Mayken
  */
-public class Buceador implements Comparable<Buceador> {
-    private String nombre;
+public class Buceador extends Thread implements Comparable<Buceador> {
+     private String nombre;
     private int vidas;
     private int puntaje;
     private boolean arma_especial;
     private Posicion posicion;
     private ImageView imagen_buceador;
+    private Pane pane;
+    
     
     public Buceador(String nombre){
+    this.pane= new Pane();    
     this.nombre=nombre;
     this.vidas=3;
     this.puntaje=0;
     this.arma_especial=false;
     this.posicion=new Posicion(0,10);
     this.imagen_buceador=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/buceador.png"),80,120,true,true));
+    this.pane.getChildren().addAll(imagen_buceador);
+    
     }
 
     public String getNombre() {
@@ -89,6 +98,30 @@ public class Buceador implements Comparable<Buceador> {
     }else{
         return 0;}   
     }
+    
+    
+    @Override
+    public void run(){
+        while(true){
+            Platform.runLater(new Runnable(){
+                @Override
+                public void run() {
+                    pane.setTranslateY(pane.getTranslateX()+2);
+                }
+
+               });
+           try {
+               Buceador.sleep(20);
+           } catch (InterruptedException ex) {
+               Logger.getLogger(Buceador.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+    }
+    
+    
+    
+    
+    
     
     
    

@@ -120,15 +120,10 @@ public class MenuPrincipal {
     private class ClickHandler1 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-  
-                stage1.showAndWait();
-                
-              
-                Scene scene2 = new Scene (mar.getMar());
-                stage_menu.setScene(scene2);
-                System.out.println(formulario.getNombre());
-               
-            
+        stage1.showAndWait();
+        
+        Scene scene2 = new Scene (mar.getMar());
+        stage_menu.setScene(scene2);
         }
         
        

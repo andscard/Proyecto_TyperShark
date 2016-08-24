@@ -23,6 +23,7 @@ public class TyperShark extends Application {
      MenuPrincipal menu=new MenuPrincipal(); 
     Stage stage_menu= menu.getStageMenu();
     @Override
+    
     public void start(Stage stage) {
      
       stage=stage_menu;
