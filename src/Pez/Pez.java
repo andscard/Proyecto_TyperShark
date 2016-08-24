@@ -16,7 +16,7 @@ public class Pez {
     private Palabra palabra;
     private int puntos;
     private double velocidad;
-    private final Estado estado;
+    private Estado estado;
     private enum Estado{VIVO,MUERTO};
 
     public Pez( int puntos, double velocidad, int n) {
@@ -49,6 +49,10 @@ public class Pez {
 
     public void setVelocidad(double velocidad) {
         this.velocidad = velocidad;
+    }
+    
+    public void setEstado(){
+    this.estado= Estado.MUERTO;
     }
     
     

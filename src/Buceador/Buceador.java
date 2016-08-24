@@ -10,11 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- *
+ * 
  * @author Mayken
  */
 public class Buceador implements Comparable<Buceador> {
-     private String nombre;
+    private String nombre;
     private int vidas;
     private int puntaje;
     private boolean arma_especial;

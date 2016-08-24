@@ -21,6 +21,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -38,26 +40,26 @@ public class Mar {
      private VBox vbox1;
      private ToolBar barra;
      private Pane panel_peces_buceador;
+     private MediaPlayer music;
 
      
     // private 
      
-    public Mar(){
+    public Mar(String name){
     panel_mar=new BorderPane();
     tiburon=new Tiburon();
-    buceador= new Buceador("");
+    buceador= new Buceador(name);
     barra=this.getToolBar();
     panel_peces_buceador=this.setPanelPeces();
     panel_mar.setTop(barra);
     panel_mar.setCenter(panel_peces_buceador);
-    //panel_mar.setRight(vbox1);
-    
         }
     
     public Pane setPanelPeces(){
     this.panel_peces_buceador=new Pane();
     fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/mar.jpg"),900,600,false,false));
-    
+    //music= new MediaPlayer(new Media(getClass().getResource("burbujas.mp3").toExternalForm()));
+    //music.setAutoPlay(true);
     panel_peces_buceador.getChildren().addAll(fondo,this.tiburon.getImagenTiburon(),buceador.getImagenBuceador());
     //this.tiburon
     

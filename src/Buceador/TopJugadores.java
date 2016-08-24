@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import typershark.Ayuda;
 
 /**
- *
+ * Clase TopJugadores 
  * @author User
  */
 public class TopJugadores {

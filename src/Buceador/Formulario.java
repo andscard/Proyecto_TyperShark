@@ -60,6 +60,9 @@ public class Formulario {
     public Pane getFormulario(){
     return this.panel;}
     
+    public String getNombre(){
+    return this.nombre;}
+    
     public Stage crearStage(){
         Scene scene1 = new Scene(this.getFormulario());
         stage.setTitle("TyperShark Login");
@@ -68,6 +71,9 @@ public class Formulario {
         stage.setResizable(true);
         stage.initModality(Modality.APPLICATION_MODAL);
      return this.stage;}
+
+    
+
     
     private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
