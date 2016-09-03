@@ -39,7 +39,7 @@ public class Mar {
     private MediaPlayer music;
     private BorderPane panel_mar;
     private ImageView fondo;
-    //private Tiburon tiburon;
+     private Pez tiburon_prueba;
     private Pane pan1, pan2,pan3,pan4,pan5;
     private Pez[] tiburon;
     private Pez[] tiburones_negro;
@@ -64,11 +64,13 @@ public class Mar {
     public Pane setPanelPeces(){
     this.panel_peces_buceador=new Pane();
     fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/mar.jpg"),900,600,false,false));
+    this.tiburon_prueba= new Tiburon(10, 10, 900, 20,"shark" );
     //music= new MediaPlayer(new Media(getClass().getResource("burbujas.mp3").toExternalForm()));
     //music.setAutoPlay(true);
-    panel_peces_buceador.getChildren().addAll(fondo,buceador.getImagenBuceador());
+    panel_peces_buceador.getChildren().addAll(fondo,buceador.getImagenBuceador(),tiburon_prueba.getPane());
     //this.tiburon
     
+    this.tiburon_prueba.start();
         return panel_peces_buceador;
     }
 

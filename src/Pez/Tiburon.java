@@ -10,19 +10,27 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
- *
- * @author Mayken
+ * Clase Tiburón, es una sulclase de la clase Pez
+ * Contiene una imagen representativa del tiburón y el método que permite verla
+ * @author Mayken Salvarría
+ * @author Andrea Cárdenas
  */
 public class Tiburon extends Pez {
     private ImageView imagen_tiburon;
     
-    
+    /**
+    * Constructor de la clase Tiburon
+    */
     public Tiburon(int puntos, double velocidad,double x, double y, String palabra){
-        super(puntos,velocidad,x,y,palabra);
-        this.imagen_tiburon=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/shark.png"), 200, 150, true, true));
-       
+       super(puntos,velocidad,x,y,palabra);
+       this.imagen_tiburon=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/shark.png"), 200, 150, true, true));
+       this.set_image(this.imagen_tiburon);
     }
     
+    /**
+     * El Método getImagenTiburon retorna la imagen característica del tiburon
+     * @return imagen tiburón tipo ImageView
+     */
     public ImageView getImagenTiburon(){
     return this.imagen_tiburon;}
     

@@ -80,6 +80,7 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     }
     
     
+    
     public ImageView getImagenBuceador(){
     return this.imagen_buceador;}
     
@@ -88,6 +89,8 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     String info=this.nombre+" "+this.puntaje;
     return info;
     }
+    
+    
 
     @Override
     public int compareTo(Buceador b1) {

@@ -16,8 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
- *
- * @author Mayken
+ * La Clase Pez alamacena funciones útiles como obtner y modificar puntos (Valor de cada pez), 
+ * velocidas,estado del pez,posicion
+ * @author Mayken Salavarría
+ * @author Andrea Cárdenas
  */
 public class Pez extends Thread{
     
@@ -27,10 +29,19 @@ public class Pez extends Thread{
     private enum Estado{VIVO,MUERTO};
     private Pane pane;
     private Label label;
+    private ImageView imagen;
     private Posicion posicion;
     private String palabra;
     
-    
+    /**
+    * Constructor de la clase Pez asigna la cantidad de puntos, velocidad
+    * posicion en x y y y una palabra.
+    * @param puntos tipo entero
+    * @param velocidad  tipo double
+    * @param x  tipo double
+    * @param y  tipo double
+    * @param palabra  tipo String
+    */
     public Pez( int puntos, double velocidad,double x, double y, String palabra) {
         this.palabra=palabra;
         this.posicion=new Posicion(x,y);        
@@ -39,13 +50,24 @@ public class Pez extends Thread{
         this.estado=Estado.VIVO;
         this.pane= new Pane();
         label=new Label(palabra);
+        //this.imagen=imagen;
+        //pane.getChildren().addAll(imagen,label);
         pane.getChildren().addAll(label);
         this.pane.setLayoutX(posicion.getPos_x());
         this.pane.setLayoutY(posicion.getPos_y());
         
     }
-
-
+    
+    public void set_image(ImageView imagen){
+    this.imagen=imagen;
+    this.pane.getChildren().addAll(imagen);
+        
+    }
+    /**
+     * El método getPuntos retorna los puntos(valor)
+     * asignado a cada pez
+     * @return puntos tipo entero.
+     */
     public int getPuntos() {
         return puntos;
     }
@@ -54,6 +76,11 @@ public class Pez extends Thread{
         this.puntos = puntos;
     }
 
+    /**
+     * El método getVelocidad retorna la velocidad (pixeles a moverse)
+     * de cada pez
+     * @return veloidad tipo decimal.
+     */
     public double getVelocidad() {
         return velocidad;
     }
@@ -74,6 +101,7 @@ public class Pez extends Thread{
                 @Override
                 public void run() {
                     pane.setTranslateX(pane.getTranslateX()-2 );
+                    System.out.println("D:");
                 }
 
                });
