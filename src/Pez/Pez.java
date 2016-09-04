@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -32,6 +33,7 @@ public class Pez extends Thread{
     private ImageView imagen;
     private Posicion posicion;
     private String palabra;
+    private boolean stop=true;
     
     /**
     * Constructor de la clase Pez asigna la cantidad de puntos, velocidad
@@ -50,9 +52,8 @@ public class Pez extends Thread{
         this.estado=Estado.VIVO;
         this.pane= new Pane();
         label=new Label(palabra);
-        //this.imagen=imagen;
-        //pane.getChildren().addAll(imagen,label);
         pane.getChildren().addAll(label);
+        label.relocate(50, 35);
         this.pane.setLayoutX(posicion.getPos_x());
         this.pane.setLayoutY(posicion.getPos_y());
         
@@ -60,7 +61,10 @@ public class Pez extends Thread{
     
     public void set_image(ImageView imagen){
     this.imagen=imagen;
-    this.pane.getChildren().addAll(imagen);
+    this.imagen.toBack();
+    this.pane.getChildren().addAll(this.imagen);
+    this.label.toFront();
+    this.pane.autosize();
         
     }
     /**
@@ -96,17 +100,21 @@ public class Pez extends Thread{
     
     @Override
     public void run(){
-        while(true){
+        
+        while(stop){
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    pane.setTranslateX(pane.getTranslateX()-2 );
-                    System.out.println("D:");
+                    pane.setTranslateX(pane.getTranslateX()-velocidad );
+                    System.out.println(pane.getTranslateX());
+                    
+                    if (pane.getTranslateX()==-720){
+                    stop=false;}
                 }
 
                });
            try {
-               Tiburon.sleep(200);
+               Pez.sleep(200);
            } catch (InterruptedException ex) {
                Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
            }

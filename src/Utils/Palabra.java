@@ -33,27 +33,25 @@ public class Palabra {
     }
     
     public ArrayList<String> cargar (String archivo) {
+        try {
         File reviewFile = new File(archivo);
         ArrayList<String> lineas = new ArrayList<>();
-        Scanner reviewScanner = null;
-        try {
-            reviewScanner = new Scanner(reviewFile);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Palabra.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Scanner reviewScanner = new Scanner(reviewFile);
         
-           
-        String reviewText;
+        String palabra;
 
         while(reviewScanner.hasNext())
         {
-            reviewText = reviewScanner.nextLine();
-            String cadena = reviewText;
-            
-            lineas.add(cadena.toLowerCase());
-           
+            palabra = reviewScanner.nextLine();
+            lineas.add(palabra.toLowerCase());
         }
-        return  lineas;
+        
+         return  lineas; 
+        
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Palabra.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } 
     }
     
     
@@ -62,7 +60,6 @@ public class Palabra {
     public ArrayList<String> llenarArregloPalabras(String archivo ){
         ArrayList<String> lineas=this.cargar(archivo);
         ArrayList<String> palabras=new ArrayList<String>();
-        
         ArrayList<Character> letras =new ArrayList<Character>();
        
         int generar, cont=0;

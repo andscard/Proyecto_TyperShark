@@ -56,22 +56,27 @@ public class Mar {
     panel_mar=new BorderPane();
     buceador= new Buceador(name);
     barra=this.getToolBar();
+    palabra= new Palabra();
+    this.tiburon= new Tiburon[5];
+    this.arregloDeTiburones();
     panel_peces_buceador=this.setPanelPeces();
     panel_mar.setTop(barra);
     panel_mar.setCenter(panel_peces_buceador);
     }
     
     public Pane setPanelPeces(){
-    this.panel_peces_buceador=new Pane();
+    panel_peces_buceador=new Pane();
     fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/mar.jpg"),900,600,false,false));
-    this.tiburon_prueba= new Tiburon(10, 10, 900, 20,"shark" );
+    tiburon_prueba= new Tiburon(10, 2, 750, 20,"shark" );
+    
     //music= new MediaPlayer(new Media(getClass().getResource("burbujas.mp3").toExternalForm()));
     //music.setAutoPlay(true);
-    panel_peces_buceador.getChildren().addAll(fondo,buceador.getImagenBuceador(),tiburon_prueba.getPane());
-    //this.tiburon
-    
-    this.tiburon_prueba.start();
-        return panel_peces_buceador;
+    //panel_peces_buceador.getChildren().addAll(fondo,buceador.getImagenBuceador(),tiburon_prueba.getPane());
+    panel_peces_buceador.getChildren().addAll(fondo,buceador.getImagenBuceador(),tiburon[0].getPane(),
+                 tiburon[1].getPane(),tiburon[2].getPane(),tiburon[3].getPane(),tiburon[4].getPane());
+    tiburon_prueba.start();
+       
+    return panel_peces_buceador;
     }
 
     public ToolBar getToolBar() {
@@ -107,10 +112,12 @@ public class Mar {
     }
 
     public void arregloDeTiburones() {
+        int cont=0;
         for (int i = 0; i < 5; i++) {
-
-            this.tiburon[i] = new Tiburon(10, 10, i + 20, i + 20, palabra.getPalabras().get(i));
+            
+            this.tiburon[i] = new Tiburon(10, 2, 750, 20+cont , palabra.getPalabras().get(i));
             this.tiburon[i].start();
+        cont= cont+90;
         }
 
     }
