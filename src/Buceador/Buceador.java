@@ -21,6 +21,7 @@ public class Buceador extends Thread implements Comparable<Buceador> {
      private String nombre;
     private int vidas;
     private int puntaje;
+    private double metros;
     private boolean arma_especial;
     private Posicion posicion;
     private ImageView imagen_buceador;
@@ -34,8 +35,11 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     this.puntaje=0;
     this.arma_especial=false;
     this.posicion=new Posicion(0,10);
-    this.imagen_buceador=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/buceador2.gif"),80,120,true,true));
+    this.metros=0;
+    this.imagen_buceador=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/buceador.png"),80,120,true,true));
     this.pane.getChildren().addAll(imagen_buceador);
+    this.pane.setLayoutX(posicion.getPos_x());
+    this.pane.setLayoutY(posicion.getPos_y());
     
     }
 
@@ -78,8 +82,15 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
+
+    public double getMetros() {
+        return metros;
+    }
     
     
+     public Pane getPane(){
+            return this.pane;
+    }
     
     public ImageView getImagenBuceador(){
     return this.imagen_buceador;}
@@ -109,12 +120,16 @@ public class Buceador extends Thread implements Comparable<Buceador> {
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    pane.setTranslateY(pane.getTranslateX()+2);
+                    pane.setTranslateY(pane.getTranslateY()+5);
+                    
+                  System.out.println(pane.getTranslateY());
+                  metros+=1;
+                  System.out.println(metros);
                 }
 
                });
            try {
-               Buceador.sleep(20);
+               Buceador.sleep(1000);
            } catch (InterruptedException ex) {
                Logger.getLogger(Buceador.class.getName()).log(Level.SEVERE, null, ex);
            }

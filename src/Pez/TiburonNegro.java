@@ -5,6 +5,7 @@
  */
 package Pez;
 
+import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,7 +22,8 @@ public class TiburonNegro extends Pez{
     public TiburonNegro(int puntos, double velocidad,double x, double y, String palabra){
     super(puntos,velocidad,x,y, palabra);
     this.imagen_tiburonNegro=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/tiburon_negro.png"),250,100,true,true));
-    this.num_palabras=(int)Math.random()*3+2;}
+    this.num_palabras=(int)Math.random()*3+2;
+    this.set_image(this.imagen_tiburonNegro);}
     
     public ImageView getImagenTiburonNegro(){
     return this.imagen_tiburonNegro;}

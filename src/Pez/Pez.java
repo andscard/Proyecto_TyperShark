@@ -5,7 +5,7 @@
  */
 package Pez;
 
-import Utils.Palabra;
+import Utils.ArreglosPalabras;
 import Utils.Posicion;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -33,7 +33,7 @@ public class Pez extends Thread{
     private ImageView imagen;
     private Posicion posicion;
     private String palabra;
-    private boolean stop=true;
+    private boolean stop=false;
     
     /**
     * Constructor de la clase Pez asigna la cantidad de puntos, velocidad
@@ -93,6 +93,12 @@ public class Pez extends Thread{
         this.velocidad = velocidad;
     }
     
+    public void setLabel(String word){
+    this.label.setText(word);}
+    
+    public Posicion getPoscion (){
+        return this.posicion;}
+    
      public Pane getPane(){
             return this.pane;
     }
@@ -101,24 +107,28 @@ public class Pez extends Thread{
     @Override
     public void run(){
         
-        while(stop){
-            Platform.runLater(new Runnable(){
-                @Override
-                public void run() {
-                    pane.setTranslateX(pane.getTranslateX()-velocidad );
-                    System.out.println(pane.getTranslateX());
+            while(!stop){
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run() {
+                       
+                            pane.setTranslateX(pane.getTranslateX()-velocidad );
+                            System.out.println(pane.getTranslateX());
+                            
+                            if (pane.getTranslateX()==-720){
+                                posicion.setPos_x(-720);
+                                stop=true;}
+                        
+                    }
                     
-                    if (pane.getTranslateX()==-720){
-                    stop=false;}
+                });
+                try {
+                    Pez.sleep(200);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-               });
-           try {
-               Pez.sleep(200);
-           } catch (InterruptedException ex) {
-               Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
-           }
-        }
+            }
+      
     }
     
     

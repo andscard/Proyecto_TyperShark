@@ -50,10 +50,10 @@ public class Formulario {
         label.setFont(Font.font("Amble CN", FontWeight.BOLD, 24));
         boton.setTranslateX(20);
         boton.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
-        boton.setOnAction(new ClickHandler());
+    //    boton.setOnAction(new ClickHandler());
         vbox.getChildren().addAll(label,text,boton);
         //panel.setStyle("-fx-background-color: #A9D0F5;");
-        fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondo1.jpg"),280,190,true,true));
+        fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondo1.jpg"),900,600,true,true));
         panel.getChildren().addAll(fondo,vbox);
     }
     
@@ -63,26 +63,49 @@ public class Formulario {
     public String getNombre(){
     return this.nombre;}
     
-    public Stage crearStage(){
-        Scene scene1 = new Scene(this.getFormulario());
-        stage.setTitle("TyperShark Login");
-        stage.getIcons().add(new Image("/Imagenes/tiburon.png"));
-        stage.setScene(scene1);
-        stage.setResizable(true);
-        stage.initModality(Modality.APPLICATION_MODAL);
-     return this.stage;}
-
+    public void setNombre(String nombre){
+        this.nombre=nombre;}
     
-
     
-    private class ClickHandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent action) {
-            nombre=text.getText();
-            stage.close();
-        }
+    public TextField getTexto() {
+        return text;
     }
-    
+
+    public void setTexto(TextField text) {
+        this.text = text;
+    }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
+    }
+
+    public Button getBoton() {
+        return boton;
+    }
+
+    public void setBoton( Button boton) {
+        this.boton = boton;
+    }
+
+    public VBox getVbox() {
+        return vbox;
+    }
+
+    public void setVbox(VBox vbox) {
+        this.vbox = vbox;
+    }
+
+    public ImageView getFondo() {
+        return fondo;
+    }
+
+    public void setFondo(ImageView fondo) {
+        this.fondo = fondo;
+    }
    
     
     

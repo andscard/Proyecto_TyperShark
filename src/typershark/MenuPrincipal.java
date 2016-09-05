@@ -33,6 +33,7 @@ import javafx.stage.Stage;
  */
 public class MenuPrincipal {
     private Pane panel;
+    private Pane panel_formulario;
     private ImageView fondo;
     private VBox vbox;
     private Mar mar;
@@ -45,10 +46,12 @@ public class MenuPrincipal {
     public MenuPrincipal(){
     panel= new Pane();
     formulario=new Formulario();
-    mar=new Mar(formulario.getNombre());
+    formulario.getBoton().setOnAction(new ClickHandler4());
+    
     top=new TopJugadores();
     ayuda= new Ayuda();
-    stage1= formulario.crearStage();
+    
+    //stage1= formulario.crearStage();
     stage2= ayuda.crearStage();
     stage3= top.crearStage();
     stage_menu=new Stage();
@@ -120,10 +123,10 @@ public class MenuPrincipal {
     private class ClickHandler1 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-        stage1.showAndWait();
         
-        Scene scene2 = new Scene (mar.getMar());
+        Scene scene2 = new Scene (formulario.getFormulario());
         stage_menu.setScene(scene2);
+        
         }
         
        
@@ -147,4 +150,15 @@ public class MenuPrincipal {
     }
     
     
+     private class ClickHandler4 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            formulario.setNombre(formulario.getTexto().getText());
+            //stage.close();
+        mar=new Mar(formulario.getNombre());   
+        Scene scene2 = new Scene (mar.getMar());
+        stage_menu.setScene(scene2);
+            
+        }
+     }
 }

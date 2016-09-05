@@ -5,6 +5,7 @@
  */
 package Pez;
 
+import java.util.ArrayList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -23,7 +24,7 @@ public class Tiburon extends Pez {
     */
     public Tiburon(int puntos, double velocidad,double x, double y, String palabra){
        super(puntos,velocidad,x,y,palabra);
-       this.imagen_tiburon=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/shark.png"), 150, 150, true, true));
+       this.imagen_tiburon=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/shark.png"), 170, 170, true, true));
        this.set_image(this.imagen_tiburon);
     }
     
