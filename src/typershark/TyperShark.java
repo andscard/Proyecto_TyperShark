@@ -3,6 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/**
+ * @authors
+ * Andrea Cárdenas Sumba
+ * Mayken Salavarría Tutivén
+ * @version 
+ * 
+ */
 package typershark;
 
 import javafx.application.Application;
@@ -16,8 +23,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- *
- * @author User
+ * Clase TyperShark muestra la ventana de la Aplicación
+ * 
  */
 public class TyperShark extends Application {
      MenuPrincipal menu=new MenuPrincipal(); 

@@ -74,6 +74,10 @@ public class Mar {
         this.disminuirVidas();
     System.out.println(this.buceador.getVidas());
     }
+
+    public int getNivel() {
+        return nivel;
+    }
     
     public Pane setPanelPeces(){
     panel_peces_buceador=new Pane();
@@ -106,12 +110,17 @@ public class Mar {
         Label lb_arma = new Label("ARMA ESPECIAL: ");
         lb_arma.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
         lb_arma.setTextFill(Color.DARKBLUE);
-
+        Label lb_nivel = new Label("Nivel: ");
+        lb_nivel.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
+        lb_nivel.setTextFill(Color.DARKBLUE);
+        
+        
         Label puntaje = new Label(String.valueOf(this.buceador.getPuntaje()));
         Label vidas = new Label(String.valueOf(this.buceador.getVidas()));
         Label metros = new Label(String.valueOf(this.buceador.getMetros()));
         Label arma = new Label("OFF");
-        this.barra.getItems().addAll(coin, lb_puntaje, puntaje, new Separator(), heart, lb_vidas, vidas, new Separator(), lb_metros, metros, new Separator(), bomba, lb_arma, arma);
+        Label level = new Label(String.valueOf(this.getNivel()));
+        this.barra.getItems().addAll(coin, lb_puntaje, puntaje, new Separator(), heart, lb_vidas, vidas, new Separator(), lb_metros, metros, new Separator(), lb_nivel, level, new Separator(), bomba, lb_arma, arma);
         //this.barra.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         return this.barra;
     }

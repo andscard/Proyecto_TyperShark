@@ -15,60 +15,98 @@ import javafx.scene.text.Font;
  *
  * @author Mayken
  */
-public class Palabra{
-    String palabra;
-     Label []label;
-     
-     
-    public Palabra(String palabra) {
+    
+public class Palabra  {
+    private String palabra;
+    private Label label_auxiliar;
+    private Label []label_letras;
+    private  int posicion;
+  
+   
+    
+    /**
+     * Constructor de la clase Palabra
+     * @param palabra 
+     */
+    
+     public Palabra(String palabra) {
         this.palabra = palabra;
-        this.llenarArregloLabels();
+        this.label_auxiliar= new Label(palabra);
+        this.posicion=0;
+        this.llenarArregoLetras();
+        
         
     }
-     
+   
     
-    public int  getPalabra() {
+    
+    
+    public Label getLabelPalabra() {
+        return label_auxiliar;
+    }
+  
+
+    
+       public int  getPalabra() {
         return palabra.length();
     }
 
-    
     public Label[] getLabel() {
-        return label;
+        return label_letras;
     }
-   
-
     
     
-        
-    public void llenarArregloLabels(){
-         label= new Label[this.palabra.length()];
+    
+    public void llenarArregoLetras(){
+         label_letras= new Label[this.palabra.length()];
          String pal;         
          for( int i=0;i<palabra.length();i++){
              pal=String.valueOf(palabra.charAt(i));
-              label[i]=new Label(pal);  
-              label[i].setFont(new Font("Arial", 20));
-              label[i].setTextFill(Color.BLUE);
+              label_letras[i]=new Label(pal);  
+              label_letras[i].setFont(new Font("Arial", 20));
+              label_letras[i].setTextFill(Color.YELLOW);
              
             }
     }
     
     public void cambiarColorLetras( int posicion ){
-                 label[posicion].setTextFill(Color.GREEN);
+                 label_letras[posicion].setTextFill(Color.YELLOW);
           
     }
+
     
-    
-    
-    public HBox arregloLabels(){
-         HBox palabra = new HBox();
-         palabra.getChildren().addAll(label);
-                 
+    public HBox panelPalabra(){
+         HBox palabras = new HBox();
+         palabras.getChildren().addAll(label_letras);
          
-         return palabra;
+         return palabras;
     }
-        
+
+    /**
+     * @return posicion retorna un tipo de dato entero, indica la posicion 
+     * de la letra a escribir por teclado. 
+     */
+    public int getPosicion() {
+        return posicion;
+    }
+
+    /**
+     * @param posicion_actual tipo de dato entero, indica la nueva posicion
+     * de la letra a presionar.
+     */
+    public void setPosicion(int posicion_actual) {
+        this.posicion = posicion_actual;
+    }
+
+   
          
+
+
+   
+}
+  
+                      
+    
     
   
     
-}

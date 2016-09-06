@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package typershark;
 
 import Buceador.Buceador;
@@ -32,6 +33,7 @@ import javafx.stage.Stage;
  * @author User
  */
 public class MenuPrincipal {
+    
     private Pane panel;
     private Pane panel_formulario;
     private ImageView fondo;
@@ -40,8 +42,8 @@ public class MenuPrincipal {
     private Formulario formulario;
     private Ayuda ayuda;
     private TopJugadores top;
-    Stage stage1,stage2,stage3;
-    Stage stage_menu;
+    private Stage stage1,stage2,stage3;
+    private Stage stage_menu;
     
     public MenuPrincipal(){
     panel= new Pane();
@@ -99,7 +101,11 @@ public class MenuPrincipal {
         return vbox;
     }
      
-    
+     
+    /**
+     * 
+     * @return 
+     */
     public Pane getMenuPrincipal(){
         return this.panel;}
     
