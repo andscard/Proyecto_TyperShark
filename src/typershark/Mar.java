@@ -15,8 +15,12 @@ import Utils.ArreglosPalabras;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
@@ -40,7 +44,7 @@ import javafx.stage.Stage;
  *
  * @author User
  */
-public class Mar {
+public class Mar extends Thread{
     private MediaPlayer music;
     private BorderPane panel_mar;
     private ImageView fondo;
@@ -59,9 +63,9 @@ public class Mar {
     public Mar(String name){
         panel_mar=new BorderPane();
         buceador= new Buceador(name);
+        nivel=2;
         barra=this.getToolBar();
         arreglo_palabras= new ArreglosPalabras();
-        nivel=2;
         this.tiburon= new Tiburon[nivel];
         this.tiburones_negro= new TiburonNegro[nivel];
         this.piraña= new Piraña[nivel];
@@ -106,12 +110,19 @@ public class Mar {
         Label lb_arma = new Label("ARMA ESPECIAL: ");
         lb_arma.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
         lb_arma.setTextFill(Color.DARKBLUE);
-
+        Label lb_nivel = new Label("NIVEL: ");
+        lb_nivel.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
+        lb_nivel.setTextFill(Color.DARKBLUE);
+        
+        Button bt_guardar= new Button("GUARDAR");
+        bt_guardar.setOnAction(new ClickHandler());
         Label puntaje = new Label(String.valueOf(this.buceador.getPuntaje()));
         Label vidas = new Label(String.valueOf(this.buceador.getVidas()));
         Label metros = new Label(String.valueOf(this.buceador.getMetros()));
+        Label nivel = new Label(String.valueOf(this.nivel));
         Label arma = new Label("OFF");
-        this.barra.getItems().addAll(coin, lb_puntaje, puntaje, new Separator(), heart, lb_vidas, vidas, new Separator(), lb_metros, metros, new Separator(), bomba, lb_arma, arma);
+        this.barra.getItems().addAll(coin, lb_puntaje, puntaje, new Separator(), heart, lb_vidas, vidas, new Separator(), 
+                lb_metros, metros, new Separator(), bomba, lb_arma, arma,new Separator(),lb_nivel,nivel,new Separator(),bt_guardar);
         //this.barra.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         return this.barra;
     }
@@ -183,10 +194,33 @@ public class Mar {
         }
      }
     }
-        
-        
+    
+    private class ClickHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            
+        }
+    }
     
     
+    
+    @Override
+    public void run(){
+        
+            while(true){
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run() {
+                       disminuirVidas();
+                       getMar();    
+                    }
+                    
+                });
+               
+            }
+        
+    
+    }
     
 
 

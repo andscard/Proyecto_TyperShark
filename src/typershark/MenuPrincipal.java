@@ -158,6 +158,7 @@ public class MenuPrincipal {
         mar=new Mar(formulario.getNombre());   
         Scene scene2 = new Scene (mar.getMar());
         stage_menu.setScene(scene2);
+        //mar.start();
             
         }
      }

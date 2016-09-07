@@ -36,7 +36,7 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     this.arma_especial=false;
     this.posicion=new Posicion(0,10);
     this.metros=0;
-    this.imagen_buceador=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/buceador.png"),80,120,true,true));
+    this.imagen_buceador=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/buceador.png"),90,130,true,true));
     this.pane.getChildren().addAll(imagen_buceador);
     this.pane.setLayoutX(posicion.getPos_x());
     this.pane.setLayoutY(posicion.getPos_y());
@@ -95,9 +95,20 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     public ImageView getImagenBuceador(){
     return this.imagen_buceador;}
     
+    public String estadoArma(){
+    String estado;
+        if (this.arma_especial==false){
+            estado="OFF";
+        }else{
+            estado="ON";
+        }
+    
+    return estado;
+    }
+    
     public String infoJugadorPuntaje(){
   
-    String info=this.nombre+" "+this.puntaje;
+    String info=this.nombre+" "+this.puntaje+" "+this.vidas+" "+this.metros+" "+this.estadoArma();
     return info;
     }
     
