@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -78,6 +83,10 @@ public class Mar extends Thread{
         this.disminuirVidas();
     System.out.println(this.buceador.getVidas());
     }
+
+    public int getNivel() {
+        return nivel;
+    }
     
     public Pane setPanelPeces(){
     panel_peces_buceador=new Pane();
@@ -124,6 +133,17 @@ public class Mar extends Thread{
         this.barra.getItems().addAll(coin, lb_puntaje, puntaje, new Separator(), heart, lb_vidas, vidas, new Separator(), 
                 lb_metros, metros, new Separator(), bomba, lb_arma, arma,new Separator(),lb_nivel,nivel,new Separator(),bt_guardar);
         //this.barra.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+       /* vidas.textProperty().addListener((new ChangeListener<String>() {
+            
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            
+            }
+            
+}));*/
+  vidas.textProperty().bind(new SimpleIntegerProperty(this.buceador.getVidas()).asString());
+      
         return this.barra;
     }
 
@@ -134,9 +154,9 @@ public class Mar extends Thread{
     public void arregloDeTiburones() {
         int cont=0;
         ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(nivel);
-        
+        int velocidad=10;
         for (int i = 0; i < palabras_tiburones.size(); i++) {    
-            this.tiburon[i] = new Tiburon(10, 2, 730, 20+cont ,palabras_tiburones.get(i) );
+            this.tiburon[i] = new Tiburon(10,velocidad , 730, 20+cont ,palabras_tiburones.get(i) );
             this.tiburon[i].start();
     
         cont= cont+90;
@@ -195,6 +215,11 @@ public class Mar extends Thread{
      }
     }
     
+    public void aumentaNivel(){
+        if((buceador.getMetros()%465)==0){
+            this.nivel=nivel+1;}
+    }
+    
     private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
@@ -211,7 +236,7 @@ public class Mar extends Thread{
                 Platform.runLater(new Runnable(){
                     @Override
                     public void run() {
-                       disminuirVidas();
+                       
                        getMar();    
                     }
                     

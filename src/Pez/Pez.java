@@ -6,6 +6,7 @@
 package Pez;
 
 import Utils.ArreglosPalabras;
+import Utils.Palabra;
 import Utils.Posicion;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 /**
@@ -29,10 +31,11 @@ public class Pez extends Thread{
     private Estado estado;
     private enum Estado{VIVO,MUERTO};
     private Pane pane;
+    private HBox  pane_palabra;
     private Label label;
     private ImageView imagen;
     private Posicion posicion;
-    private String palabra;
+    private Palabra palabra;
     private boolean stop=false;
     
     /**
@@ -45,15 +48,17 @@ public class Pez extends Thread{
     * @param palabra  tipo String
     */
     public Pez( int puntos, double velocidad,double x, double y, String palabra) {
-        this.palabra=palabra;
+        this.palabra= new Palabra(palabra);
+        this.label= this.palabra.getLabelPalabra();
+        this.pane_palabra= this.palabra.panelPalabra();
         this.posicion=new Posicion(x,y);        
         this.puntos = puntos;
         this.velocidad = velocidad;
         this.estado=Estado.VIVO;
         this.pane= new Pane();
-        label=new Label(palabra);
-        pane.getChildren().addAll(label);
-        label.relocate(50, 35);
+        
+      
+        pane_palabra.relocate(50, 35);
         this.pane.setLayoutX(posicion.getPos_x());
         this.pane.setLayoutY(posicion.getPos_y());
         
@@ -62,8 +67,8 @@ public class Pez extends Thread{
     public void set_image(ImageView imagen){
     this.imagen=imagen;
     this.imagen.toBack();
-    this.pane.getChildren().addAll(this.imagen);
-    this.label.toFront();
+    this.pane.getChildren().addAll(this.imagen,this.pane_palabra);
+    this.pane_palabra.toFront();
     this.pane.autosize();
         
     }
@@ -117,7 +122,10 @@ public class Pez extends Thread{
                             
                             if (pane.getTranslateX()==-720){
                                 posicion.setPos_x(-720);
-                                stop=true;}
+                                stop=true;
+                                
+                            
+                            }
                         
                     }
                     

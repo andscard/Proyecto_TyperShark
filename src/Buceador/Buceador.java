@@ -9,6 +9,8 @@ import Utils.Posicion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -26,6 +28,7 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     private Posicion posicion;
     private ImageView imagen_buceador;
     private Pane pane;
+    private boolean stop=false;
     
     
     public Buceador(String nombre){
@@ -127,16 +130,29 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     
     @Override
     public void run(){
-        while(true){
+        while(!stop){
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                    pane.setTranslateY(pane.getTranslateY()+5);
+                pane.setTranslateY(pane.getTranslateY()+5);
                     
-                  System.out.println(pane.getTranslateY());
+                  System.out.println("METROS:"+pane.getTranslateY());
                   metros+=1;
                   System.out.println(metros);
+                  
+                  
+                   if (pane.getTranslateY()==465){
+                        pane.setTranslateY(5);
+                   }    
+                                
+                    if (vidas==0){
+                     stop=true;
+                    }            
+                               
                 }
+                
+                
+               
 
                });
            try {
@@ -150,8 +166,16 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     
     
     
+    Event a;
+    public class ManejaVidas implements EventHandler<Event>{
+
+        @Override
+        public void handle(Event event) {
+       
+           System.out.print(event.getTarget().toString());
+        }
     
-    
+    }
     
    
 }
