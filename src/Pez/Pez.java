@@ -123,9 +123,10 @@ public class Pez extends Thread{
                             if (pane.getTranslateX()==-720){
                                 posicion.setPos_x(-720);
                                 stop=true;
-                                
-                            
                             }
+                            
+                            if(estado==Estado.MUERTO){
+                            stop=true;}
                         
                     }
                     

@@ -13,6 +13,7 @@ import Pez.Tiburon;
 import Pez.TiburonNegro;
 import Utils.ArreglosPalabras;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -57,6 +58,8 @@ public class Mar extends Thread{
     private Pane panel_peces_buceador;
     private ArreglosPalabras arreglo_palabras;
     private int nivel;
+    private int num_peces;
+    private int velocidad;
     //private Pez tiburon_prueba;
     private Pez[] tiburon;
     private Pez[] tiburones_negro;
@@ -69,18 +72,21 @@ public class Mar extends Thread{
         panel_mar=new BorderPane();
         buceador= new Buceador(name);
         nivel=2;
+        velocidad=0;
+        num_peces=(int)(new Random().nextDouble()*5+1);
+        System.out.println(this.num_peces);
         barra=this.getToolBar();
         arreglo_palabras= new ArreglosPalabras();
-        this.tiburon= new Tiburon[nivel];
-        this.tiburones_negro= new TiburonNegro[nivel];
-        this.piraña= new Piraña[nivel];
+        this.tiburon= new Tiburon[this.num_peces];
+        this.tiburones_negro= new TiburonNegro[this.num_peces];
+        this.piraña= new Piraña[this.num_peces];
         
         panel_peces_buceador=this.setPanelPeces();
         panel_mar.setTop(barra);
         panel_mar.setCenter(panel_peces_buceador);
         
         
-        this.disminuirVidas();
+    //this.disminuirVidas();
     System.out.println(this.buceador.getVidas());
     }
 
@@ -94,7 +100,8 @@ public class Mar extends Thread{
     
     panel_peces_buceador.getChildren().addAll(fondo, buceador.getPane());
     buceador.start();
-    this.ubicarPecesMar(panel_peces_buceador);
+    this.generarPezAleatorio();
+    //this.ubicarPecesMar(panel_peces_buceador);
     //music= new MediaPlayer(new Media(getClass().getResource("burbujas.mp3").toExternalForm()));
     //music.setAutoPlay(true);
 
@@ -153,10 +160,9 @@ public class Mar extends Thread{
 
     public void arregloDeTiburones() {
         int cont=0;
-        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(nivel);
-        int velocidad=10;
+        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces);
         for (int i = 0; i < palabras_tiburones.size(); i++) {    
-            this.tiburon[i] = new Tiburon(10,velocidad , 730, 20+cont ,palabras_tiburones.get(i) );
+            this.tiburon[i] = new Tiburon(10,velocidad +2 , 730, 20+cont ,palabras_tiburones.get(i) );
             this.tiburon[i].start();
     
         cont= cont+90;
@@ -165,44 +171,40 @@ public class Mar extends Thread{
     }
 
     public void arregloDeTiburonesNegros() {
+        int cont=0;
         for (int i = 0; i < this.nivel; i++) {
-            ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(nivel);
-            this.tiburones_negro[i] = new TiburonNegro(10, 10, i + 20, i + 20, arreglo_palabras.getPalabras().get(i));
-           
-
-                this.tiburones_negro[i].start();
+            ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces);
+            this.tiburones_negro[i] = new TiburonNegro(10, velocidad+2,730, cont + 20, arreglo_palabras.getPalabras().get(i));
+          
+            this.tiburones_negro[i].start();
+            cont=cont+90;
         }
     }
 
     
     public void arregloDePirañas() {
         int cont=0;
-        ArrayList<String> palabras_pirañas= arreglo_palabras.arregloLetrasPirañas(nivel);
+        ArrayList<String> palabras_pirañas= arreglo_palabras.arregloLetrasPirañas(num_peces);
         
         for (int i = 0; i < palabras_pirañas.size(); i++) {
-                this.piraña[i] = new Piraña(5, 3, 740, cont + 20, palabras_pirañas.get(i));
+                this.piraña[i] = new Piraña(5,velocidad +3, 740, cont + 20, palabras_pirañas.get(i));
                 this.piraña[i].start();
                 cont=cont+70;           
         }
     }
     
     public void pulpo (){
-        int cont=0;
+        
         String palabra=arreglo_palabras.palabraPulpo();
-        this.pulpo= new Pulpo(25,2.5,650,cont+20,palabra);
+        this.pulpo= new Pulpo(25,2.5,650,40,palabra);
         this.pulpo.start();
-        cont++;
     }
     
     
-    public void ubicarPecesMar(Pane mar){
-        this.arregloDeTiburones();
-        this.arregloDePirañas();
-        this.pulpo();
+    public void ubicarPecesMar(Pane mar,Pez pez[]){
         
-        for (int i=0; i< nivel;i++){
-             mar.getChildren().addAll(this.tiburon[i].getPane());
-            //mar.getChildren().addAll(this.tiburon[i].getPane(),this.piraña[i].getPane(),this.pulpo.getPane());
+        for (int i=0; i<this.num_peces ;i++){
+             mar.getChildren().addAll(pez[i].getPane());
         }
     }
     
@@ -215,10 +217,33 @@ public class Mar extends Thread{
      }
     }
     
-    public void aumentaNivel(){
+    public void aumentarNivel(){
         if((buceador.getMetros()%465)==0){
             this.nivel=nivel+1;}
+        this.aumentarVelocidad();
     }
+    
+    public void aumentarVelocidad(){
+    this.velocidad=velocidad+1;}
+    
+    
+    private void generarPezAleatorio(){    
+    this.arregloDeTiburones();
+    this.arregloDePirañas();
+    this.pulpo();
+    int aleatorio=(int)(new Random().nextDouble()*4+1);
+    
+    if(aleatorio==1) {
+        this.ubicarPecesMar(panel_peces_buceador,tiburon);
+    }else if(aleatorio==2){
+        this.ubicarPecesMar(panel_peces_buceador, piraña);
+    }else if (aleatorio==3){
+        this.ubicarPecesMar(panel_peces_buceador,tiburones_negro);
+    }else{
+        panel_peces_buceador.getChildren().addAll(pulpo.getPane());}
+    
+    }
+    
     
     private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
@@ -226,6 +251,7 @@ public class Mar extends Thread{
             
         }
     }
+    
     
     
     
