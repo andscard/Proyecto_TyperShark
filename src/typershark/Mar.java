@@ -290,7 +290,8 @@ public class Mar extends Thread{
                         if (event.getText().charAt(0)==pez[i].palabra.getLabelPalabra().getText().charAt(0)){
                                  pez[i].palabra.setEstado(1);
                                  pez[i].palabra.cambiarColorLetras(0); 
-                                 pez[i].palabra.setPosicion(1);
+                                if(pez[i].palabra.getLongitudPalabra()!=1){
+                                 pez[i].palabra.setPosicion(1);}
                         }
                       }
                     }
@@ -299,17 +300,17 @@ public class Mar extends Thread{
                   
                   int cont=pez[palabra_activa].palabra.getPosicion();
                   
-                  
+                   if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
+                        pez[palabra_activa].getPane().setVisible(false);
+                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
+                        pez[palabra_activa].palabra.setEstado(-1);
+                        }
                   
                   if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont)){
                        
-                      
-                        
-                        
-                   if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
-                        if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont) ){
-                     
-
+                    if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
+                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont) ){
+                       
                         pez[palabra_activa].palabra.cambiarColorLetras(cont);
                         cont=cont+1; 
                         pez[palabra_activa].palabra.setPosicion(cont);
@@ -317,11 +318,7 @@ public class Mar extends Thread{
                          
                 }
                      
-                    if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
-                        pez[palabra_activa].getPane().setVisible(false);
-                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
-                        pez[palabra_activa].palabra.setEstado(-1);
-                        }
+                   
                    
                    }
                   
