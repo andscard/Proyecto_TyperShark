@@ -240,7 +240,7 @@ public class Mar extends Thread{
     this.pulpo();
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=1;
+    int aleatorio=0;
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
@@ -322,10 +322,16 @@ public class Mar extends Thread{
                          
                    }
                       if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
-                        pez[palabra_activa].getPane().setVisible(false);
-                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
+                          System.out.println("Terminaste de escribirrrrr");
+                         System.out.println("Puntaje: "+buceador.getPuntaje());
                         buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
+
+                         pez[palabra_activa].getPane().setVisible(false);
+                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
+                       
                         pez[palabra_activa].palabra.setEstado(-1);
+                        
+
                         } 
                    
                    
