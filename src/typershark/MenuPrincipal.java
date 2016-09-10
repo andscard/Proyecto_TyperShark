@@ -71,12 +71,13 @@ public class MenuPrincipal {
     }
     
      public VBox createVbox(){
-     vbox = new VBox(20);
+     vbox = new VBox(15);
      Ellipse elipse=new Ellipse(100,25);
-     Button b1 = new Button("JUGAR");
+     
+     Button b1 = new Button("NUEVO JUEGO");
      b1.setPrefSize(150, 50);
      b1.setShape(elipse);
-     b1.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
+     b1.setFont(Font.font("Amble CN", FontWeight.BOLD, 14));
      b1.setStyle("-fx-base: #b6e7c9;");
      b1.setOnAction(new ClickHandler1());
      
@@ -87,16 +88,24 @@ public class MenuPrincipal {
      b2.setStyle("-fx-base: #b6e7c9;");
      b2.setOnAction(new ClickHandler2());
      
-     
-     Button b3 = new Button("TOP-SCORES");
+     Button b3 = new Button("REANUDAR JUEGO");
      b3.setPrefSize(150, 50);
      b3.setShape(elipse);
-     b3.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
+     b3.setFont(Font.font("Amble CN", FontWeight.BOLD, 14));
      b3.setStyle("-fx-base: #b6e7c9;");
-     b3.setOnAction(new ClickHandler3());
+     b3.setOnAction(new ClickHandler5());
+     
+     Button b4 = new Button("TOP-SCORES");
+     b4.setPrefSize(150, 50);
+     b4.setShape(elipse);
+     b4.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
+     b4.setStyle("-fx-base: #b6e7c9;");
+     b4.setOnAction(new ClickHandler3());
+     
+     
      
      vbox.relocate(160, 215);
-     vbox.getChildren().addAll(b1,b2,b3);
+     vbox.getChildren().addAll(b1,b3,b2,b4);
      
         return vbox;
     }
@@ -165,6 +174,14 @@ public class MenuPrincipal {
         Scene scene2 = new Scene (mar.getMar());
         stage_menu.setScene(scene2);
         //mar.start();
+            
+        }
+     }
+        
+     private class ClickHandler5 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            
             
         }
      }

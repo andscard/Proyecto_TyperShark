@@ -109,6 +109,14 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     return estado;
     }
     
+    public void cambiarEstadoArmaEspecial(){
+        if (puntaje % 300 == 0) {
+            this.arma_especial = true;
+        } else {
+            this.arma_especial = false;
+        }
+    }
+    
     public String infoJugadorPuntaje(){
   
     String info=this.nombre+" "+this.puntaje+" "+this.vidas+" "+this.metros+" "+this.estadoArma();
