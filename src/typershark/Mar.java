@@ -303,6 +303,7 @@ public class Mar extends Thread{
                    if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
                         pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
+                        buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
                         pez[palabra_activa].palabra.setEstado(-1);
                         }
                   
