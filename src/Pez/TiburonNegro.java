@@ -19,16 +19,16 @@ public class TiburonNegro extends Pez{
     private int num_palabras;
     private ImageView imagen_tiburonNegro;
     
-    public TiburonNegro(int puntos, double velocidad,double x, double y, String palabra){
-    super(puntos,velocidad,x,y, palabra);
+    public TiburonNegro(int puntos, double velocidad,double x,double y){
+    super(puntos,velocidad,x,y, null);
     this.imagen_tiburonNegro=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/tiburon_negro.png"),250,100,true,true));
-    this.num_palabras=(int)Math.random()*3+2;
+    this.num_palabras=(int)(new Random().nextDouble()*3+2);
     this.set_image(this.imagen_tiburonNegro);}
     
     public ImageView getImagenTiburonNegro(){
     return this.imagen_tiburonNegro;}
     
-    public int num_Palabras(){
+    public int getNumeroPalabras(){
         return this.num_palabras;}
 
     

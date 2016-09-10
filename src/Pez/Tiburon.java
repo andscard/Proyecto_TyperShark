@@ -22,7 +22,7 @@ public class Tiburon extends Pez {
     /**
     * Constructor de la clase Tiburon
     */
-    public Tiburon(int puntos, double velocidad,double x, double y, String palabra){
+    public Tiburon(int puntos, double velocidad,double x, double y, ArrayList<String> palabra){
        super(puntos,velocidad,x,y,palabra);
        this.imagen_tiburon=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/shark.png"), 170, 170, true, true));
        this.set_image(this.imagen_tiburon);

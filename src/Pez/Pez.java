@@ -36,6 +36,7 @@ public class Pez extends Thread{
     private ImageView imagen;
     private Posicion posicion;
     public Palabra palabra;
+    public ArrayList<String> lista_words;
     private boolean stop=false;
     
     /**
@@ -45,10 +46,11 @@ public class Pez extends Thread{
     * @param velocidad  tipo double
     * @param x  tipo double
     * @param y  tipo double
-    * @param palabra  tipo String
+    * @param palabra  tipo ArrayList<String>
     */
-    public Pez( int puntos, double velocidad,double x, double y, String palabra) {
-        this.palabra= new Palabra(palabra);
+    public Pez( int puntos, double velocidad,double x, double y, ArrayList<String> lista_words) {
+        this.lista_words=lista_words;
+        this.palabra= new Palabra(lista_words);
         this.label= this.palabra.getLabelPalabra();
         this.pane_palabra= this.palabra.panelPalabra();
         this.posicion=new Posicion(x,y);        
@@ -84,6 +86,15 @@ public class Pez extends Thread{
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
+    
+    public void setListaPalabras(String word){
+    this.lista_words.add(word);
+    }
+    public void setEstado(){
+    this.estado=Estado.MUERTO;}
+    
+    public Estado getEstado(){
+    return this.estado;}
 
     /**
      * El método getVelocidad retorna la velocidad (pixeles a moverse)
@@ -107,6 +118,17 @@ public class Pez extends Thread{
      public Pane getPane(){
             return this.pane;
     }
+     
+     public boolean pezDentroDelMar() {
+        boolean en_el_mar;
+        if (pane.getTranslateX() <= -740) {
+            posicion.setPos_x(-740);
+            pane.setVisible(false);
+            return en_el_mar=false;
+        }else{
+            return en_el_mar=true;
+        }
+     }
     
     
     @Override
@@ -119,14 +141,15 @@ public class Pez extends Thread{
                        
                             pane.setTranslateX(pane.getTranslateX()-velocidad );
                             System.out.println(pane.getTranslateX());
-                            
-                            if (pane.getTranslateX()==-720){
-                                posicion.setPos_x(-720);
-                                stop=true;
+                           
+                            if(pezDentroDelMar()==false){    
+                            stop=true;
                             }
                             
+                            
                             if(estado==Estado.MUERTO){
-                            stop=true;}
+                            pane.setVisible(false);
+                                stop=true;}
                         
                     }
                     

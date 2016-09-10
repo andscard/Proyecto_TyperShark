@@ -103,14 +103,14 @@ public class ArreglosPalabras {
     }
     
     
-    public ArrayList<String> arregloPalabrasTiburones(int nivel){
+    public ArrayList<String> arregloPalabrasTiburones(int num_tiburones){
         ArrayList<String> palabras_archivo=this.cargarPalabrasArchivo("ListaPalabras.txt");
         ArrayList<String> palabras=new ArrayList<String>();
         ArrayList<Character> letras =new ArrayList<Character>();
        
         int aleatorio, cont=0;
         
-        while(cont<nivel){
+        while(cont<num_tiburones){
                     aleatorio=this.generarAleatorio(palabras_archivo.size(),0);
                     if(!letras.contains(palabras_archivo.get(aleatorio).charAt(0))){
                          letras.add(palabras_archivo.get(aleatorio).charAt(0));
@@ -122,6 +122,22 @@ public class ArreglosPalabras {
                 return palabras;
     }
     
+   
+   
+    public ArrayList<String> arregloPalabrasTiburonesNegro(int num_tiburones){
+    ArrayList<String> palabras1=this.arregloPalabrasTiburones(num_tiburones);
+    ArrayList<String> palabras2=this.arregloPalabrasTiburones(num_tiburones);
+    ArrayList<String> palabras3=this.arregloPalabrasTiburones(num_tiburones);
+    ArrayList<String> arreglo_final=new ArrayList();
+        for (int i=0; i<num_tiburones;i++){
+        arreglo_final.add(palabras1.get(i));
+        arreglo_final.add(palabras2.get(i));
+        arreglo_final.add(palabras2.get(i));}
+
+    return arreglo_final;
+    }
+    
+    
     public String palabraPulpo(){
       String palabra;
       ArrayList<String> palabras_pulpo = this.cargarPalabrasArchivo("PalabrasPulpo.txt");
@@ -131,13 +147,13 @@ public class ArreglosPalabras {
     }
     
     
-    public ArrayList<String> arregloLetrasPirañas(int nivel){
+    public ArrayList<String> arregloLetrasPirañas(int num_pirañas){
         ArrayList<String> letras = new ArrayList<String>();
         ArrayList<String> abecedario = this.llenarArregloAbecedario();
         int generar;
         
        
-        for(int i=0;i<nivel;i++){
+        for(int i=0;i<num_pirañas;i++){
                     generar=this.generarAleatorio(abecedario.size(),0);
                     letras.add(abecedario.get(generar));
                     abecedario.remove(generar);

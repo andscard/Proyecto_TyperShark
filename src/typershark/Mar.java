@@ -169,9 +169,12 @@ public class Mar extends Thread{
     public void arregloDeTiburones() {
         int cont=0;
         ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces);
-        for (int i = 0; i < palabras_tiburones.size(); i++) {    
-            this.tiburon[i] = new Tiburon(10,velocidad +2 , 730, 20+cont ,palabras_tiburones.get(i) );
+        ArrayList<String> una_palabra= new ArrayList();
+        for (int i = 0; i < palabras_tiburones.size(); i++) {
+            una_palabra.add(palabras_tiburones.get(i));
+            this.tiburon[i] = new Tiburon(10,velocidad +2 , 730, 20+cont ,una_palabra );
             this.tiburon[i].start();
+            una_palabra.clear();
     
         cont= cont+90;
         }
@@ -180,10 +183,25 @@ public class Mar extends Thread{
 
     public void arregloDeTiburonesNegros() {
         int cont=0;
-        for (int i = 0; i < this.nivel; i++) {
-            ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces);
-            this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,730, cont + 20, arreglo_palabras.getPalabras().get(i));
-          
+        for (int i = 0; i < this.num_peces; i++) {
+            ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro(num_peces);
+            this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,730, cont + 20);
+            TiburonNegro tiburon=(TiburonNegro)this.tiburon_negro[i];
+
+            if (tiburon.getNumeroPalabras()<3){
+                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(0));
+                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(1));
+                palabras_tiburones.remove(0);
+                palabras_tiburones.remove(1);
+                palabras_tiburones.remove(2);
+            }else{
+                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(0));
+                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(1));
+                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(2));
+                palabras_tiburones.remove(0);
+                palabras_tiburones.remove(1);
+                palabras_tiburones.remove(2);
+            }
             this.tiburon_negro[i].start();
             cont=cont+90;
         }
@@ -192,11 +210,13 @@ public class Mar extends Thread{
     
     public void arregloDePirañas() {
         int cont=0;
-        ArrayList<String> palabras_pirañas= arreglo_palabras.arregloLetrasPirañas(num_peces);
-        
-        for (int i = 0; i < palabras_pirañas.size(); i++) {
-                this.piraña[i] = new Piraña(5,velocidad +3, 740, cont + 20, palabras_pirañas.get(i));
+        ArrayList<String> letras_pirañas= arreglo_palabras.arregloLetrasPirañas(num_peces);
+        ArrayList<String> una_letra= new ArrayList();
+        for (int i = 0; i < letras_pirañas.size(); i++) {
+                una_letra.add(letras_pirañas.get(i));
+                this.piraña[i] = new Piraña(5,velocidad +3, 740, cont + 20, una_letra);
                 this.piraña[i].start();
+                una_letra.clear();
                 cont=cont+70;           
         }
     }
@@ -310,7 +330,8 @@ public class Mar extends Thread{
                   
                   cont=pez[palabra_activa].palabra.getPosicion();
                   
-                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont)){
+                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont) 
+                          &&pez[palabra_activa].pezDentroDelMar()==true){
                        
                     if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
                             if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont) ){
@@ -325,8 +346,8 @@ public class Mar extends Thread{
                           System.out.println("Terminaste de escribirrrrr");
                          System.out.println("Puntaje: "+buceador.getPuntaje());
                         buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
-
-                         pez[palabra_activa].getPane().setVisible(false);
+                        pez[palabra_activa].setEstado();
+                         //pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
                        
                         pez[palabra_activa].palabra.setEstado(-1);

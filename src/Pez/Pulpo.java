@@ -20,7 +20,10 @@ public class Pulpo extends Pez {
     * Constructor de la clase Tiburon
     */
     public Pulpo(int puntos, double velocidad,double x, double y, String palabra){
-       super(puntos,velocidad,x,y,palabra);
+       super(puntos,velocidad,x,y,null);
+       ArrayList<String> palabra_pulpo=new ArrayList();
+       palabra_pulpo.add(palabra);
+       this.setListaPalabras(palabra);
        this.imagen_pulpo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/pulpo.png"), 250, 250, true, true));
        this.set_image(this.imagen_pulpo);
        
