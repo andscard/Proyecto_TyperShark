@@ -96,9 +96,14 @@ public class Pez extends Thread{
         this.puntos = puntos;
     }
     
-    public void setListaPalabras(String word){
+    public void addAListaPalabras(String word){
     this.lista_words.add(word);
     }
+    
+    public void setListaPalabras(ArrayList <String> lista_words){
+        this.lista_words=lista_words;
+    } 
+    
     public void setEstado(){
     this.estado=Estado.MUERTO;}
     

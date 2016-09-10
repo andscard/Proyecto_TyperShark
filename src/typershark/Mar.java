@@ -184,21 +184,24 @@ public class Mar extends Thread{
 
     public void arregloDeTiburonesNegros() {
         int cont=0;
+        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro(num_peces);
+        ArrayList<String> lista_words= new ArrayList<String>();
+        
         for (int i = 0; i < this.num_peces; i++) {
-            ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro(num_peces);
             this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,730, cont + 20);
+            this.tiburon_negro[i].setListaPalabras(lista_words);
             TiburonNegro tiburon=(TiburonNegro)this.tiburon_negro[i];
 
             if (tiburon.getNumeroPalabras()<3){
-                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(0));
-                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(1));
+                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(0));
+                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(1));
                 palabras_tiburones.remove(0);
                 palabras_tiburones.remove(1);
                 palabras_tiburones.remove(2);
             }else{
-                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(0));
-                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(1));
-                tiburon_negro[i].setListaPalabras(palabras_tiburones.get(2));
+                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(0));
+                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(1));
+                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(2));
                 palabras_tiburones.remove(0);
                 palabras_tiburones.remove(1);
                 palabras_tiburones.remove(2);

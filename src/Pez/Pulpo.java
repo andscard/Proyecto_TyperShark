@@ -23,7 +23,7 @@ public class Pulpo extends Pez {
        super(puntos,velocidad,x,y,null);
        ArrayList<String> palabra_pulpo=new ArrayList();
        palabra_pulpo.add(palabra);
-       this.setListaPalabras(palabra);
+       this.addAListaPalabras(palabra);
        this.imagen_pulpo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/pulpo.png"), 250, 250, true, true));
        this.set_image(this.imagen_pulpo);
        
