@@ -210,7 +210,6 @@ public class Mar extends Thread{
     
     
     public void ubicarPecesMar(Pane mar,Pez pez[]){
-        
         for (int i=0; i<this.num_peces ;i++){
              mar.getChildren().addAll(pez[i].getPane());
         }
@@ -239,7 +238,7 @@ public class Mar extends Thread{
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
-    int []numero=  {1,2,3,3,1,2,4,1,2,3};
+    int []numero=  {1,2,3,1,2,3,4,1,2,3};
     int aleatorio=(int)(new Random().nextDouble()*9+0);
     System.out.println("numero"+aleatorio);
     
@@ -254,7 +253,7 @@ public class Mar extends Thread{
         this.ubicarPecesMar(panel_peces_buceador,tiburon_negro);
     }else{
         pez_mar=pulpo;
-        this.ubicarPecesMar(panel_peces_buceador,pulpo);}
+        panel_peces_buceador.getChildren().add(pulpo[0].getPane());}
     
     }
     
