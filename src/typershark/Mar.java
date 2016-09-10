@@ -7,6 +7,7 @@ package typershark;
 
 import Buceador.Buceador;
 import Pez.Pez;
+import Pez.Pez.Estado;
 import Pez.Piraña;
 import Pez.Pulpo;
 import Pez.Tiburon;
@@ -309,7 +310,7 @@ public class Mar extends Thread{
               if(palabra_activa==-1){
                   for(int i=0;i<contador;i++){
                       if(pez[i].palabra.getEstado()==0){
-                        if (event.getText().charAt(0)==pez[i].palabra.getLabelPalabra().getText().charAt(0)){
+                        if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
                                  pez[i].palabra.setEstado(1);
                                  pez[i].palabra.cambiarColorLetras(0); 
                                  
@@ -330,11 +331,10 @@ public class Mar extends Thread{
                   
                   cont=pez[palabra_activa].palabra.getPosicion();
                   
-                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont) 
-                          &&pez[palabra_activa].pezDentroDelMar()==true){
+                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont)){
                        
                     if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
-                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont) ){
+                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont) ){
                        
                         pez[palabra_activa].palabra.cambiarColorLetras(cont);
                         cont=cont+1; 
