@@ -239,7 +239,8 @@ public class Mar extends Thread{
     this.arregloDePirañas();
     this.pulpo();
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
-    int aleatorio=(int)(new Random().nextDouble()*9+0);
+    //int aleatorio=(int)(new Random().nextDouble()*9+0);
+    int aleatorio=0;
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
