@@ -18,7 +18,6 @@ import javafx.scene.text.Font;
     
 public class Palabra  {
     private String palabra;
-    private Label label_auxiliar;
     private Label []label_letras;
     private  int posicion;
     private int estado;
@@ -31,7 +30,6 @@ public class Palabra  {
     
      public Palabra(String palabra) {
         this.palabra = palabra;
-        this.label_auxiliar= new Label(palabra);
         this.posicion=0;
         this.estado=0;
         this.llenarArregoLetras();
@@ -49,8 +47,8 @@ public class Palabra  {
     }
   
     
-    public Label getLabelPalabra() {
-        return label_auxiliar;
+    public String getPalabra() {
+        return palabra;
     }
   
 

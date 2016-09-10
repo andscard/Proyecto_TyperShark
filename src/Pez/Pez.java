@@ -29,10 +29,9 @@ public class Pez extends Thread{
     private int puntos;
     private double velocidad;
     private Estado estado;
-    private enum Estado{VIVO,MUERTO};
+    public enum Estado{VIVO,MUERTO};
     private Pane pane;
     private HBox  pane_palabra;
-    private Label label;
     private ImageView imagen;
     private Posicion posicion;
     public Palabra palabra;
@@ -49,7 +48,6 @@ public class Pez extends Thread{
     */
     public Pez( int puntos, double velocidad,double x, double y, String palabra) {
         this.palabra= new Palabra(palabra);
-        this.label= this.palabra.getLabelPalabra();
         this.pane_palabra= this.palabra.panelPalabra();
         this.posicion=new Posicion(x,y);        
         this.puntos = puntos;
@@ -63,7 +61,17 @@ public class Pez extends Thread{
         this.pane.setLayoutY(posicion.getPos_y());
         
     }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
     
+    
+    /**
+     * El método set_image recibe como parámetro una Imagen, está será
+     * ubicada en el panel junto con la palabra respectiva del pez
+     * @param imagen tipo ImageView
+     */
     public void set_image(ImageView imagen){
     this.imagen=imagen;
     this.imagen.toBack();
@@ -97,10 +105,10 @@ public class Pez extends Thread{
     public void setVelocidad(double velocidad) {
         this.velocidad = velocidad;
     }
-    
+    /*
     public void setLabel(String word){
     this.label.setText(word);}
-    
+    */
     public Posicion getPoscion (){
         return this.posicion;}
     
@@ -123,6 +131,8 @@ public class Pez extends Thread{
                             if (pane.getTranslateX()==-720){
                                 posicion.setPos_x(-720);
                                 stop=true;
+                                pane.setVisible(false);
+                                
                             }
                             
                             if(estado==Estado.MUERTO){
