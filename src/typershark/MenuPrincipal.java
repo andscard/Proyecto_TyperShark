@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -163,6 +164,7 @@ public class MenuPrincipal {
             //stage.close();
         mar=new Mar(formulario.getNombre());   
         Scene scene2 = new Scene (mar.getMar());
+      
         stage_menu.setScene(scene2);
         //mar.start();
             

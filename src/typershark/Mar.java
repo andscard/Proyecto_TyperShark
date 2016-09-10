@@ -33,6 +33,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -61,7 +62,7 @@ public class Mar extends Thread{
     private int num_peces;
     private int velocidad;
     //private Pez tiburon_prueba;
-    private Pez[] tiburon;
+    public  Pez[] tiburon;
     private Pez[] tiburones_negro;
     private Pez[] piraña;
     private Pez pulpo;
@@ -71,7 +72,7 @@ public class Mar extends Thread{
     public Mar(String name){
         panel_mar=new BorderPane();
         buceador= new Buceador(name);
-        nivel=2;
+        nivel=3;
         velocidad=0;
         num_peces=(int)(new Random().nextDouble()*5+1);
         System.out.println(this.num_peces);
@@ -84,6 +85,7 @@ public class Mar extends Thread{
         panel_peces_buceador=this.setPanelPeces();
         panel_mar.setTop(barra);
         panel_mar.setCenter(panel_peces_buceador);
+        panel_mar.setOnKeyPressed(new KeyPressed());
         
         
     //this.disminuirVidas();
@@ -154,6 +156,11 @@ public class Mar extends Thread{
         return this.barra;
     }
 
+    
+    /**
+     * 
+     * @return 
+     */
     public BorderPane getMar() {
         return this.panel_mar;
     }
@@ -194,8 +201,7 @@ public class Mar extends Thread{
     }
     
     public void pulpo (){
-        
-        String palabra=arreglo_palabras.palabraPulpo();
+         String palabra=arreglo_palabras.palabraPulpo();
         this.pulpo= new Pulpo(25,2.5,650,40,palabra);
         this.pulpo.start();
     }
@@ -231,7 +237,8 @@ public class Mar extends Thread{
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
-    int aleatorio=(int)(new Random().nextDouble()*4+1);
+   // int aleatorio=(int)(new Random().nextDouble()*4+1);
+     int aleatorio=1;
     
     if(aleatorio==1) {
         this.ubicarPecesMar(panel_peces_buceador,tiburon);
@@ -252,6 +259,80 @@ public class Mar extends Thread{
         }
     }
     
+    
+    
+    private class KeyPressed implements EventHandler<KeyEvent> {
+        private Pez pez[];
+        
+        
+        @Override
+                
+            public void handle(KeyEvent event) {
+             int posicion_palabra;
+             int palabra_activa = -1;
+             int contador=pez.length; 
+                
+           if(contador!=-1){   
+              for(int i=0;i<contador;i++){
+                  if (pez[i].palabra.getEstado()==1)
+                    palabra_activa = i;
+              }
+                  
+              if(palabra_activa==-1){
+                  for(int i=0;i<contador;i++){
+                      if(pez[i].palabra.getEstado()==0){
+                        if (event.getText().charAt(0)==pez[i].palabra.getLabelPalabra().getText().charAt(0)){
+                                 pez[i].palabra.setEstado(1);
+                                 pez[i].palabra.cambiarColorLetras(0); 
+                                 pez[i].palabra.setPosicion(1);
+                        }
+                      }
+                    }
+              }
+              else{
+                  
+                  int cont=pez[palabra_activa].palabra.getPosicion();
+                  
+                  
+                  
+                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont)){
+                       
+                      
+                        
+                        
+                   if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
+                        if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont) ){
+                     
+
+                        pez[palabra_activa].palabra.cambiarColorLetras(cont);
+                        cont=cont+1; 
+                        pez[palabra_activa].palabra.setPosicion(cont);
+                     }
+                         
+                }
+                     
+                    if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
+                        pez[palabra_activa].getPane().setVisible(false);
+                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
+                        pez[palabra_activa].palabra.setEstado(-1);
+                        }
+                   
+                   }
+                  
+                  else {
+                        pez[palabra_activa].setVelocidad(50);
+                  }
+              }
+           
+           }
+                
+                
+                
+                
+           
+            }
+            
+    }
     
     
     
