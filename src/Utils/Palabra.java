@@ -21,7 +21,7 @@ public class Palabra  {
     private Label label_auxiliar;
     private Label []label_letras;
     private  int posicion;
-  
+    private int estado;
    
     
     /**
@@ -33,13 +33,21 @@ public class Palabra  {
         this.palabra = palabra;
         this.label_auxiliar= new Label(palabra);
         this.posicion=0;
+        this.estado=0;
         this.llenarArregoLetras();
         
         
     }
    
     
-    
+     public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+  
     
     public Label getLabelPalabra() {
         return label_auxiliar;
@@ -47,7 +55,7 @@ public class Palabra  {
   
 
     
-       public int  getPalabra() {
+       public int  getLongitudPalabra() {
         return palabra.length();
     }
 
@@ -70,7 +78,7 @@ public class Palabra  {
     }
     
     public void cambiarColorLetras( int posicion ){
-                 label_letras[posicion].setTextFill(Color.YELLOW);
+                 label_letras[posicion].setTextFill(Color.RED);
           
     }
 

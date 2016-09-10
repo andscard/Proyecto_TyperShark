@@ -35,7 +35,7 @@ public class Pez extends Thread{
     private Label label;
     private ImageView imagen;
     private Posicion posicion;
-    private Palabra palabra;
+    public Palabra palabra;
     private boolean stop=false;
     
     /**
