@@ -49,7 +49,7 @@ public class MenuPrincipal {
     public MenuPrincipal(){
     panel= new Pane();
     formulario=new Formulario();
-    formulario.getBoton().setOnAction(new ClickHandler4());
+    formulario.getBoton().setOnAction(new ClickHandler());
     
     top=new TopJugadores();
     ayuda= new Ayuda();
@@ -66,7 +66,7 @@ public class MenuPrincipal {
     bt_salir.setPrefSize(150, 50);
     bt_salir.setShape(new Ellipse(100,25));
     bt_salir.relocate(540, 420);
-    bt_salir.setOnAction(new ClickHandler());
+    bt_salir.setOnAction(new ClickHandler5());
     fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondo9.jpg")));
     panel.getChildren().addAll(fondo,vbox,bt_salir);
     }
@@ -75,42 +75,30 @@ public class MenuPrincipal {
      vbox = new VBox(15);
      Ellipse elipse=new Ellipse(100,25);
      
+     
+     
      Button b1 = new Button("NUEVO JUEGO");
-     b1.setPrefSize(150, 50);
-     b1.setShape(elipse);
-     b1.setFont(Font.font("Amble CN", FontWeight.BOLD, 14));
-     b1.setStyle("-fx-base: #b6e7c9;");
-     b1.setOnAction(new ClickHandler1());
-     
-     Button b2 = new Button("AYUDA");
-     b2.setPrefSize(150, 50);
-     b2.setShape(elipse);
-     b2.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
-     b2.setStyle("-fx-base: #b6e7c9;");
-     b2.setOnAction(new ClickHandler2());
-     
-     Button b3 = new Button("REANUDAR JUEGO");
-     b3.setPrefSize(150, 50);
-     b3.setShape(elipse);
-     b3.setFont(Font.font("Amble CN", FontWeight.BOLD, 14));
-     b3.setStyle("-fx-base: #b6e7c9;");
-     b3.setOnAction(new ClickHandler5());
-     
+     Button b2 = new Button("REANUDAR JUEGO");
+     Button b3 = new Button("AYUDA");
      Button b4 = new Button("TOP-SCORES");
-     b4.setPrefSize(150, 50);
-     b4.setShape(elipse);
-     b4.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
-     b4.setStyle("-fx-base: #b6e7c9;");
-     b4.setOnAction(new ClickHandler3());
      
-     
-     
+     this.formatoBotones(b1, elipse,new ClickHandler1());
+     this.formatoBotones(b2, elipse,new ClickHandler2());
+     this.formatoBotones(b3, elipse,new ClickHandler3());
+     this.formatoBotones(b4, elipse,new ClickHandler4());
+
      vbox.relocate(160, 215);
-     vbox.getChildren().addAll(b1,b3,b2,b4);
+     vbox.getChildren().addAll(b1,b2,b3,b4);
      
         return vbox;
     }
-     
+    public void formatoBotones(Button boton,Ellipse elipse,EventHandler<ActionEvent> click){
+     boton.setPrefSize(150, 50);
+     boton.setShape(elipse);
+     boton.setFont(Font.font("Amble CN", FontWeight.BOLD, 14));
+     boton.setStyle("-fx-base: #b6e7c9;");
+     boton.setOnAction(click);
+    }
      
     /**
      * 
@@ -128,34 +116,43 @@ public class MenuPrincipal {
     
     return this.stage_menu;}
     
-    
     private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-            Platform.exit();
+            formulario.setNombre(formulario.getTexto().getText());
+            //stage.close();
+        mar=new Mar(formulario.getNombre());   
+        Scene scene2 = new Scene (mar.getMar());
+        stage_menu.setScene(scene2);
+        //mar.start();
+            
         }
-    }
+     }
     
     private class ClickHandler1 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-        
         Scene scene2 = new Scene (formulario.getFormulario());
         stage_menu.setScene(scene2);
-        
         }
-        
-       
     }
     
-    private class ClickHandler2 implements EventHandler<ActionEvent> {
+     private class ClickHandler2 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            
+            
+        }
+     }
+    
+     private class ClickHandler3 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
             stage2.show();
         }
     }
     
-    private class ClickHandler3 implements EventHandler<ActionEvent> {
+    private class ClickHandler4 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
             top.escribirArchivoTop(new Buceador("Mayken"));
@@ -166,25 +163,11 @@ public class MenuPrincipal {
     }
     
     
-     private class ClickHandler4 implements EventHandler<ActionEvent> {
+    private class ClickHandler5 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-            formulario.setNombre(formulario.getTexto().getText());
-            //stage.close();
-        mar=new Mar(formulario.getNombre());   
-        Scene scene2 = new Scene (mar.getMar());
-      
-        stage_menu.setScene(scene2);
-        //mar.start();
-            
+            Platform.exit();
         }
-     }
-        
-     private class ClickHandler5 implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent action) {
-            
-            
-        }
-     }
+    }
+    
 }
