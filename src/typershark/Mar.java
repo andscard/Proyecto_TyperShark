@@ -240,7 +240,7 @@ public class Mar extends Thread{
     this.pulpo();
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=0;
+    int aleatorio=1;
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
@@ -278,6 +278,7 @@ public class Mar extends Thread{
              int posicion_palabra;
              int palabra_activa = -1;
              int contador=pez.length; 
+             int cont=0;
                 
            if(contador!=-1){   
               for(int i=0;i<contador;i++){
@@ -292,8 +293,14 @@ public class Mar extends Thread{
                                  pez[i].palabra.setEstado(1);
                                  pez[i].palabra.cambiarColorLetras(0); 
                                  
-                                if(pez[i].palabra.getLongitudPalabra()!=1){
+                                if(pez[i].palabra.getLongitudPalabra()==1){
+                                    pez[i].palabra.setPosicion(0);
+                                    cont=1;
+                                }
+                                    else{
                                  pez[i].palabra.setPosicion(1);}
+                                
+                                
                                 
                         }
                       }
@@ -301,9 +308,7 @@ public class Mar extends Thread{
               }
               else{
                   
-                  int cont=pez[palabra_activa].palabra.getPosicion();
-                  
-                 
+                  cont=pez[palabra_activa].palabra.getPosicion();
                   
                   if (event.getText().charAt(0)==pez[palabra_activa].palabra.getLabelPalabra().getText().charAt(cont)){
                        
@@ -315,27 +320,27 @@ public class Mar extends Thread{
                         pez[palabra_activa].palabra.setPosicion(cont);
                      }
                          
-                }
-                     
+                   }
+                      if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
+                        pez[palabra_activa].getPane().setVisible(false);
+                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
+                        buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
+                        pez[palabra_activa].palabra.setEstado(-1);
+                        } 
                    
                    
                    }
                   
                   else {
-                        pez[palabra_activa].setVelocidad(50);
+                        pez[palabra_activa].setVelocidad(20);
                   }
-                  
-                if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
-                        pez[palabra_activa].getPane().setVisible(false);
-                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
-                        buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
-                        pez[palabra_activa].palabra.setEstado(-1);
-                        }
-                  
-                  
-                  
-                  
+   
               }
+              
+              
+                 
+              
+                  
            
            }
                 
