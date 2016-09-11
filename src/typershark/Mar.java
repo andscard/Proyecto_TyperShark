@@ -13,6 +13,7 @@ import Pez.Pulpo;
 import Pez.Tiburon;
 import Pez.TiburonNegro;
 import Utils.ArreglosPalabras;
+import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
@@ -182,6 +183,7 @@ public class Mar extends Thread{
 
     }
 
+    /**
     public void arregloDeTiburonesNegros() {
         int cont=0;
         ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro(num_peces);
@@ -211,6 +213,37 @@ public class Mar extends Thread{
         }
     }
 
+    **/
+    
+      public void arregloDeTiburonesNegros() {
+        Random  random = new Random();  
+        int cont=0;
+        int contador_palabras=0;
+        int num_palabras;
+        
+        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces*3);
+        ArrayList<String> lista_words= new ArrayList<String>();
+        
+        for (int i = 0; i < this.num_peces; i++) {
+            num_palabras=(int)(random.nextDouble()*3 +2);
+            for(int j=0; j<num_palabras; j++){
+                lista_words.add(palabras_tiburones.get(contador_palabras)); 
+                 contador_palabras=contador_palabras+1;
+            }// cierrej
+            this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,720,cont + 20,lista_words);
+            this.tiburon_negro[i].palabra.setNum_palabras(lista_words.size());
+            this.tiburon_negro[i].start();
+            lista_words.clear();
+            cont=cont+90;
+          
+        
+         }// cierre i
+            
+      }      
+               
+           
+    
+    
     
     public void arregloDePirañas() {
         int cont=0;
@@ -227,7 +260,7 @@ public class Mar extends Thread{
     
     public void pulpo (){
         
-        String palabra=arreglo_palabras.palabraPulpo();
+        ArrayList<String>palabra=arreglo_palabras.palabraPulpo();
         this.pulpo[0]=new Pulpo(25,2.5,650,40,palabra);
         this.pulpo[0].start();
     }
@@ -273,7 +306,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=0;
+    int aleatorio=2;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -314,26 +347,8 @@ public class Mar extends Thread{
              int palabra_activa = -1;
              int contador=pez.length; 
              int cont=0;
-            
-            if(getId_Pez()==1){ 
-                
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            else{
-                if(contador!=-1){   
+           
+             if(contador!=-1){   
                      for(int i=0;i<contador;i++){
                   if (pez[i].palabra.getEstado()==1)
                     palabra_activa = i;
@@ -379,7 +394,7 @@ public class Mar extends Thread{
                          System.out.println("Puntaje: "+buceador.getPuntaje());
                         buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
                         pez[palabra_activa].setEstado();
-                         //pez[palabra_activa].getPane().setVisible(false);
+                        pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
                        
                         pez[palabra_activa].palabra.setEstado(-1);
@@ -409,7 +424,7 @@ public class Mar extends Thread{
            
             }
             
-    }
+    
     
     
     }
