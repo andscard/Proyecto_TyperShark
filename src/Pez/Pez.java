@@ -155,18 +155,17 @@ public class Pez extends Thread{
                        
                             pane.setTranslateX(pane.getTranslateX()-velocidad );
                             System.out.println(pane.getTranslateX());
-<<<<<<< HEAD
+
                            
                             if(pezDentroDelMar()==false){    
                             stop=true;
-=======
+
                             
                             if (pane.getTranslateX()==-720){
                                 posicion.setPos_x(-720);
                                 stop=true;
                                 pane.setVisible(false);
                                 
->>>>>>> origin/master
                             }
                             
                             
@@ -176,20 +175,19 @@ public class Pez extends Thread{
                         
                     }
                     
-                });
+               
                 try {
                     Pez.sleep(200);
-                } catch (InterruptedException ex) {
+                    } catch (InterruptedException ex) {
                     Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-      
+                    }
+                    
+                });
+                        }
     }
     
     
     
-    
-    
-    
-    
+
 }

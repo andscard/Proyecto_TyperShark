@@ -69,7 +69,7 @@ public class Mar extends Thread{
     private Pez[] piraña;
     private Pez[] pulpo;
     private Buceador buceador;
-     
+    private int id_pez; 
      
     public Mar(String name){
         panel_mar=new BorderPane();
@@ -258,13 +258,24 @@ public class Mar extends Thread{
     this.velocidad=velocidad+1;}
     
     
+    public void setId_Pez(int id){
+    this.id_pez=id;
+    }
+    
+    public int getId_Pez(){
+    return this.id_pez;
+    }
+    
     private void generarPezAleatorio(){    
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
+    this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
     int aleatorio=0;
+    this.setId_Pez(numero[aleatorio]);
+
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
@@ -303,9 +314,27 @@ public class Mar extends Thread{
              int palabra_activa = -1;
              int contador=pez.length; 
              int cont=0;
+            
+            if(getId_Pez()==1){ 
                 
-           if(contador!=-1){   
-              for(int i=0;i<contador;i++){
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            else{
+                if(contador!=-1){   
+                     for(int i=0;i<contador;i++){
                   if (pez[i].palabra.getEstado()==1)
                     palabra_activa = i;
               }
@@ -383,7 +412,7 @@ public class Mar extends Thread{
     }
     
     
-    
+    }
     @Override
     public void run(){
         

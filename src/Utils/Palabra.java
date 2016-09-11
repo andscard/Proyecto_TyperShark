@@ -6,6 +6,7 @@
 package Utils;
 
 
+import java.util.ArrayList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -17,6 +18,8 @@ import javafx.scene.text.Font;
  */
     
 public class Palabra  {
+    private int num_palabras;
+    private ArrayList<String> palabras;
     private String palabra;
     private Label []label_letras;
     private  int posicion;
@@ -28,8 +31,10 @@ public class Palabra  {
      * @param palabra 
      */
     
-     public Palabra(String palabra) {
-        this.palabra = palabra;
+     public Palabra(ArrayList<String> palabras) {
+        this.palabras = palabras;
+        this.num_palabras= palabras.size();
+        this.palabra = palabras.get(0);
         this.posicion=0;
         this.estado=0;
         this.llenarArregoLetras();
@@ -49,6 +54,17 @@ public class Palabra  {
     
     public String getPalabra() {
         return palabra;
+    }
+  
+    
+    public void setPalabra(String nueva_palabra) {
+         this.palabra=nueva_palabra;
+    }
+  
+    public void cargarPalabra() {
+       for(int i=0; i<num_palabras;i++){
+           this.setPalabra(this.palabras.get(i));
+       }
     }
   
 
@@ -104,7 +120,7 @@ public class Palabra  {
         this.posicion = posicion_actual;
     }
 
-   
+       
          
 
 
