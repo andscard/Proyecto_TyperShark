@@ -76,7 +76,7 @@ public class TopJugadores {
         File file=new File ("TopJugadores.txt");
         BufferedWriter bw=new BufferedWriter(new FileWriter(file));
          
-        bw.write(buceador.infoJugadorPuntaje());
+        bw.write(buceador.infoJugador());
         bw.newLine();
         bw.flush();
         bw.close();
@@ -123,7 +123,7 @@ public class TopJugadores {
     public void llenarListView(){
     int n=this.top_buceadores.size();
         for (int i=0; i<n;i++){
-        nombres.add(top_buceadores.get(i).infoJugadorPuntaje());
+        nombres.add(top_buceadores.get(i).infoJugador());
         this.lista.setItems(nombres);
         lista.setStyle("-fx-text-fill: black;"+
     "-fx-font: Courier New;"+

@@ -74,12 +74,13 @@ public class Mar extends Thread{
      
     public Mar(String name){
         panel_mar=new BorderPane();
-        buceador= new Buceador(name);
         nivel=3;
+        buceador= new Buceador(name);
         velocidad=0;
         num_peces=(int)(new Random().nextDouble()*5+1);
         System.out.println(this.num_peces);
-        barra=this.getToolBar();
+        //barra=this.crearToolBar();
+        this.barra=buceador.getToolBar();
         arreglo_palabras= new ArreglosPalabras();
         this.tiburon= new Tiburon[this.num_peces];
         this.tiburon_negro= new TiburonNegro[this.num_peces];
@@ -87,8 +88,11 @@ public class Mar extends Thread{
         this.pulpo=new Pulpo[1];
         
         panel_peces_buceador=this.setPanelPeces();
-        panel_mar.setTop(barra);
+        
         panel_mar.setCenter(panel_peces_buceador);
+        panel_mar.setTop(barra);
+        
+
         panel_mar.setOnKeyPressed(new KeyPressed());
         
         
@@ -107,13 +111,14 @@ public class Mar extends Thread{
     panel_peces_buceador.getChildren().addAll(fondo, buceador.getPane());
     buceador.start();
     this.generarPezAleatorio();
+    
     //music= new MediaPlayer(new Media(getClass().getResource("burbujas.mp3").toExternalForm()));
     //music.setAutoPlay(true);
 
     return panel_peces_buceador;
     }
 
-    public ToolBar getToolBar() {
+   /* public ToolBar crearToolBar() {
         this.barra = new ToolBar();
         ImageView coin = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/coin.gif"), 25, 25, true, true));
         ImageView heart = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/corazon.png"), 25, 25, true, true));
@@ -153,11 +158,11 @@ public class Mar extends Thread{
             
             }
             
-}));*/
+}));
   vidas.textProperty().bind(new SimpleIntegerProperty(this.buceador.getVidas()).asString());
       
         return this.barra;
-    }
+    }*/
 
     
     /**
@@ -231,7 +236,7 @@ public class Mar extends Thread{
                 lista_palabras.add(palabras_tiburones.get(j));
 
             }
-            this.tiburon_negro[i] = new TiburonNegro(10, velocidad + 2, 720, cont + 20, lista_palabras);
+            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20, lista_palabras);
             palabras_tiburones.remove(0);
             palabras_tiburones.remove(0);
             palabras_tiburones.remove(0);
@@ -357,12 +362,12 @@ public class Mar extends Thread{
     }
     
     
-    private class ClickHandler implements EventHandler<ActionEvent> {
+   /* private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
             
         }
-    }
+    }*/
     
     
     
