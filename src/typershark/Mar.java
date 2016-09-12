@@ -398,7 +398,8 @@ public class Mar extends Thread{
                         if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
                               pez[i].palabra.cambiarColorLetras(0);
                                 if(pez[i].palabra.getPalabra().length()==1){
-                                   
+                                    
+                                    pez[i].notifyObservers_pezmuere();
                                      pez[i].getPane().setVisible(false);
                                      pez[i].palabra.setEstado(-1);
                                      pez[i].setEstado();
@@ -438,7 +439,7 @@ public class Mar extends Thread{
                         pez[palabra_activa].setEstado();
                         pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
-                        pez[palabra_activa].setEstado();
+                        //pez[palabra_activa].setEstado();
                         pez[palabra_activa].palabra.setEstado(-1);
                         
 

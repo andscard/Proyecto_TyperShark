@@ -45,12 +45,20 @@ public class Pez extends Thread implements Subject{
       public void removeObserver( Observer o ) {
             observers.remove( o );
       }
-      private void notifyObservers_pezllegafinal() {
+      public void notifyObservers_pezllegafinal() {
             // loop through and notify each observer
             Iterator i = observers.iterator();
             while( i.hasNext() ) {
                   Observer o = ( Observer ) i.next();
                   o.update( this , "pez_llega");
+            }
+      }
+    public void notifyObservers_pezmuere() {
+            // loop through and notify each observer
+            Iterator i = observers.iterator();
+            while( i.hasNext() ) {
+                  Observer o = ( Observer ) i.next();
+                  o.update( this , "pez_muere");
             }
       }
 
