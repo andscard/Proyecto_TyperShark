@@ -252,10 +252,12 @@ public class Pez extends Thread implements Subject{
     public void run(){
         
             while(!stop){
+                if(estado==Estado.MUERTO){stop=true;}
                 Platform.runLater(new Runnable(){
                     @Override
                     public void run() {
                        
+                        
                             pane.setTranslateX(pane.getTranslateX()-velocidad );
                             System.out.println(pane.getTranslateX());
                             
