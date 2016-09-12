@@ -336,7 +336,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=1;
+    int aleatorio=2;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -376,6 +376,7 @@ public class Mar extends Thread{
              int posicion_palabra;
              int palabra_activa = -1;
              int contador=pez.length; 
+             int cont_palabras=0;
              int cont=0;
            
              if(contador!=-1){   
@@ -383,7 +384,8 @@ public class Mar extends Thread{
                   if (pez[i].palabra.getEstado()==1)
                     palabra_activa = i;
               }
-                  
+                     
+                     
               if(palabra_activa==-1){
                   for(int i=0;i<contador;i++){
                       if(pez[i].palabra.getEstado()==0){
@@ -391,7 +393,8 @@ public class Mar extends Thread{
                         if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
                               pez[i].palabra.cambiarColorLetras(0);
                                 if(pez[i].palabra.getPalabra().length()==1){
-                                   
+                                     buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
+                                     System.out.println("Puntaje: "+buceador.getPuntaje());
                                      pez[i].getPane().setVisible(false);
                                      pez[i].palabra.setEstado(-1);
                                      pez[i].setEstado();
@@ -424,17 +427,34 @@ public class Mar extends Thread{
                          
                    }
                       if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
-                          System.out.println("Terminaste de escribirrrrr");
+                           pez[palabra_activa].palabra.setEstado(-1);
+                         
+                       if(pez[palabra_activa].palabra.getNum_palabras()>1){
+                           
+                           cont_palabras=cont_palabras+1;
+                           
+                            
+                              if(!pez[palabra_activa].palabra.listaVaciaPalabras()){
+                                  pez[palabra_activa].palabra.cargarPalabra(cont_palabras);
+                              
+                                  pez[palabra_activa].palabra.setEstado(0);
+                                    
+                              }
+                            
+                         }
+                            
+                            else{
+                          
+                       System.out.println("Terminaste de escribirrrrr");
                         
                         buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
                          System.out.println("Puntaje: "+buceador.getPuntaje());
                         pez[palabra_activa].setEstado();
                         pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
-                        pez[palabra_activa].setEstado();
-                        pez[palabra_activa].palabra.setEstado(-1);
                         
-
+                        
+                            }
                         } 
                    
                    

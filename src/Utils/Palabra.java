@@ -57,10 +57,17 @@ public class Palabra  {
     }
   
     
+    
+    
     public void setPalabra(String nueva_palabra) {
          this.palabra=nueva_palabra;
     }
   
+    public void eliminarPalabraDeLista(int posicion){
+          this.palabras.remove(posicion);
+    
+    }
+    
     public void cargarPalabra(int num_palabra) {
            this.setPalabra(this.palabras.get(num_palabra));
     }
@@ -139,6 +146,14 @@ public class Palabra  {
      */
     public void setNum_palabras(int num_palabras) {
         this.num_palabras = num_palabras;
+    }
+
+    /**
+     * @param palabras the palabras to set
+     * @return 
+     */
+    public boolean  listaVaciaPalabras() {
+        return this.palabras.isEmpty();
     }
 
        
