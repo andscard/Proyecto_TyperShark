@@ -69,14 +69,7 @@ public class Pez extends Thread{
     }
 
     
-    /**
-     *  El método setEstado, cambia el estado de
-     * @param estado 
-     */
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-    
+   
     
     /**
      * El método set_image recibe como parámetro una Imagen de un tipo de pez, está será
@@ -113,6 +106,12 @@ public class Pez extends Thread{
         this.lista_words=lista_words;
     } 
     
+    
+    
+    /**
+     *  El método setEstado, cambia el estado de VIVO A MUERTO
+     * 
+     */
     public void setEstado(){
     this.estado=Estado.MUERTO;}
     
@@ -226,6 +225,7 @@ public class Pez extends Thread{
                        
                             pane.setTranslateX(pane.getTranslateX()-velocidad );
                             System.out.println(pane.getTranslateX());
+                            
                             
                             if (pane.getTranslateX()<=-720){
                                 posicion.setPos_x(-720);

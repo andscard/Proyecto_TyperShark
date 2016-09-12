@@ -231,7 +231,7 @@ public class Mar extends Thread{
                 lista_palabras.add(palabras_tiburones.get(j));
 
             }
-            this.tiburon_negro[i] = new TiburonNegro(10, velocidad + 2, 720, cont + 20, lista_palabras);
+            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20, lista_palabras);
             palabras_tiburones.remove(0);
             palabras_tiburones.remove(0);
             palabras_tiburones.remove(0);
@@ -336,7 +336,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=2;
+    int aleatorio=1;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -366,6 +366,94 @@ public class Mar extends Thread{
     
     
     
+    private class KeyPressed implements EventHandler<KeyEvent> {
+        private Pez pez[]=pez_mar;
+
+        
+        @Override
+                
+            public void handle(KeyEvent event) {
+             int posicion_palabra;
+             int palabra_activa = -1;
+             int contador=pez.length; 
+             int cont=0;
+           
+             if(contador!=-1){   
+                     for(int i=0;i<contador;i++){
+                  if (pez[i].palabra.getEstado()==1)
+                    palabra_activa = i;
+              }
+                  
+              if(palabra_activa==-1){
+                  for(int i=0;i<contador;i++){
+                      if(pez[i].palabra.getEstado()==0){
+                         
+                        if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
+                              pez[i].palabra.cambiarColorLetras(0);
+                                if(pez[i].palabra.getPalabra().length()==1){
+                                   
+                                     pez[i].getPane().setVisible(false);
+                                     pez[i].palabra.setEstado(-1);
+                                     pez[i].setEstado();
+                                     break;
+                                } 
+                                else{
+                                 pez[i].palabra.setEstado(1);
+                                 pez[i].palabra.cambiarColorLetras(0); 
+                                 pez[i].palabra.setPosicion(1);}// cierra longitud
+                                
+                        }
+                      }
+                    }
+              }//cierra palabra activa -1
+              
+              //
+              else{
+                  
+                  cont=pez[palabra_activa].palabra.getPosicion();
+                  
+                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont)){
+                       
+                    if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
+                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont) ){
+                       
+                        pez[palabra_activa].palabra.cambiarColorLetras(cont);
+                        cont=cont+1; 
+                        pez[palabra_activa].palabra.setPosicion(cont);
+                     }
+                         
+                   }
+                      if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
+                          System.out.println("Terminaste de escribirrrrr");
+                        
+                        buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
+                         System.out.println("Puntaje: "+buceador.getPuntaje());
+                        pez[palabra_activa].setEstado();
+                        pez[palabra_activa].getPane().setVisible(false);
+                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
+                        pez[palabra_activa].setEstado();
+                        pez[palabra_activa].palabra.setEstado(-1);
+                        
+
+                        } 
+                   
+                   
+                   }
+                  
+                  else {
+                        pez[palabra_activa].setVelocidad(20);
+                  }
+   
+              }
+              
+           }
+            }
+    }
+    
+    
+    
+    //FUNCION QUE SI VALEEEEEEEEEE ///////////////
+    /**
     private class KeyPressed implements EventHandler<KeyEvent> {
         private Pez pez[]=pez_mar;
 
@@ -421,8 +509,9 @@ public class Mar extends Thread{
                    }
                       if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
                           System.out.println("Terminaste de escribirrrrr");
-                         System.out.println("Puntaje: "+buceador.getPuntaje());
+                        
                         buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
+                         System.out.println("Puntaje: "+buceador.getPuntaje());
                         pez[palabra_activa].setEstado();
                         pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
@@ -457,7 +546,8 @@ public class Mar extends Thread{
     
     
     
-    }
+    }**/
+    
     @Override
     public void run(){
         

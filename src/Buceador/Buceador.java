@@ -90,7 +90,9 @@ public class Buceador extends Thread implements Comparable<Buceador> {
         return metros;
     }
     
-    
+     public void setMetros(double metros) {
+        this.metros=metros;
+    }
      public Pane getPane(){
             return this.pane;
     }
@@ -146,7 +148,9 @@ public class Buceador extends Thread implements Comparable<Buceador> {
                     
                   System.out.println("METROS:"+pane.getTranslateY());
                   metros+=1;
+                  setMetros(metros);
                   System.out.println(metros);
+                  System.out.println(getPuntaje());
                   
                   
                    if (pane.getTranslateY()==465){
