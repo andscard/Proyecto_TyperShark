@@ -5,7 +5,10 @@
  */
 package Buceador;
 
+import Pez.Pez;
+import Utils.Observer;
 import Utils.Posicion;
+import Utils.Subject;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -31,7 +34,7 @@ import javafx.scene.text.FontWeight;
  * 
  * @author Mayken
  */
-public class Buceador extends Thread implements Comparable<Buceador> {
+public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     private String nombre;
     private int vidas;
     private int puntaje;
@@ -116,6 +119,9 @@ public class Buceador extends Thread implements Comparable<Buceador> {
         return metros;
     }
     
+    public int getNivel(){
+        return nivel;}
+    
     public void setNivel(int nivel){
     this.nivel=nivel;}
     
@@ -144,9 +150,12 @@ public class Buceador extends Thread implements Comparable<Buceador> {
             this.arma_especial = false;
         }
     }
+    /*public boolean haCambiadoDeNivel(){
+    boolean cambio;
     
+    }*/
     public void cambiarNivel(){
-        if (puntaje % 300 == 0) {
+        if (puntaje>300 && puntaje<350) {
         this.nivel=nivel+1;}  
     }
     
@@ -205,6 +214,20 @@ public class Buceador extends Thread implements Comparable<Buceador> {
     }else{
         return 0;}   
     }
+
+    @Override
+    public void update(Subject o, String evento) {
+        
+        Pez p=(Pez)o;
+        System.out.println(p.getClass());
+        if (evento.equals("pez_llega")){
+        this.vidas-=1;
+            System.out.println("Perdio una vida");
+        }
+        
+    }
+
+   
     
      private class ClickHandler implements EventHandler<ActionEvent> {
         @Override

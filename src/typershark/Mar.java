@@ -74,8 +74,8 @@ public class Mar extends Thread{
      
     public Mar(String name){
         panel_mar=new BorderPane();
-        nivel=3;
         buceador= new Buceador(name);
+        nivel=buceador.getNivel();
         velocidad=0;
         num_peces=(int)(new Random().nextDouble()*5+1);
         System.out.println(this.num_peces);
@@ -303,7 +303,9 @@ public class Mar extends Thread{
     
     public void ubicarPecesMar(Pane mar,Pez pez[]){
         for (int i=0; i<this.num_peces ;i++){
-             mar.getChildren().addAll(pez[i].getPane());
+            pez[i].addObserver(buceador);
+            mar.getChildren().addAll(pez[i].getPane());
+             
         }
     }
     
@@ -431,7 +433,7 @@ public class Mar extends Thread{
                       if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
                           System.out.println("Terminaste de escribirrrrr");
                         
-                        buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
+                        buceador.setPuntaje(pez[palabra_activa].getPuntos());
                          System.out.println("Puntaje: "+buceador.getPuntaje());
                         pez[palabra_activa].setEstado();
                         pez[palabra_activa].getPane().setVisible(false);
