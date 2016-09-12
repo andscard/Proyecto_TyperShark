@@ -190,7 +190,7 @@ public class Mar extends Thread{
         ArrayList<String> lista_words= new ArrayList<String>();
         
         for (int i = 0; i < this.num_peces; i++) {
-            this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,730, cont + 20);
+            this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,730, cont + 20,null);
             this.tiburon_negro[i].setListaPalabras(lista_words);
             TiburonNegro tiburon=(TiburonNegro)this.tiburon_negro[i];
 
@@ -212,8 +212,38 @@ public class Mar extends Thread{
             cont=cont+90;
         }
     }
+**/
+    
+    
+    public void arregloDeTiburonesNegros() {
+        int cont=0;
+        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro();
+        ArrayList<String> lista_palabras=new ArrayList<String> ();
+        System.out.println(palabras_tiburones.size());
+         System.out.println("NUMERO PECES:"+num_peces);
+        for (int i = 0; i < this.num_peces; i++) {
+            //int num_palabras = (int) (Math.random ()*(2)+ 2);
+            int num_palabras = 2;
+            
+            System.out.println("num palabras"+num_palabras);
+            for (int j = 0; j < num_palabras; j++) {
 
-    **/
+                lista_palabras.add(palabras_tiburones.get(j));
+
+            }
+            this.tiburon_negro[i] = new TiburonNegro(10, velocidad + 2, 720, cont + 20, lista_palabras);
+            palabras_tiburones.remove(0);
+            palabras_tiburones.remove(0);
+            palabras_tiburones.remove(0);
+            lista_palabras.clear();
+            cont = cont + 90;
+            this.tiburon_negro[i].start();
+            
+        }
+    }
+    
+    
+    /**
     
       public void arregloDeTiburonesNegros() {
         Random  random = new Random();  
@@ -241,7 +271,7 @@ public class Mar extends Thread{
             
       }      
                
-           
+    **/       
     
     
     

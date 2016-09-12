@@ -31,7 +31,7 @@ public class Palabra  {
      * @param palabra 
      */
     
-     public Palabra(ArrayList<String> palabras) {
+     public Palabra(ArrayList<String>palabras) {
         this.palabras = palabras;
         this.num_palabras= palabras.size();
         this.palabra = palabras.get(0);
@@ -61,18 +61,25 @@ public class Palabra  {
          this.palabra=nueva_palabra;
     }
   
-    public void cargarPalabra() {
-       for(int i=0; i<num_palabras;i++){
-           this.setPalabra(this.palabras.get(i));
-       }
+    public void cargarPalabra(int num_palabra) {
+           this.setPalabra(this.palabras.get(num_palabra));
     }
   
-
-    
-       public int  getLongitudPalabra() {
+   
+    /**
+     * El método getLongitudPalabra() permite conocer la longitud de la palabra
+     * del Pez
+     * @return longitud de la palbra tipo de dato dato
+     */
+    public int  getLongitudPalabra() {
         return palabra.length();
     }
 
+    /**
+     * Ek método getLabel(), permite obtener un arreglo tipo Label de 
+     * del caracter o de cada una de las letras que forman la palabra del pez.  
+     * @return label_letras tipo de dato Label
+     */
     public Label[] getLabel() {
         return label_letras;
     }
@@ -118,6 +125,20 @@ public class Palabra  {
      */
     public void setPosicion(int posicion_actual) {
         this.posicion = posicion_actual;
+    }
+
+    /**
+     * @return the num_palabras
+     */
+    public int getNum_palabras() {
+        return num_palabras;
+    }
+
+    /**
+     * @param num_palabras the num_palabras to set
+     */
+    public void setNum_palabras(int num_palabras) {
+        this.num_palabras = num_palabras;
     }
 
        

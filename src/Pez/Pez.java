@@ -19,10 +19,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 /**
- * La Clase Pez alamacena funciones útiles como obtner y modificar puntos (Valor de cada pez), 
- * velocidas,estado del pez,posicion
- * @author Mayken Salavarría
- * @author Andrea Cárdenas
+ * La Clase Pez almacena funciones útiles como obtener y modificar puntos (Valor de cada pez), 
+ * velocidad,estado del pez,posicion.
+ * @author Mayken Salavarría Tutivén
+ * @author Andrea Cárdenas Sumba
+ * 
+ * @version 2.0.0
+ * 
  */
 public class Pez extends Thread{
     
@@ -65,14 +68,19 @@ public class Pez extends Thread{
         
     }
 
+    
+    /**
+     *  El método setEstado, cambia el estado de
+     * @param estado 
+     */
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
     
     
     /**
-     * El método set_image recibe como parámetro una Imagen, está será
-     * ubicada en el panel junto con la palabra respectiva del pez
+     * El método set_image recibe como parámetro una Imagen de un tipo de pez, está será
+     * ubicada en el panel junto con la palabra respectiva.
      * @param imagen tipo ImageView
      */
     public void set_image(ImageView imagen){
@@ -83,6 +91,7 @@ public class Pez extends Thread{
     this.pane.autosize();
         
     }
+    
     /**
      * El método getPuntos retorna los puntos(valor)
      * asignado a cada pez
@@ -113,26 +122,40 @@ public class Pez extends Thread{
     /**
      * El método getVelocidad retorna la velocidad (pixeles a moverse)
      * de cada pez
-     * @return veloidad tipo decimal.
+     * @return velocidad tipo decimal.
      */
     public double getVelocidad() {
         return velocidad;
     }
 
+    
+    /**
+     * El método setVelocidad, modifica la velocidad del pez cuando un caracter
+     * ha sido mal escrito o cuando existe un cambio de nivel.
+     * @param velocidad tipo de dato entero
+     */
     public void setVelocidad(double velocidad) {
         this.velocidad = velocidad;
     }
-    /*
-    public void setLabel(String word){
-    this.label.setText(word);}
-    */
+    
+    /**
+     * El método getPosicion nos permite conocer la posicion actual de un Pez.
+     * @return posicion tipo Posicion 
+     */
     public Posicion getPoscion (){
         return this.posicion;}
+    
+    
+    /**
+     * El método getPane nos devuelve el panel de un pez.
+     * @return pane tipo Pane
+     */    
     
      public Pane getPane(){
             return this.pane;
     }
      
+   /**
      public boolean pezDentroDelMar() {
         boolean en_el_mar;
         if (pane.getTranslateX() <= -740) {
@@ -144,7 +167,9 @@ public class Pez extends Thread{
         }
      }
     
-    
+    **/
+     
+     /**
     @Override
     public void run(){
         
@@ -157,8 +182,8 @@ public class Pez extends Thread{
                             System.out.println(pane.getTranslateX());
 
                            
-                            if(pezDentroDelMar()==false){    
-                            stop=true;
+                           // if(pezDentroDelMar()==false){    
+                           // stop=true;
 
                             
                             if (pane.getTranslateX()==-720){
@@ -170,10 +195,10 @@ public class Pez extends Thread{
                             
                             
                             if(estado==Estado.MUERTO){
-                            pane.setVisible(false);
+                               pane.setVisible(false);
                                 stop=true;}
                         
-                    }
+                  // }
                     
                
                 try {
@@ -187,6 +212,37 @@ public class Pez extends Thread{
                         }
     }
     
+    **/
+     
+     
+     
+     @Override
+    public void run(){
+        
+            while(!stop){
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run() {
+                       
+                            pane.setTranslateX(pane.getTranslateX()-velocidad );
+                            System.out.println(pane.getTranslateX());
+                            
+                            if (pane.getTranslateX()<=-720){
+                                posicion.setPos_x(-720);
+                                stop=true;
+                                pane.setVisible(false);}
+                        
+                    }
+                    
+                });
+                try {
+                    Pez.sleep(200);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+      
+    }
     
     
 

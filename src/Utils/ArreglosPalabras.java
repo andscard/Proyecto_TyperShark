@@ -24,7 +24,9 @@ public class ArreglosPalabras {
     private ArrayList<String> palabras_pulpo ;
     private ArrayList<String> letras ;
     
-    
+    /**
+     * 
+     */
      public ArreglosPalabras(){
         this.palabras_archivo=this.cargarPalabrasArchivo("ListaPalabras.txt");
         this.letras=this.llenarArregloAbecedario();
@@ -63,32 +65,32 @@ public class ArreglosPalabras {
      
             ArrayList<String> letras =new ArrayList<String>();
             
-            letras.add("A");
-            letras.add("B");
-            letras.add("C");
-            letras.add("D");
-            letras.add("E");
-            letras.add("F");
-            letras.add("G");
-            letras.add("H");
-            letras.add("I");
-            letras.add("J");
-            letras.add("K");
-            letras.add("L");
-            letras.add("M");
-            letras.add("N");
-            letras.add("O");
-            letras.add("P");
-            letras.add("Q");
-            letras.add("R");
-            letras.add("S");
-            letras.add("T");
-            letras.add("U");
-            letras.add("V");
-            letras.add("W");
-            letras.add("X");
-            letras.add("Y");
-            letras.add("Z");
+            letras.add("a");
+            letras.add("b");
+            letras.add("c");
+            letras.add("d");
+            letras.add("e");
+            letras.add("f");
+            letras.add("g");
+            letras.add("h");
+            letras.add("i");
+            letras.add("j");
+            letras.add("k");
+            letras.add("l");
+            letras.add("m");
+            letras.add("n");
+            letras.add("o");
+            letras.add("p");
+            letras.add("q");
+            letras.add("r");
+            letras.add("s");
+            letras.add("t");
+            letras.add("u");
+            letras.add("v");
+            letras.add("w");
+            letras.add("x");
+            letras.add("y");
+            letras.add("z");
     
             
      return letras;
@@ -123,7 +125,21 @@ public class ArreglosPalabras {
     }
     
    
-   
+     public ArrayList<String> arregloPalabrasTiburonesNegro(){
+    ArrayList<String> palabras1=this.arregloPalabrasTiburones(5);
+    ArrayList<String> palabras2=this.arregloPalabrasTiburones(5);
+    ArrayList<String> palabras3=this.arregloPalabrasTiburones(5);
+    ArrayList<String> arreglo_final=new ArrayList();
+        for (int i=0; i<5;i++){
+        arreglo_final.add(palabras1.get(i));
+        arreglo_final.add(palabras2.get(i));
+        arreglo_final.add(palabras2.get(i));}
+    
+    return arreglo_final;
+    }
+    
+    
+   /**
     public ArrayList<String> arregloPalabrasTiburonesNegro(int num_tiburones){
     ArrayList<String> palabras1=this.arregloPalabrasTiburones(num_tiburones);
     ArrayList<String> palabras2=this.arregloPalabrasTiburones(num_tiburones);
@@ -136,13 +152,17 @@ public class ArreglosPalabras {
 
     return arreglo_final;
     }
+   
+   
+    
+    **/
     
     
-    public String palabraPulpo(){
-      String palabra;
+    public ArrayList<String> palabraPulpo(){
+      ArrayList<String> palabra= new ArrayList<>();
       ArrayList<String> palabras_pulpo = this.cargarPalabrasArchivo("PalabrasPulpo.txt");
       int num=(int)Math.random()*8+0;
-      palabra= palabras_pulpo.get(num);
+      palabra.add(palabras_pulpo.get(num));
       return palabra;
     }
     
