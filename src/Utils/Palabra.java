@@ -9,6 +9,7 @@ package Utils;
 import java.util.ArrayList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -19,11 +20,12 @@ import javafx.scene.text.Font;
     
 public class Palabra  {
     private int num_palabras;
-    private ArrayList<String> palabras;
+    private ArrayList<String> lista_palabras;
     private String palabra;
     private Label []label_letras;
     private  int posicion;
     private int estado;
+    private HBox panel;
    
     
     /**
@@ -32,14 +34,14 @@ public class Palabra  {
      */
     
      public Palabra(ArrayList<String>palabras) {
-        this.palabras = palabras;
+        this.lista_palabras = palabras;
         this.num_palabras= palabras.size();
         this.palabra = palabras.get(0);
         this.posicion=0;
         this.estado=0;
         this.llenarArregoLetras();
-        
-        
+        this.panel=new HBox(); 
+        this.cargarPalabra(0);
     }
    
     
@@ -63,13 +65,12 @@ public class Palabra  {
          this.palabra=nueva_palabra;
     }
   
-    public void eliminarPalabraDeLista(int posicion){
-          this.palabras.remove(posicion);
+ 
     
-    }
-    
-    public void cargarPalabra(int num_palabra) {
-           this.setPalabra(this.palabras.get(num_palabra));
+    public void cargarPalabra(int indice_palabra) {
+           this.setPalabra(this.lista_palabras.get(indice_palabra));
+           this.llenarArregoLetras();
+           this.addPalabraPanel();
     }
   
    
@@ -111,13 +112,18 @@ public class Palabra  {
     }
 
     
-    public HBox panelPalabra(){
+    /*public HBox panelPalabra(){
          HBox palabras = new HBox();
          palabras.getChildren().addAll(label_letras);
          
          return palabras;
-    }
-
+    }*/
+    
+    public HBox panelPalabra(){
+        return this.panel;}
+    
+    public void addPalabraPanel(){
+    this.panel.getChildren().addAll(this.label_letras);}
     /**
      * @return posicion retorna un tipo de dato entero, indica la posicion 
      * de la letra a escribir por teclado. 
@@ -153,7 +159,7 @@ public class Palabra  {
      * @return 
      */
     public boolean  listaVaciaPalabras() {
-        return this.palabras.isEmpty();
+        return this.lista_palabras.isEmpty();
     }
 
        

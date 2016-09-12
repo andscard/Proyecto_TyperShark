@@ -310,7 +310,7 @@ public class Mar extends Thread{
     
     public void disminuirVidas(){
     for (Pez t: tiburon){
-        if(t.getPoscion().getPos_x()==-720){
+        if(t.getPosicion().getPos_x()==-720){
             this.buceador.setVidas(-1);
         }
      }
@@ -435,16 +435,13 @@ public class Mar extends Thread{
                            pez[palabra_activa].palabra.setEstado(-1);
                          
                        if(pez[palabra_activa].palabra.getNum_palabras()>1){
+                           if(cont_palabras<pez[palabra_activa].palabra.getNum_palabras()){
+                            cont_palabras=cont_palabras+1;
+                            cont=0;
+                            pez[palabra_activa].palabra.cargarPalabra(cont_palabras);
+                            pez[palabra_activa].palabra.setEstado(0);
+                           }
                            
-                           cont_palabras=cont_palabras+1;
-                           
-                            
-                              if(!pez[palabra_activa].palabra.listaVaciaPalabras()){
-                                  pez[palabra_activa].palabra.cargarPalabra(cont_palabras);
-                              
-                                  pez[palabra_activa].palabra.setEstado(0);
-                                    
-                              }
                             
                          }
                             

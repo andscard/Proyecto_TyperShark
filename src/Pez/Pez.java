@@ -141,7 +141,7 @@ public class Pez extends Thread{
      * El método getPosicion nos permite conocer la posicion actual de un Pez.
      * @return posicion tipo Posicion 
      */
-    public Posicion getPoscion (){
+    public Posicion getPosicion (){
         return this.posicion;}
     
     
