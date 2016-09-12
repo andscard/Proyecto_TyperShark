@@ -236,6 +236,7 @@ public class Buceador extends Thread implements Comparable<Buceador> {
                     
                   System.out.println("METROS:"+pane.getTranslateY());
                   metros+=1;
+                  //setMetros(metros);
                   System.out.println(metros);
                   String mensaje_arma="Presione ENTER";
                     puntaje_string.setText(String.valueOf(puntaje));
