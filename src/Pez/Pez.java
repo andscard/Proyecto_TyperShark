@@ -8,7 +8,10 @@ package Pez;
 import Utils.ArreglosPalabras;
 import Utils.Palabra;
 import Utils.Posicion;
+import Utils.Subject;
 import java.util.ArrayList;
+import java.util.Iterator;
+import Utils.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -27,11 +30,33 @@ import javafx.scene.layout.Pane;
  * @version 2.0.0
  * 
  */
-public class Pez extends Thread{
+public class Pez extends Thread implements Subject{
     
     private int puntos;
     private double velocidad;
     private Estado estado;
+    private ArrayList observers = new ArrayList();
+   
+    @Override
+    public void addObserver( Observer o ) {
+            observers.add( o );
+      }
+      @Override
+      public void removeObserver( Observer o ) {
+            observers.remove( o );
+      }
+      private void notifyObservers_pezllegafinal() {
+            // loop through and notify each observer
+            Iterator i = observers.iterator();
+            while( i.hasNext() ) {
+                  Observer o = ( Observer ) i.next();
+                  o.update( this , "pez_llega");
+            }
+      }
+
+   
+
+   
     public enum Estado{VIVO,MUERTO};
     private Pane pane;
     private HBox  pane_palabra;
@@ -227,10 +252,15 @@ public class Pez extends Thread{
                             System.out.println(pane.getTranslateX());
                             
                             
+                                                        
                             if (pane.getTranslateX()<=-720){
                                 posicion.setPos_x(-720);
                                 stop=true;
-                                pane.setVisible(false);}
+                                pane.setVisible(false);
+                                
+                                 notifyObservers_pezllegafinal();
+                         
+                            }
                         
                     }
                     
