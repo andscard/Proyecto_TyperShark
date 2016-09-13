@@ -35,6 +35,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -179,7 +180,7 @@ public class Mar extends Thread{
         ArrayList<String> una_palabra= new ArrayList();
         for (int i = 0; i < palabras_tiburones.size(); i++) {
             una_palabra.add(palabras_tiburones.get(i));
-            this.tiburon[i] = new Tiburon(10,velocidad +2 , 730, 20+cont ,una_palabra );
+            this.tiburon[i] = new Tiburon(200,velocidad +2 , 730, 20+cont ,una_palabra );
             //this.tiburon[i].start();
             una_palabra.clear();
     
@@ -343,7 +344,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=6;
+    int aleatorio=2;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -363,6 +364,14 @@ public class Mar extends Thread{
     
     }
     
+    public void matarPecesConArmaEspecial(){
+    if(buceador.getEstadoArmaEspecial()==true){
+       
+        for (int i=0; i<pez_mar.length ;i++){
+            pez_mar[i].setEstadoVida();
+        }
+    }
+    }
     
    /* private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
@@ -385,7 +394,13 @@ public class Mar extends Thread{
              int contador=pez.length; 
              int cont_palabras=0;
              int posicion=0;
-           
+            //palabra_activa es variable que indicia qué pez del arreglo está en juego 
+             //si palabra_activa=-1 , ningun pez ha sido seleccionado 
+             
+             //ESTADOS DE LAS PALBRAS DE UN PEZ:
+             //EstadoPalabra=0 -> la palabra que tiene el pez no ha sido escrita
+             //EstadoPalabra=1 -> la palabra que tiene el pez está siendo escrita
+             //EstadoPalabra=-1 -> la palabra que tiene el pez ya se escribió
              if(contador!=-1){   
                      for(int i=0;i<contador;i++){
                   if (pez[i].palabra.getEstado()==1)
@@ -396,19 +411,21 @@ public class Mar extends Thread{
               if(palabra_activa==-1){
                   for(int i=0;i<contador;i++){
                       if(pez[i].palabra.getEstado()==0){
-                         
+                        
                         if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
                               pez[i].palabra.cambiarColorLetras(0);
+                              //Se valida el char de la piraña para que desaparezca a la primera coincidencia
                                 if(pez[i].palabra.getPalabra().length()==1){
-                                    
+                                    pez[i].setEstadoVida();
                                     pez[i].notifyObservers_pezmuere();
                                    // pez[i].stop();
-                                     pez[i].getPane().setVisible(false);
+                                     //pez[i].getPane().setVisible(false);
                                      pez[i].palabra.setEstado(-1);
-                                     pez[i].setEstado();
+                                     
                                      break;
                                 } 
                                 else{
+                                //la palabra es de una longitud de mayor a 1
                                  pez[i].palabra.setEstado(1);
                                  pez[i].palabra.cambiarColorLetras(0); 
                                  pez[i].palabra.setPosicion(1);}// cierra longitud
@@ -420,6 +437,8 @@ public class Mar extends Thread{
               
               //
               else{
+                  
+                  
                   
                   posicion=pez[palabra_activa].palabra.getPosicion();
                   
@@ -434,10 +453,12 @@ public class Mar extends Thread{
                      }
                          
                    }
+                    //Posicion del curso es igual a la longitud de la palabra, aquí muere el pez
                       if(posicion ==pez[palabra_activa].palabra.getLongitudPalabra()){
-                           pez[palabra_activa].setEstado();
-                           pez[palabra_activa].palabra.setEstado(-1);
+                           //pez[palabra_activa].setEstadoVida();
                          
+                           pez[palabra_activa].palabra.setEstado(-1);
+                           
                        if(pez[palabra_activa].palabra.getNum_palabras()>1){
                            if(cont_palabras<pez[palabra_activa].palabra.getNum_palabras()){
                             cont_palabras=cont_palabras+1;
@@ -453,10 +474,11 @@ public class Mar extends Thread{
                           
                        System.out.println("Terminaste de escribirrrrr");
                         
-                        buceador.setPuntaje(pez[palabra_activa].getPuntos());
-                         System.out.println("Puntaje: "+buceador.getPuntaje());
-                        pez[palabra_activa].setEstado();
-                        pez[palabra_activa].getPane().setVisible(false);
+                        //buceador.setPuntaje(pez[palabra_activa].getPuntos()); 
+                        System.out.println("Puntaje: "+buceador.getPuntaje());
+                        pez[palabra_activa].setEstadoVida();
+                        pez[palabra_activa].notifyObservers_pezmuere();
+                        //pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
                         
                         
@@ -473,6 +495,12 @@ public class Mar extends Thread{
               }
               
            }
+             
+             
+             
+             
+             
+             
             }
     }
     
