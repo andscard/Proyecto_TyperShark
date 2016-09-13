@@ -401,6 +401,10 @@ public class Mar extends Thread{
              //EstadoPalabra=0 -> la palabra que tiene el pez no ha sido escrita
              //EstadoPalabra=1 -> la palabra que tiene el pez está siendo escrita
              //EstadoPalabra=-1 -> la palabra que tiene el pez ya se escribió
+             if (event.getCode() == KeyCode.ENTER) {
+                    System.out.println("Enter Pressed");
+                }
+             
              if(contador!=-1){   
                      for(int i=0;i<contador;i++){
                   if (pez[i].palabra.getEstado()==1)
