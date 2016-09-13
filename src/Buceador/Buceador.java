@@ -6,6 +6,7 @@
 package Buceador;
 
 import Pez.Pez;
+import Pez.Piraña;
 import Utils.Observer;
 import Utils.Posicion;
 import Utils.Subject;
@@ -219,10 +220,17 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     public void update(Subject o, String evento) {
         
         Pez p=(Pez)o;
-        System.out.println(p.getClass());
-        if (evento.equals("pez_llega")){
-        this.vidas-=1;
-            System.out.println("Perdio una vida");
+        //System.out.println(p.getClass());
+        switch (evento) {
+            case "pez_llega":
+                this.vidas-=1;
+                // if(this.vidas<0){this.vidas=0;}
+                System.out.println("Perdio una vida");
+                break;
+            case "pez_muere":
+                this.puntaje+=p.getPuntos();
+                System.out.println("Aumento "+p.getPuntos());
+                break;
         }
         
     }
@@ -298,16 +306,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     
     
     
-    Event a;
-    public class ManejaVidas implements EventHandler<Event>{
-
-        @Override
-        public void handle(Event event) {
-       
-           System.out.print(event.getTarget().toString());
-        }
     
-    }
     
    
 }

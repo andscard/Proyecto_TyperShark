@@ -119,7 +119,11 @@ public class MenuPrincipal {
     private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-            formulario.setNombre(formulario.getTexto().getText());
+        
+        formulario.setNombre(formulario.getTexto().getText());
+        if (formulario.getTexto().getText().isEmpty()){
+            formulario.setNombre("Anonimo");
+        }
             //stage.close();
         mar=new Mar(formulario.getNombre());   
         Scene scene2 = new Scene (mar.getMar());

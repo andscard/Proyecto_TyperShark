@@ -180,7 +180,7 @@ public class Mar extends Thread{
         for (int i = 0; i < palabras_tiburones.size(); i++) {
             una_palabra.add(palabras_tiburones.get(i));
             this.tiburon[i] = new Tiburon(10,velocidad +2 , 730, 20+cont ,una_palabra );
-            this.tiburon[i].start();
+            //this.tiburon[i].start();
             una_palabra.clear();
     
         cont= cont+90;
@@ -242,7 +242,7 @@ public class Mar extends Thread{
             palabras_tiburones.remove(0);
             lista_palabras.clear();
             cont = cont + 90;
-            this.tiburon_negro[i].start();
+            //this.tiburon_negro[i].start();
             
         }
     }
@@ -287,7 +287,7 @@ public class Mar extends Thread{
         for (int i = 0; i < letras_pirañas.size(); i++) {
                 una_letra.add(letras_pirañas.get(i));
                 this.piraña[i] = new Piraña(5,velocidad +3, 740, cont + 20, una_letra);
-                this.piraña[i].start();
+                //this.piraña[i].start();
                 una_letra.clear();
                 cont=cont+70;           
         }
@@ -297,7 +297,7 @@ public class Mar extends Thread{
         
         ArrayList<String>palabra=arreglo_palabras.palabraPulpo();
         this.pulpo[0]=new Pulpo(25,2.5,650,40,palabra);
-        this.pulpo[0].start();
+        //this.pulpo[0].start();
     }
     
     
@@ -305,7 +305,7 @@ public class Mar extends Thread{
         for (int i=0; i<this.num_peces ;i++){
             pez[i].addObserver(buceador);
             mar.getChildren().addAll(pez[i].getPane());
-             
+             pez[i].start();
         }
     }
     
@@ -400,8 +400,9 @@ public class Mar extends Thread{
                         if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
                               pez[i].palabra.cambiarColorLetras(0);
                                 if(pez[i].palabra.getPalabra().length()==1){
-                                     buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
-                                     System.out.println("Puntaje: "+buceador.getPuntaje());
+                                    
+                                    pez[i].notifyObservers_pezmuere();
+                                   // pez[i].stop();
                                      pez[i].getPane().setVisible(false);
                                      pez[i].palabra.setEstado(-1);
                                      pez[i].setEstado();
