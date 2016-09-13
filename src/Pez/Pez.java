@@ -257,6 +257,7 @@ public class Pez extends Thread implements Subject{
                                 posicion.setPos_x(-720);
                                 stop=true;
                                 pane.setVisible(false);
+                                palabra.setEstado(-1);
                                 
                                  notifyObservers_pezllegafinal();
                          

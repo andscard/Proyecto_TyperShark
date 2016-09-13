@@ -343,7 +343,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=2;
+    int aleatorio=0;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -434,6 +434,7 @@ public class Mar extends Thread{
                          
                    }
                       if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
+                           pez[palabra_activa].setEstado();
                            pez[palabra_activa].palabra.setEstado(-1);
                          
                        if(pez[palabra_activa].palabra.getNum_palabras()>1){
