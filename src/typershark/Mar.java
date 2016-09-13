@@ -343,7 +343,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=0;
+    int aleatorio=6;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -384,7 +384,7 @@ public class Mar extends Thread{
              int palabra_activa = -1;
              int contador=pez.length; 
              int cont_palabras=0;
-             int cont=0;
+             int posicion=0;
            
              if(contador!=-1){   
                      for(int i=0;i<contador;i++){
@@ -420,27 +420,27 @@ public class Mar extends Thread{
               //
               else{
                   
-                  cont=pez[palabra_activa].palabra.getPosicion();
+                  posicion=pez[palabra_activa].palabra.getPosicion();
                   
-                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont)){
+                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(posicion)){
                        
-                    if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
-                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont) ){
+                    if(posicion <pez[palabra_activa].palabra.getLongitudPalabra()){
+                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(posicion) ){
                        
-                        pez[palabra_activa].palabra.cambiarColorLetras(cont);
-                        cont=cont+1; 
-                        pez[palabra_activa].palabra.setPosicion(cont);
+                        pez[palabra_activa].palabra.cambiarColorLetras(posicion);
+                        posicion=posicion+1; 
+                        pez[palabra_activa].palabra.setPosicion(posicion);
                      }
                          
                    }
-                      if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
+                      if(posicion ==pez[palabra_activa].palabra.getLongitudPalabra()){
                            pez[palabra_activa].setEstado();
                            pez[palabra_activa].palabra.setEstado(-1);
                          
                        if(pez[palabra_activa].palabra.getNum_palabras()>1){
                            if(cont_palabras<pez[palabra_activa].palabra.getNum_palabras()){
                             cont_palabras=cont_palabras+1;
-                            cont=0;
+                            posicion=0;
                             pez[palabra_activa].palabra.cargarPalabra(cont_palabras);
                             pez[palabra_activa].palabra.setEstado(0);
                            }

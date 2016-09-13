@@ -1,1 +1,1 @@
- 0 3 3.0 OFF
+smsms 0 3 8.0 OFF
