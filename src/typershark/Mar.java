@@ -343,7 +343,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=6;
+    int aleatorio=2;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -401,7 +401,7 @@ public class Mar extends Thread{
                               pez[i].palabra.cambiarColorLetras(0);
                                 if(pez[i].palabra.getPalabra().length()==1){
                                     
-                                    pez[i].notifyObservers_pezmuere();
+                                   // pez[i].notifyObservers_pezmuere();
                                    // pez[i].stop();
                                      pez[i].getPane().setVisible(false);
                                      pez[i].palabra.setEstado(-1);
@@ -442,7 +442,9 @@ public class Mar extends Thread{
                            if(cont_palabras<pez[palabra_activa].palabra.getNum_palabras()){
                             cont_palabras=cont_palabras+1;
                             posicion=0;
+                            pez[palabra_activa].palabra.panelPalabra().setVisible(false);
                             pez[palabra_activa].palabra.cargarPalabra(cont_palabras);
+                            pez[palabra_activa].palabra.panelPalabra().setVisible(true);
                             pez[palabra_activa].palabra.setEstado(0);
                            }
                            
