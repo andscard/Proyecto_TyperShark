@@ -103,6 +103,13 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     public boolean getEstadoArmaEspecial() {
         return arma_especial;
     }
+    
+    public boolean isBuceadorAlive(){
+    if (this.vidas>0){
+    return true;}
+    else{
+    return false;}
+    }
 
     public void setEstadoArmaEspecial(boolean arma_especial) {
         this.arma_especial = arma_especial;
@@ -268,7 +275,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
                   if (puntaje%300==0 && puntaje>0){
                     setEstadoArmaEspecial(true);
                   }
+                  //cambiarNivel();
                   
+                   if (puntaje>=300 && puntaje<=350) {
+                         nivel=nivel+1;}  
+                   
                   String mensaje_arma="Presione ENTER";
                     puntaje_string.setText(String.valueOf(puntaje));
                     vidas_string.setText(String.valueOf(vidas));

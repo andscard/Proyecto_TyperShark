@@ -13,6 +13,7 @@ import Pez.Pulpo;
 import Pez.Tiburon;
 import Pez.TiburonNegro;
 import Utils.ArreglosPalabras;
+import Utils.Posicion;
 import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.Random;
@@ -90,6 +91,12 @@ public class Mar extends Thread{
         
         panel_peces_buceador=this.setPanelPeces();
         
+        if(buceador.isBuceadorAlive()==true && num_peces==0){
+            num_peces=(int)(new Random().nextDouble()*5+1);
+            generarPezAleatorio2();
+        }
+        System.out.println(num_peces);
+        
         panel_mar.setCenter(panel_peces_buceador);
         panel_mar.setTop(barra);
         
@@ -111,8 +118,11 @@ public class Mar extends Thread{
     
     panel_peces_buceador.getChildren().addAll(fondo, buceador.getPane());
     buceador.start();
-    this.generarPezAleatorio();
+    this.generarPezAleatorio2();
+        
+    /*if(buceador.isBuceadorAlive()==true){
     
+    }*/
     //music= new MediaPlayer(new Media(getClass().getResource("burbujas.mp3").toExternalForm()));
     //music.setAutoPlay(true);
 
@@ -180,7 +190,7 @@ public class Mar extends Thread{
         ArrayList<String> una_palabra= new ArrayList();
         for (int i = 0; i < palabras_tiburones.size(); i++) {
             una_palabra.add(palabras_tiburones.get(i));
-            this.tiburon[i] = new Tiburon(200,velocidad +2 , 730, 20+cont ,una_palabra );
+            this.tiburon[i] = new Tiburon(100,velocidad +2 , 730, 20+cont ,una_palabra );
             //this.tiburon[i].start();
             una_palabra.clear();
     
@@ -287,7 +297,7 @@ public class Mar extends Thread{
         ArrayList<String> una_letra= new ArrayList();
         for (int i = 0; i < letras_pirañas.size(); i++) {
                 una_letra.add(letras_pirañas.get(i));
-                this.piraña[i] = new Piraña(5,velocidad +3, 740, cont + 20, una_letra);
+                this.piraña[i] = new Piraña(50,velocidad +3, 740, cont + 20, una_letra);
                 //this.piraña[i].start();
                 una_letra.clear();
                 cont=cont+70;           
@@ -364,6 +374,48 @@ public class Mar extends Thread{
     
     }
     
+    private void generarPezAleatorio2(){    
+    
+    this.pez_mar= new Pez[num_peces];
+    this.arregloDeTiburones();
+    this.arregloDePirañas();
+    this.pulpo();
+    this.arregloDeTiburonesNegros(); 
+    int []numero=  {1,2,1,2,1,2,1};
+    Posicion pos;
+    //int aleatorio=0;
+    
+    for(int i =0;i<num_peces;i++){
+    int aleatorio=(int)(new Random().nextDouble()*6+0);
+    double x=new Random().nextDouble()*740+700;
+    double y=new Random().nextDouble()*90+20;
+    pos=new Posicion(x,y);
+    this.setId_Pez(numero[aleatorio]);
+    System.out.println("numero"+aleatorio);
+    
+    if(numero[aleatorio]==1) {
+        pez_mar[i]=tiburon[i];
+        pez_mar[i].setPosicion(pos);
+       
+    }
+    if(numero[aleatorio]==2){
+        pez_mar[i]=piraña[i];
+        pez_mar[i].setPosicion(pos);
+    }
+    if (numero[aleatorio]==3){
+        pez_mar[i]=tiburon_negro[i];
+        pez_mar[i].setPosicion(pos);
+    }/*else{
+        pez_mar[i]=pulpo[i];
+        panel_peces_buceador.getChildren().add(pulpo[0].getPane());
+    }*/
+    
+    }
+    
+     this.ubicarPecesMar(panel_peces_buceador,pez_mar);
+     //this.num_peces=(int)(new Random().nextDouble()*5+1);
+    }
+    
     public void matarPecesConArmaEspecial(){
     if(buceador.getEstadoArmaEspecial()==true){
        
@@ -432,7 +484,7 @@ public class Mar extends Thread{
                                    // pez[i].stop();
                                      //pez[i].getPane().setVisible(false);
                                      pez[i].palabra.setEstado(-1);
-                                     
+                                     num_peces=num_peces-1;
                                      break;
                                 } 
                                 else{
@@ -484,7 +536,8 @@ public class Mar extends Thread{
                             else{
                           
                        System.out.println("Terminaste de escribirrrrr");
-                       peces_eliminados+=1; 
+                       peces_eliminados+=1;
+                       num_peces=num_peces-1;
                        puntos_pez=pez[palabra_activa].getPuntos();
                        pez[palabra_activa].palabra.setEstado(-1);
                         //buceador.setPuntaje(pez[palabra_activa].getPuntos()); 
@@ -623,7 +676,12 @@ public class Mar extends Thread{
                     @Override
                     public void run() {
                        
-                       getMar();    
+                       if(buceador.isBuceadorAlive()==true && num_peces==0){
+                            num_peces=(int)(new Random().nextDouble()*5+1);
+                            generarPezAleatorio2();
+                        }
+                       
+                           
                     }
                     
                 });

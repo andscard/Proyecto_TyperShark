@@ -176,7 +176,8 @@ public class Pez extends Thread implements Subject{
      */
     public Posicion getPosicion (){
         return this.posicion;}
-    
+    public void setPosicion(Posicion pos){
+        this.posicion=pos;}
     
     /**
      * El método getPane nos devuelve el panel de un pez.
