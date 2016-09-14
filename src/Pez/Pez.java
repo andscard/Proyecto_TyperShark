@@ -252,9 +252,7 @@ public class Pez extends Thread implements Subject{
     public void run(){
         
             while(!stop){
-                if(estado==Estado.MUERTO){
-                    pane.setVisible(false);
-                    stop=true;}
+                
                 Platform.runLater(new Runnable(){
                     @Override
                     public void run() {
@@ -275,7 +273,9 @@ public class Pez extends Thread implements Subject{
                          
                             }
                             
-                            
+                            if(estado==Estado.MUERTO){
+                                pane.setVisible(false);
+                                stop=true;}
                         
                     }
                     

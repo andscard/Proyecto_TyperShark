@@ -264,9 +264,10 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
                   metros+=1;
                   //setMetros(metros);
                   System.out.println(metros);
-                  if (puntaje>300){
-                    
-                    setEstadoArmaEspecial(true);}
+                  
+                  if (puntaje%300==0 && puntaje>0){
+                    setEstadoArmaEspecial(true);
+                  }
                   
                   String mensaje_arma="Presione ENTER";
                     puntaje_string.setText(String.valueOf(puntaje));

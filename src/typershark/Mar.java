@@ -344,7 +344,7 @@ public class Mar extends Thread{
     this.arregloDeTiburonesNegros(); 
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
-    int aleatorio=2;
+    int aleatorio=0;
     this.setId_Pez(numero[aleatorio]);
 
     System.out.println("numero"+aleatorio);
@@ -369,7 +369,9 @@ public class Mar extends Thread{
        
         for (int i=0; i<pez_mar.length ;i++){
             pez_mar[i].setEstadoVida();
+            pez_mar[i].notifyObservers_pezmuere();
         }
+      
     }
     }
     
@@ -384,7 +386,8 @@ public class Mar extends Thread{
     
     private class KeyPressed implements EventHandler<KeyEvent> {
         private Pez pez[]=pez_mar;
-
+        private int peces_eliminados=0;
+        private int puntos_pez=0;
         
         @Override
                 
@@ -394,6 +397,7 @@ public class Mar extends Thread{
              int contador=pez.length; 
              int cont_palabras=0;
              int posicion=0;
+             
             //palabra_activa es variable que indicia qué pez del arreglo está en juego 
              //si palabra_activa=-1 , ningun pez ha sido seleccionado 
              
@@ -402,7 +406,10 @@ public class Mar extends Thread{
              //EstadoPalabra=1 -> la palabra que tiene el pez está siendo escrita
              //EstadoPalabra=-1 -> la palabra que tiene el pez ya se escribió
              if (event.getCode() == KeyCode.ENTER) {
-                    System.out.println("Enter Pressed");
+                matarPecesConArmaEspecial();
+                buceador.setPuntaje(-(peces_eliminados*puntos_pez));
+                buceador.setEstadoArmaEspecial(false);
+                 System.out.println("Enter Pressed");
                 }
              
              if(contador!=-1){   
@@ -461,7 +468,7 @@ public class Mar extends Thread{
                       if(posicion ==pez[palabra_activa].palabra.getLongitudPalabra()){
                            //pez[palabra_activa].setEstadoVida();
                          
-                           pez[palabra_activa].palabra.setEstado(-1);
+                           
                            
                        if(pez[palabra_activa].palabra.getNum_palabras()>1){
                            if(cont_palabras<pez[palabra_activa].palabra.getNum_palabras()){
@@ -477,7 +484,9 @@ public class Mar extends Thread{
                             else{
                           
                        System.out.println("Terminaste de escribirrrrr");
-                        
+                       peces_eliminados+=1; 
+                       puntos_pez=pez[palabra_activa].getPuntos();
+                       pez[palabra_activa].palabra.setEstado(-1);
                         //buceador.setPuntaje(pez[palabra_activa].getPuntos()); 
                         System.out.println("Puntaje: "+buceador.getPuntaje());
                         pez[palabra_activa].setEstadoVida();
