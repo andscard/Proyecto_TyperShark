@@ -142,10 +142,10 @@ public class Pez extends Thread implements Subject{
     
     
     /**
-     *  El método setEstado, cambia el estado de VIVO A MUERTO
+     *  El método setEstadoVida, cambia el estado de VIVO A MUERTO
      * 
      */
-    public void setEstado(){
+    public void setEstadoVida(){
     this.estado=Estado.MUERTO;}
     
     public Estado getEstado(){
@@ -176,7 +176,8 @@ public class Pez extends Thread implements Subject{
      */
     public Posicion getPosicion (){
         return this.posicion;}
-    
+    public void setPosicion(Posicion pos){
+        this.posicion=pos;}
     
     /**
      * El método getPane nos devuelve el panel de un pez.
@@ -252,7 +253,7 @@ public class Pez extends Thread implements Subject{
     public void run(){
         
             while(!stop){
-                if(estado==Estado.MUERTO){stop=true;}
+                
                 Platform.runLater(new Runnable(){
                     @Override
                     public void run() {
@@ -272,6 +273,10 @@ public class Pez extends Thread implements Subject{
                                  notifyObservers_pezllegafinal();
                          
                             }
+                            
+                            if(estado==Estado.MUERTO){
+                                pane.setVisible(false);
+                                stop=true;}
                         
                     }
                     

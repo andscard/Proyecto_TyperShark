@@ -100,11 +100,18 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
         this.puntaje = this.puntaje+puntos;
     }
 
-    public boolean armaEspecialOn() {
+    public boolean getEstadoArmaEspecial() {
         return arma_especial;
     }
+    
+    public boolean isBuceadorAlive(){
+    if (this.vidas>0){
+    return true;}
+    else{
+    return false;}
+    }
 
-    public void setArma_especial(boolean arma_especial) {
+    public void setEstadoArmaEspecial(boolean arma_especial) {
         this.arma_especial = arma_especial;
     }
 
@@ -144,13 +151,8 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     return estado;
     }
     
-    public void cambiarEstadoArmaEspecial(){
-        if (puntaje % 300 == 0) {
-            this.arma_especial = true;
-        } else {
-            this.arma_especial = false;
-        }
-    }
+
+    
     /*public boolean haCambiadoDeNivel(){
     boolean cambio;
     
@@ -269,16 +271,26 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
                   metros+=1;
                   //setMetros(metros);
                   System.out.println(metros);
+                  
+                  if (puntaje%300==0 && puntaje>0){
+                    setEstadoArmaEspecial(true);
+                  }
+                  //cambiarNivel();
+                  
+                   if (puntaje>=300 && puntaje<=350) {
+                         nivel=nivel+1;}  
+                   
                   String mensaje_arma="Presione ENTER";
                     puntaje_string.setText(String.valueOf(puntaje));
                     vidas_string.setText(String.valueOf(vidas));
                     metros_string.setText(String.valueOf(metros));
                     nivel_string.setText(String.valueOf(nivel));
-                    if (armaEspecialOn()==true){
+                    if (getEstadoArmaEspecial()==true){
                         arma_string.setText(estadoArma()+" "+mensaje_arma);
                     }else{
                         arma_string.setText(estadoArma());
                     }
+                    
                     
                     
                    if (pane.getTranslateY()==465){

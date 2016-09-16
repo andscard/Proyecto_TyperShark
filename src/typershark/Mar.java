@@ -13,6 +13,7 @@ import Pez.Pulpo;
 import Pez.Tiburon;
 import Pez.TiburonNegro;
 import Utils.ArreglosPalabras;
+import Utils.Posicion;
 import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,6 +36,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -77,7 +79,8 @@ public class Mar extends Thread{
         buceador= new Buceador(name);
         nivel=buceador.getNivel();
         velocidad=0;
-        num_peces=(int)(new Random().nextDouble()*5+1);
+        //num_peces=(int)(new Randnum_pecesom().nextDouble()*5+1);
+        num_peces=0;
         System.out.println(this.num_peces);
         //barra=this.crearToolBar();
         this.barra=buceador.getToolBar();
@@ -89,11 +92,17 @@ public class Mar extends Thread{
         
         panel_peces_buceador=this.setPanelPeces();
         
+        /*if(buceador.isBuceadorAlive()==true && num_peces==0){
+            num_peces=(int)(new Random().nextDouble()*5+1);
+            generarPezAleatorio2();
+        }*/
+        
+        
         panel_mar.setCenter(panel_peces_buceador);
         panel_mar.setTop(barra);
         
 
-        panel_mar.setOnKeyPressed(new KeyPressed());
+     //   panel_mar.setOnKeyPressed(new KeyPressed());
         
         
     //this.disminuirVidas();
@@ -110,61 +119,18 @@ public class Mar extends Thread{
     
     panel_peces_buceador.getChildren().addAll(fondo, buceador.getPane());
     buceador.start();
-    this.generarPezAleatorio();
+    //this.generarPezAleatorio2();
+        
+    /*if(buceador.isBuceadorAlive()==true){
     
+    }*/
     //music= new MediaPlayer(new Media(getClass().getResource("burbujas.mp3").toExternalForm()));
     //music.setAutoPlay(true);
 
     return panel_peces_buceador;
     }
 
-   /* public ToolBar crearToolBar() {
-        this.barra = new ToolBar();
-        ImageView coin = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/coin.gif"), 25, 25, true, true));
-        ImageView heart = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/corazon.png"), 25, 25, true, true));
-        ImageView bomba = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/bomba.png"), 25, 25, true, true));
-
-        Label lb_puntaje = new Label("PUNTAJE: ");
-        lb_puntaje.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
-        lb_puntaje.setTextFill(Color.DARKBLUE);
-        Label lb_vidas = new Label("VIDAS: ");
-        lb_vidas.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
-        lb_vidas.setTextFill(Color.DARKBLUE);
-        Label lb_metros = new Label("METROS: ");
-        lb_metros.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
-        lb_metros.setTextFill(Color.DARKBLUE);
-        Label lb_arma = new Label("ARMA ESPECIAL: ");
-        lb_arma.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
-        lb_arma.setTextFill(Color.DARKBLUE);
-        Label lb_nivel = new Label("NIVEL: ");
-        lb_nivel.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
-        lb_nivel.setTextFill(Color.DARKBLUE);
-        
-        Button bt_guardar= new Button("GUARDAR");
-        bt_guardar.setOnAction(new ClickHandler());
-        Label puntaje = new Label(String.valueOf(this.buceador.getPuntaje()));
-        Label vidas = new Label(String.valueOf(this.buceador.getVidas()));
-        Label metros = new Label(String.valueOf(this.buceador.getMetros()));
-        Label nivel = new Label(String.valueOf(this.nivel));
-        Label arma = new Label("OFF");
-        this.barra.getItems().addAll(coin, lb_puntaje, puntaje, new Separator(), heart, lb_vidas, vidas, new Separator(), 
-                lb_metros, metros, new Separator(), bomba, lb_arma, arma,new Separator(),lb_nivel,nivel,new Separator(),bt_guardar);
-        //this.barra.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-       /* vidas.textProperty().addListener((new ChangeListener<String>() {
-            
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            
-            }
-            
-}));
-  vidas.textProperty().bind(new SimpleIntegerProperty(this.buceador.getVidas()).asString());
-      
-        return this.barra;
-    }*/
-
-    
+   
     /**
      * 
      * @return 
@@ -174,12 +140,13 @@ public class Mar extends Thread{
     }
 
     public void arregloDeTiburones() {
+        this.tiburon=new Tiburon[num_peces];
         int cont=0;
         ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces);
         ArrayList<String> una_palabra= new ArrayList();
         for (int i = 0; i < palabras_tiburones.size(); i++) {
             una_palabra.add(palabras_tiburones.get(i));
-            this.tiburon[i] = new Tiburon(10,velocidad +2 , 730, 20+cont ,una_palabra );
+            this.tiburon[i] = new Tiburon(100,velocidad +2 , 730, 20+cont ,una_palabra );
             //this.tiburon[i].start();
             una_palabra.clear();
     
@@ -188,36 +155,6 @@ public class Mar extends Thread{
 
     }
 
-    /**
-    public void arregloDeTiburonesNegros() {
-        int cont=0;
-        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro(num_peces);
-        ArrayList<String> lista_words= new ArrayList<String>();
-        
-        for (int i = 0; i < this.num_peces; i++) {
-            this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,730, cont + 20,null);
-            this.tiburon_negro[i].setListaPalabras(lista_words);
-            TiburonNegro tiburon=(TiburonNegro)this.tiburon_negro[i];
-
-            if (tiburon.getNumeroPalabras()<3){
-                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(0));
-                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(1));
-                palabras_tiburones.remove(0);
-                palabras_tiburones.remove(1);
-                palabras_tiburones.remove(2);
-            }else{
-                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(0));
-                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(1));
-                tiburon_negro[i].addAListaPalabras(palabras_tiburones.get(2));
-                palabras_tiburones.remove(0);
-                palabras_tiburones.remove(1);
-                palabras_tiburones.remove(2);
-            }
-            this.tiburon_negro[i].start();
-            cont=cont+90;
-        }
-    }
-**/
     
     
     public void arregloDeTiburonesNegros() {
@@ -281,12 +218,13 @@ public class Mar extends Thread{
     
     
     public void arregloDePirañas() {
+        this.piraña=new Piraña[num_peces];
         int cont=0;
         ArrayList<String> letras_pirañas= arreglo_palabras.arregloLetrasPirañas(num_peces);
         ArrayList<String> una_letra= new ArrayList();
         for (int i = 0; i < letras_pirañas.size(); i++) {
                 una_letra.add(letras_pirañas.get(i));
-                this.piraña[i] = new Piraña(5,velocidad +3, 740, cont + 20, una_letra);
+                this.piraña[i] = new Piraña(50,velocidad +3, 740, cont + 20, una_letra);
                 //this.piraña[i].start();
                 una_letra.clear();
                 cont=cont+70;           
@@ -363,19 +301,72 @@ public class Mar extends Thread{
     
     }
     
+    private void generarPezAleatorio2(){ 
     
-   /* private class ClickHandler implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent action) {
-            
-        }
+    this.pez_mar= new Pez[num_peces];
+    this.arregloDeTiburones();
+    this.arregloDePirañas();
+    this.pulpo();
+    //this.arregloDeTiburonesNegros(); 
+    int []numero=  {1,2,1,2,1,2,1};
+    Posicion pos;
+    //int aleatorio=0;
+    
+    for(int i =0;i<num_peces;i++){
+    int aleatorio=(int)(new Random().nextDouble()*6+0);
+    double x=new Random().nextDouble()*740+700;
+    double y=new Random().nextDouble()*90+20;
+    pos=new Posicion(x,y);
+    this.setId_Pez(numero[aleatorio]);
+    System.out.println("numero"+aleatorio);
+    
+    if(numero[aleatorio]==1) {
+        pez_mar[i]=tiburon[i];
+        pez_mar[i].setPosicion(pos);
+       
+    }
+    if(numero[aleatorio]==2){
+        pez_mar[i]=piraña[i];
+        pez_mar[i].setPosicion(pos);
+    }
+    if (numero[aleatorio]==3){
+        pez_mar[i]=tiburon_negro[i];
+        pez_mar[i].setPosicion(pos);
+    }/*else{
+        pez_mar[i]=pulpo[i];
+        panel_peces_buceador.getChildren().add(pulpo[0].getPane());
     }*/
     
+    }
     
+     this.ubicarPecesMar(panel_peces_buceador,pez_mar);
+     this.num_peces=(int)(new Random().nextDouble()*5+1);
+    }
     
+    public void matarPecesConArmaEspecial(){
+    if(buceador.getEstadoArmaEspecial()==true){
+       
+        for (int i=0; i<pez_mar.length ;i++){
+            pez_mar[i].setEstadoVida();
+            pez_mar[i].notifyObservers_pezmuere();
+        }
+      
+    }
+    }
+    
+   public void nuevoNumeroAleatorioPeces(){
+       if (num_peces==0){
+           this.num_peces=(int)(new Random().nextDouble()*5+1);
+           
+       }
+    
+   }
+    
+   
     private class KeyPressed implements EventHandler<KeyEvent> {
         private Pez pez[]=pez_mar;
-
+        private int peces_eliminados=0;
+        private int puntos_pez=0;
         
         @Override
                 
@@ -385,7 +376,21 @@ public class Mar extends Thread{
              int contador=pez.length; 
              int cont_palabras=0;
              int posicion=0;
-           
+             
+            //palabra_activa es variable que indicia qué pez del arreglo está en juego 
+             //si palabra_activa=-1 , ningun pez ha sido seleccionado 
+             
+             //ESTADOS DE LAS PALBRAS DE UN PEZ:
+             //EstadoPalabra=0 -> la palabra que tiene el pez no ha sido escrita
+             //EstadoPalabra=1 -> la palabra que tiene el pez está siendo escrita
+             //EstadoPalabra=-1 -> la palabra que tiene el pez ya se escribió
+             if (event.getCode() == KeyCode.ENTER) {
+                matarPecesConArmaEspecial();
+                buceador.setPuntaje(-(peces_eliminados*puntos_pez)-300);
+                buceador.setEstadoArmaEspecial(false);
+                 System.out.println("Enter Pressed");
+                }
+             
              if(contador!=-1){   
                      for(int i=0;i<contador;i++){
                   if (pez[i].palabra.getEstado()==1)
@@ -396,19 +401,22 @@ public class Mar extends Thread{
               if(palabra_activa==-1){
                   for(int i=0;i<contador;i++){
                       if(pez[i].palabra.getEstado()==0){
-                         
+                        
                         if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
                               pez[i].palabra.cambiarColorLetras(0);
+                              //Se valida el char de la piraña para que desaparezca a la primera coincidencia
                                 if(pez[i].palabra.getPalabra().length()==1){
-                                    
-                                   // pez[i].notifyObservers_pezmuere();
+                                    pez[i].setEstadoVida();
+                                    pez[i].notifyObservers_pezmuere();
                                    // pez[i].stop();
-                                     pez[i].getPane().setVisible(false);
+                                     //pez[i].getPane().setVisible(false);
                                      pez[i].palabra.setEstado(-1);
-                                     pez[i].setEstado();
+                                     num_peces=num_peces-1;
+                                     System.out.println("NUMERO DE PECES PRESENTES EN EL MAR= "+num_peces);
                                      break;
                                 } 
                                 else{
+                                //la palabra es de una longitud de mayor a 1
                                  pez[i].palabra.setEstado(1);
                                  pez[i].palabra.cambiarColorLetras(0); 
                                  pez[i].palabra.setPosicion(1);}// cierra longitud
@@ -420,6 +428,8 @@ public class Mar extends Thread{
               
               //
               else{
+                  
+                  
                   
                   posicion=pez[palabra_activa].palabra.getPosicion();
                   
@@ -434,17 +444,17 @@ public class Mar extends Thread{
                      }
                          
                    }
+                    //Posicion del curso es igual a la longitud de la palabra, aquí muere el pez
                       if(posicion ==pez[palabra_activa].palabra.getLongitudPalabra()){
-                           pez[palabra_activa].setEstado();
-                           pez[palabra_activa].palabra.setEstado(-1);
+                           //pez[palabra_activa].setEstadoVida();
                          
+                           
+                           
                        if(pez[palabra_activa].palabra.getNum_palabras()>1){
                            if(cont_palabras<pez[palabra_activa].palabra.getNum_palabras()){
                             cont_palabras=cont_palabras+1;
                             posicion=0;
-                            pez[palabra_activa].palabra.panelPalabra().setVisible(false);
                             pez[palabra_activa].palabra.cargarPalabra(cont_palabras);
-                            pez[palabra_activa].palabra.panelPalabra().setVisible(true);
                             pez[palabra_activa].palabra.setEstado(0);
                            }
                            
@@ -454,11 +464,16 @@ public class Mar extends Thread{
                             else{
                           
                        System.out.println("Terminaste de escribirrrrr");
-                        
-                        buceador.setPuntaje(pez[palabra_activa].getPuntos());
-                         System.out.println("Puntaje: "+buceador.getPuntaje());
-                        pez[palabra_activa].setEstado();
-                        pez[palabra_activa].getPane().setVisible(false);
+                       peces_eliminados+=1;
+                       num_peces=num_peces-1;
+                       System.out.println("NUMERO DE PECES PRESENTES EN EL MAR= "+num_peces);
+                       puntos_pez=pez[palabra_activa].getPuntos();
+                       pez[palabra_activa].palabra.setEstado(-1);
+                        //buceador.setPuntaje(pez[palabra_activa].getPuntos()); 
+                        System.out.println("Puntaje: "+buceador.getPuntaje());
+                        pez[palabra_activa].setEstadoVida();
+                        pez[palabra_activa].notifyObservers_pezmuere();
+                        //pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
                         
                         
@@ -475,120 +490,47 @@ public class Mar extends Thread{
               }
               
            }
+             
+             
+             
+             
+             
+             
             }
     }
     
-    
-    
-    //FUNCION QUE SI VALEEEEEEEEEE ///////////////
-    /**
-    private class KeyPressed implements EventHandler<KeyEvent> {
-        private Pez pez[]=pez_mar;
-
-        
-        @Override
-                
-            public void handle(KeyEvent event) {
-             int posicion_palabra;
-             int palabra_activa = -1;
-             int contador=pez.length; 
-             int cont=0;
-           
-             if(contador!=-1){   
-                     for(int i=0;i<contador;i++){
-                  if (pez[i].palabra.getEstado()==1)
-                    palabra_activa = i;
-              }
-                  
-              if(palabra_activa==-1){
-                  for(int i=0;i<contador;i++){
-                      if(pez[i].palabra.getEstado()==0){
-                        if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
-                                 pez[i].palabra.setEstado(1);
-                                 pez[i].palabra.cambiarColorLetras(0); 
-                                 
-                                if(pez[i].palabra.getLongitudPalabra()==1){
-                                    pez[i].palabra.setPosicion(0);
-                                    cont=1;
-                                }
-                                    else{
-                                 pez[i].palabra.setPosicion(1);}
-                                
-                                
-                                
-                        }
-                      }
-                    }
-              }
-              else{
-                  
-                  cont=pez[palabra_activa].palabra.getPosicion();
-                  
-                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont)){
-                       
-                    if(cont <pez[palabra_activa].palabra.getLongitudPalabra()){
-                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(cont) ){
-                       
-                        pez[palabra_activa].palabra.cambiarColorLetras(cont);
-                        cont=cont+1; 
-                        pez[palabra_activa].palabra.setPosicion(cont);
-                     }
-                         
-                   }
-                      if(cont ==pez[palabra_activa].palabra.getLongitudPalabra()){
-                          System.out.println("Terminaste de escribirrrrr");
-                        
-                        buceador.setPuntaje(pez[palabra_activa].getPuntos()+buceador.getPuntaje());
-                         System.out.println("Puntaje: "+buceador.getPuntaje());
-                        pez[palabra_activa].setEstado();
-                        pez[palabra_activa].getPane().setVisible(false);
-                        //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
-                       
-                        pez[palabra_activa].palabra.setEstado(-1);
-                        
-
-                        } 
-                   
-                   
-                   }
-                  
-                  else {
-                        pez[palabra_activa].setVelocidad(20);
-                  }
-   
-              }
-              
-              
-                 
-              
-                  
-           
-           }
-                
-                
-                
-                
-           
-            }
-            
-    
-    
-    
-    }**/
+ 
     
     @Override
     public void run(){
         
-            while(true){
+            while(buceador.isBuceadorAlive()==true){
+                
                 Platform.runLater(new Runnable(){
                     @Override
+                   
                     public void run() {
                        
-                       getMar();    
+                        nuevoNumeroAleatorioPeces();    
+                        if (num_peces!=0){
+                        generarPezAleatorio2();
+                        }
+                            
+                            
+                            
+                          
+                          panel_mar.setOnKeyPressed(new KeyPressed());
+                            
+                       
+                           
                     }
                     
                 });
-               
+               try {
+                    Mar.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Mar.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         
     

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 tumachote 0 2 471.0 OFF
+=======
+Anonimo 0 3 10.0 OFF
+>>>>>>> origin/master
