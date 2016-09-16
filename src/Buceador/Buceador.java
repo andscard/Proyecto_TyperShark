@@ -14,6 +14,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -35,7 +37,7 @@ import javafx.scene.text.FontWeight;
  * 
  * @author Mayken
  */
-public class Buceador extends Thread implements Comparable<Buceador>, Observer {
+public class Buceador extends Thread implements Comparable<Buceador>, Observer, Subject {
     private String nombre;
     private int vidas;
     private int puntaje;
@@ -52,7 +54,10 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     private Label arma_string;
     private Label nivel_string;
     private ToolBar barra;
-    
+    private final int puntaje_arma_especial=1000;
+    private final double profundidad_mar=45;
+    private int pirañas_picadas;
+    private ArrayList observers = new ArrayList();
     
     
     public Buceador(String nombre){
@@ -74,6 +79,8 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     this.pane.setLayoutX(posicion.getPos_x());
     this.pane.setLayoutY(posicion.getPos_y());
     this.barra=this.crearToolBar();
+    
+    this.pirañas_picadas=0;
     }
 
     public String getNombre() {
@@ -118,7 +125,10 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     public Posicion getPosicion() {
         return posicion;
     }
-
+    
+    public int getPuntajeArmaEspecial(){
+        return this.puntaje_arma_especial;}
+    
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
@@ -153,23 +163,16 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     
 
     public void llegaFondoDelMar() {
-        if (pane.getTranslateY() == 465) {
+        if (this.metros == this.profundidad_mar) {
             nivel=nivel+1;
+            this.metros=0;
             pane.setTranslateY(5);
+            this.notifyObservers_buceador_llega_fondo();
           
         }
     }
     
-    
-    /*public boolean haCambiadoDeNivel(){
-    boolean cambio;
-    
-    }*/
-    public void cambiarNivel(){
-        if (puntaje>300 && puntaje<350) {
-        this.nivel=nivel+1;}  
-    }
-    
+     
     
     public String infoJugador(){
   
@@ -233,9 +236,20 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
         //System.out.println(p.getClass());
         switch (evento) {
             case "pez_llega":
+               
+                if(!p.getClass().equals(Piraña.class)){
                 this.vidas-=1;
+                
+                }else{
+                    this.pirañas_picadas+=1;
+                if(this.pirañas_picadas==3){
+                this.vidas-=1;
+                this.pirañas_picadas=0;
+                }
+                }
                 // if(this.vidas<0){this.vidas=0;}
                 System.out.println("Perdio una vida");
+                
                 break;
             case "pez_muere":
                 this.puntaje+=p.getPuntos();
@@ -244,8 +258,24 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
         }
         
     }
-
-   
+    ////// funciones del observador/////
+     @Override
+    public void addObserver( Observer o ) {
+            observers.add( o );
+      }
+      @Override
+      public void removeObserver( Observer o ) {
+            observers.remove( o );
+      }
+/////// funcion que notifica a los observadores///
+      public void notifyObservers_buceador_llega_fondo() {
+            // loop through and notify each observer
+            Iterator i = observers.iterator();
+            while( i.hasNext() ) {
+                  Observer o = ( Observer ) i.next();
+                  o.update( this , "buceador_llega");
+            }
+      }
     
      private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
@@ -273,17 +303,17 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
             Platform.runLater(new Runnable(){
                 @Override
                 public void run() {
-                pane.setTranslateY(pane.getTranslateY()+5);
+                pane.setTranslateY(pane.getTranslateY()+10);
                     
                   System.out.println("METROS:"+pane.getTranslateY());
                   metros+=1;
                   //setMetros(metros);
                   System.out.println(metros);
                   
-                  if (puntaje>=300){
+                  if (puntaje>=puntaje_arma_especial){
                     setEstadoArmaEspecial(true);
                   }
-                  //cambiarNivel();
+                
                   
                   
                    
@@ -298,8 +328,10 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
                         arma_string.setText(estadoArma());
                     }
                     
+                    llegaFondoDelMar();
                     
                     if (vidas==0){
+                       
                      stop=true;
                     }            
                                

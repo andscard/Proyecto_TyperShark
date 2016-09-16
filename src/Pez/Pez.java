@@ -270,13 +270,14 @@ public class Pez extends Thread implements Subject{
                                 pane.setVisible(false);
                                 palabra.setEstado(-1);
                                 
-                                 notifyObservers_pezllegafinal();
+                                notifyObservers_pezllegafinal();
                          
                             }
                             
                             if(estado==Estado.MUERTO){
                                 pane.setVisible(false);
-                                stop=true;}
+                                stop=true;
+                            }
                         
                     }
                     
