@@ -66,14 +66,16 @@ public class Mar extends Thread{
     private int num_peces;
     private int velocidad;
     //private Pez tiburon_prueba;
-    private Pez[] pez_mar;
+    //private Pez[] pez_mar;
+    private ArrayList<Pez> peces_mar;
     private Pez[] tiburon;
     private Pez[] tiburon_negro;
     private Pez[] piraña;
     private Pez[] pulpo;
     private Buceador buceador;
     private int id_pez; 
-     
+    
+    
     public Mar(String name){
         panel_mar=new BorderPane();
         buceador= new Buceador(name);
@@ -92,6 +94,7 @@ public class Mar extends Thread{
         
         panel_peces_buceador=this.setPanelPeces();
         
+        this.peces_mar=new ArrayList<Pez>();
         /*if(buceador.isBuceadorAlive()==true && num_peces==0){
             num_peces=(int)(new Random().nextDouble()*5+1);
             generarPezAleatorio2();
@@ -190,7 +193,7 @@ public class Mar extends Thread{
       public void arregloDeTiburonesNegros() {
         Random  random = new Random();  
         int cont=0;
-        int contador_palabras=0;
+        int size_peces_palabras=0;
         int num_palabras;
         
         ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces*3);
@@ -199,8 +202,8 @@ public class Mar extends Thread{
         for (int i = 0; i < this.num_peces; i++) {
             num_palabras=(int)(random.nextDouble()*3 +2);
             for(int j=0; j<num_palabras; j++){
-                lista_words.add(palabras_tiburones.get(contador_palabras)); 
-                 contador_palabras=contador_palabras+1;
+                lista_words.add(palabras_tiburones.get(size_peces_palabras)); 
+                 size_peces_palabras=size_peces_palabras+1;
             }// cierrej
             this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,720,cont + 20,lista_words);
             this.tiburon_negro[i].palabra.setNum_palabras(lista_words.size());
@@ -239,14 +242,21 @@ public class Mar extends Thread{
     }
     
     
-    public void ubicarPecesMar(Pane mar,Pez pez[]){
+    /*public void ubicarPecesMar(Pane mar,Pez pez[]){
         for (int i=0; i<this.num_peces ;i++){
             pez[i].addObserver(buceador);
             mar.getChildren().addAll(pez[i].getPane());
              pez[i].start();
         }
-    }
+    }*/
     
+    public void ubicarPecesMar(Pane mar, ArrayList<Pez> peces_mar){
+        for (Pez pez : peces_mar){
+            pez.addObserver(buceador);
+            mar.getChildren().addAll(pez.getPane());
+            pez.start();
+        }
+    }
     
     public void disminuirVidas(){
     for (Pez t: tiburon){
@@ -274,7 +284,7 @@ public class Mar extends Thread{
     return this.id_pez;
     }
     
-    private void generarPezAleatorio(){    
+    /*private void generarPezAleatorio(){    
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
@@ -299,11 +309,11 @@ public class Mar extends Thread{
         pez_mar=pulpo;
         panel_peces_buceador.getChildren().add(pulpo[0].getPane());}
     
-    }
+    }*/
     
     private void generarPezAleatorio2(){ 
     
-    this.pez_mar= new Pez[num_peces];
+    //this.pez_mar= new Pez[num_peces];
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
@@ -321,17 +331,22 @@ public class Mar extends Thread{
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
-        pez_mar[i]=tiburon[i];
-        pez_mar[i].setPosicion(pos);
-       
+        //pez_mar[i]=tiburon[i];
+        //pez_mar[i].setPosicion(pos);
+       tiburon[i].setPosicion(pos);
+       peces_mar.add(tiburon[i]);
     }
     if(numero[aleatorio]==2){
-        pez_mar[i]=piraña[i];
-        pez_mar[i].setPosicion(pos);
+        //pez_mar[i]=piraña[i];
+        //pez_mar[i].setPosicion(pos);
+        piraña[i].setPosicion(pos);
+        peces_mar.add(piraña[i]);
     }
     if (numero[aleatorio]==3){
-        pez_mar[i]=tiburon_negro[i];
-        pez_mar[i].setPosicion(pos);
+        //pez_mar[i]=tiburon_negro[i];
+        //pez_mar[i].setPosicion(pos);
+       tiburon_negro[i].setPosicion(pos);
+       peces_mar.add(tiburon_negro[i]);
     }/*else{
         pez_mar[i]=pulpo[i];
         panel_peces_buceador.getChildren().add(pulpo[0].getPane());
@@ -339,18 +354,22 @@ public class Mar extends Thread{
     
     }
     
-     this.ubicarPecesMar(panel_peces_buceador,pez_mar);
-     this.num_peces=(int)(new Random().nextDouble()*5+1);
+     this.ubicarPecesMar(panel_peces_buceador,peces_mar);
     }
     
     public void matarPecesConArmaEspecial(){
     if(buceador.getEstadoArmaEspecial()==true){
        
-        for (int i=0; i<pez_mar.length ;i++){
-            pez_mar[i].setEstadoVida();
-            pez_mar[i].notifyObservers_pezmuere();
+        for (int i=0; i<peces_mar.size();i++){
+            peces_mar.get(i).setEstadoVida();
+            peces_mar.get(i).notifyObservers_pezmuere();
+            System.out.println("borraaar"+i);
+           
         }
-      
+        buceador.setPuntaje(-300);
+         peces_mar.removeAll(peces_mar);
+
+        buceador.setEstadoArmaEspecial(false);
     }
     }
     
@@ -364,16 +383,15 @@ public class Mar extends Thread{
     
    
     private class KeyPressed implements EventHandler<KeyEvent> {
-        private Pez pez[]=pez_mar;
-        private int peces_eliminados=0;
-        private int puntos_pez=0;
-        
+        //private Pez pez[]=pez_mar;
+        //ArrayList<Pez> peces= peces_mar;
+       
         @Override
                 
             public void handle(KeyEvent event) {
              int posicion_palabra;
              int palabra_activa = -1;
-             int contador=pez.length; 
+             int size_peces=peces_mar.size();
              int cont_palabras=0;
              int posicion=0;
              
@@ -386,40 +404,40 @@ public class Mar extends Thread{
              //EstadoPalabra=-1 -> la palabra que tiene el pez ya se escribió
              if (event.getCode() == KeyCode.ENTER) {
                 matarPecesConArmaEspecial();
-                buceador.setPuntaje(-(peces_eliminados*puntos_pez)-300);
-                buceador.setEstadoArmaEspecial(false);
                  System.out.println("Enter Pressed");
+                 return;
                 }
              
-             if(contador!=-1){   
-                     for(int i=0;i<contador;i++){
-                  if (pez[i].palabra.getEstado()==1)
-                    palabra_activa = i;
-              }
+              if(size_peces!=-1){   
+                     for(int i=0;i<size_peces;i++){
+                      if (peces_mar.get(i).palabra.getEstado()==1)
+                             palabra_activa = i;
+                        }
                      
                      
               if(palabra_activa==-1){
-                  for(int i=0;i<contador;i++){
-                      if(pez[i].palabra.getEstado()==0){
+                  for(int i=0;i<size_peces;i++){
+                      if(peces_mar.get(i).palabra.getEstado()==0){
                         
-                        if (event.getText().charAt(0)==pez[i].palabra.getPalabra().charAt(0)){
-                              pez[i].palabra.cambiarColorLetras(0);
+                        if (event.getText().charAt(0)==peces_mar.get(i).palabra.getPalabra().charAt(0)){
+                              peces_mar.get(i).palabra.cambiarColorLetras(0);
                               //Se valida el char de la piraña para que desaparezca a la primera coincidencia
-                                if(pez[i].palabra.getPalabra().length()==1){
-                                    pez[i].setEstadoVida();
-                                    pez[i].notifyObservers_pezmuere();
+                                if(peces_mar.get(i).palabra.getPalabra().length()==1){
+                                    peces_mar.get(i).setEstadoVida();
+                                    peces_mar.get(i).notifyObservers_pezmuere();
                                    // pez[i].stop();
                                      //pez[i].getPane().setVisible(false);
-                                     pez[i].palabra.setEstado(-1);
+                                     peces_mar.get(i).palabra.setEstado(-1);
+                                     peces_mar.remove(i);
                                      num_peces=num_peces-1;
                                      System.out.println("NUMERO DE PECES PRESENTES EN EL MAR= "+num_peces);
                                      break;
                                 } 
                                 else{
                                 //la palabra es de una longitud de mayor a 1
-                                 pez[i].palabra.setEstado(1);
-                                 pez[i].palabra.cambiarColorLetras(0); 
-                                 pez[i].palabra.setPosicion(1);}// cierra longitud
+                                 peces_mar.get(i).palabra.setEstado(1);
+                                 peces_mar.get(i).palabra.cambiarColorLetras(0); 
+                                 peces_mar.get(i).palabra.setPosicion(1);}// cierra longitud
                                 
                         }
                       }
@@ -431,31 +449,31 @@ public class Mar extends Thread{
                   
                   
                   
-                  posicion=pez[palabra_activa].palabra.getPosicion();
+                  posicion=peces_mar.get(palabra_activa).palabra.getPosicion();
                   
-                  if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(posicion)){
+                  if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion)){
                        
-                    if(posicion <pez[palabra_activa].palabra.getLongitudPalabra()){
-                            if (event.getText().charAt(0)==pez[palabra_activa].palabra.getPalabra().charAt(posicion) ){
+                    if(posicion <peces_mar.get(palabra_activa).palabra.getLongitudPalabra()){
+                            if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion) ){
                        
-                        pez[palabra_activa].palabra.cambiarColorLetras(posicion);
+                        peces_mar.get(palabra_activa).palabra.cambiarColorLetras(posicion);
                         posicion=posicion+1; 
-                        pez[palabra_activa].palabra.setPosicion(posicion);
+                        peces_mar.get(palabra_activa).palabra.setPosicion(posicion);
                      }
                          
                    }
                     //Posicion del curso es igual a la longitud de la palabra, aquí muere el pez
-                      if(posicion ==pez[palabra_activa].palabra.getLongitudPalabra()){
+                      if(posicion ==peces_mar.get(palabra_activa).palabra.getLongitudPalabra()){
                            //pez[palabra_activa].setEstadoVida();
                          
                            
                            
-                       if(pez[palabra_activa].palabra.getNum_palabras()>1){
-                           if(cont_palabras<pez[palabra_activa].palabra.getNum_palabras()){
+                       if(peces_mar.get(palabra_activa).palabra.getNum_palabras()>1){
+                           if(cont_palabras<peces_mar.get(palabra_activa).palabra.getNum_palabras()){
                             cont_palabras=cont_palabras+1;
                             posicion=0;
-                            pez[palabra_activa].palabra.cargarPalabra(cont_palabras);
-                            pez[palabra_activa].palabra.setEstado(0);
+                            peces_mar.get(palabra_activa).palabra.cargarPalabra(cont_palabras);
+                            peces_mar.get(palabra_activa).palabra.setEstado(0);
                            }
                            
                             
@@ -464,15 +482,17 @@ public class Mar extends Thread{
                             else{
                           
                        System.out.println("Terminaste de escribirrrrr");
-                       peces_eliminados+=1;
+                       
                        num_peces=num_peces-1;
+                       
                        System.out.println("NUMERO DE PECES PRESENTES EN EL MAR= "+num_peces);
-                       puntos_pez=pez[palabra_activa].getPuntos();
-                       pez[palabra_activa].palabra.setEstado(-1);
+                      // puntos_pez=peces_mar.get(palabra_activa).getPuntos();
+                       peces_mar.get(palabra_activa).palabra.setEstado(-1);
                         //buceador.setPuntaje(pez[palabra_activa].getPuntos()); 
                         System.out.println("Puntaje: "+buceador.getPuntaje());
-                        pez[palabra_activa].setEstadoVida();
-                        pez[palabra_activa].notifyObservers_pezmuere();
+                       peces_mar.get(palabra_activa).setEstadoVida();
+                       peces_mar.get(palabra_activa).notifyObservers_pezmuere();
+                       peces_mar.remove(palabra_activa);
                         //pez[palabra_activa].getPane().setVisible(false);
                         //mar.tiburon[palabra_activa].palabra.panelPalabra().setVisible(false);
                         
@@ -484,7 +504,7 @@ public class Mar extends Thread{
                    }
                   
                   else {
-                        pez[palabra_activa].setVelocidad(20);
+                        peces_mar.get(palabra_activa).setVelocidad(20);
                   }
    
               }
@@ -504,7 +524,7 @@ public class Mar extends Thread{
     @Override
     public void run(){
         
-            while(buceador.isBuceadorAlive()==true){
+            while(buceador.isBuceadorAlive()){
                 
                 Platform.runLater(new Runnable(){
                     @Override
@@ -512,7 +532,7 @@ public class Mar extends Thread{
                     public void run() {
                        
                         nuevoNumeroAleatorioPeces();    
-                        if (num_peces!=0){
+                        if (peces_mar.size()<1){
                         generarPezAleatorio2();
                         }
                             
@@ -526,11 +546,13 @@ public class Mar extends Thread{
                     }
                     
                 });
-               try {
+                try {
                     Mar.sleep(2000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Mar.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+              
             }
         
     

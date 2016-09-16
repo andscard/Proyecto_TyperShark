@@ -152,6 +152,14 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
     }
     
 
+    public void llegaFondoDelMar() {
+        if (pane.getTranslateY() == 465) {
+            nivel=nivel+1;
+            pane.setTranslateY(5);
+          
+        }
+    }
+    
     
     /*public boolean haCambiadoDeNivel(){
     boolean cambio;
@@ -272,13 +280,12 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
                   //setMetros(metros);
                   System.out.println(metros);
                   
-                  if (puntaje%300==0 && puntaje>0){
+                  if (puntaje>=300){
                     setEstadoArmaEspecial(true);
                   }
                   //cambiarNivel();
                   
-                   if (puntaje>=300 && puntaje<=350) {
-                         nivel=nivel+1;}  
+                  
                    
                   String mensaje_arma="Presione ENTER";
                     puntaje_string.setText(String.valueOf(puntaje));
@@ -292,11 +299,6 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer {
                     }
                     
                     
-                    
-                   if (pane.getTranslateY()==465){
-                        pane.setTranslateY(5);
-                   }    
-                                
                     if (vidas==0){
                      stop=true;
                     }            
