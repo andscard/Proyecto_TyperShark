@@ -39,7 +39,7 @@ public class Ayuda {
         boton.setTranslateY(550);
         boton.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
         boton.setOnAction(new ClickHandler());
-        fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondoayuda3.jpg"),900.30,891.20,true,true));
+        fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondoayuda4.jpg"),900.30,891.20,true,true));
         panel.getChildren().addAll(fondo,boton);
     }
     

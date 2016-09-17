@@ -156,7 +156,7 @@ public class Mar extends Thread implements Observer{
         ArrayList<String> una_palabra= new ArrayList();
         for (int i = 0; i < palabras_tiburones.size(); i++) {
             una_palabra.add(palabras_tiburones.get(i));
-            this.tiburon[i] = new Tiburon(100,velocidad +2 , 730, 20+cont ,una_palabra );
+            this.tiburon[i] = new Tiburon(10,velocidad +2 , 730, 20+cont ,una_palabra );
             //this.tiburon[i].start();
             una_palabra.clear();
     
@@ -217,7 +217,7 @@ public class Mar extends Thread implements Observer{
         ArrayList<String> una_letra= new ArrayList();
         for (int i = 0; i < letras_pirañas.size(); i++) {
                 una_letra.add(letras_pirañas.get(i));
-                this.piraña[i] = new Piraña(50,velocidad +5, 740, cont + 20, una_letra);
+                this.piraña[i] = new Piraña(5,velocidad +5, 740, cont + 20, una_letra);
                 //this.piraña[i].start();
                 una_letra.clear();
                 cont=cont+70;           
@@ -229,7 +229,7 @@ public class Mar extends Thread implements Observer{
        this.pulpo=new Pulpo[this.num_peces];
         for(int i=0;i<this.num_peces;i++){
          ArrayList<String>palabra=arreglo_palabras.palabraPulpo();
-        this.pulpo[i]=new Pulpo(25,2.5,650,offset+40,palabra);
+        this.pulpo[i]=new Pulpo(100,2.5,650,offset+40,palabra);
         offset+=80;
         }
         //this.pulpo[0].start();
