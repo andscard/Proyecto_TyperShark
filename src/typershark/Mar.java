@@ -44,6 +44,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -414,6 +415,26 @@ public class Mar extends Thread implements Observer{
        
     }
     
+    public void mensajeGameOver(){
+        HBox hbox= new HBox(15);
+        VBox vbox = new VBox(5);
+        vbox.setPadding(new Insets(5));
+        ImageView mensaje = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/GameOver2.gif"),7000,300,true,true));
+        Button bt_salir= new Button (" SALIR ");
+        Button bt_regresar= new Button(" MENÚ PRINCIPAL ");
+        Label espacio= new Label("          ");
+        bt_salir.setFont(Font.font("Amble CN", FontWeight.MEDIUM, 18));
+        bt_salir.setPrefSize(150, 50);
+        
+        bt_regresar.setFont(Font.font("Amble CN", FontWeight.MEDIUM, 18));
+        bt_regresar.setPrefSize(150, 50);
+        
+        hbox.getChildren().addAll(espacio,bt_salir,bt_regresar);
+        vbox.getChildren().addAll(mensaje,hbox);
+        panel_mar.setBottom(vbox);
+        
+    }
+    
    
     private class KeyPressed implements EventHandler<KeyEvent> {
         //private Pez pez[]=pez_mar;
@@ -567,14 +588,9 @@ public class Mar extends Thread implements Observer{
                         if (peces_mar.size()<1){
                         generarPezAleatorio2();
                         }
-                            
-                            
-                            
-                          
-                          panel_mar.setOnKeyPressed(new KeyPressed());
-                            
-                       
-                           
+
+                         panel_mar.setOnKeyPressed(new KeyPressed());
+                          mensajeGameOver(); 
                     }
                     
                 });
@@ -583,11 +599,11 @@ public class Mar extends Thread implements Observer{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Mar.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+                 
               
             }
         
-    
+            
     }
     
 
