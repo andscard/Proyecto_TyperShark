@@ -166,50 +166,30 @@ public class Mar extends Thread implements Observer{
     }
 
     
-    
-    public void arregloDeTiburonesNegros() {
+   public void arregloDeTiburonesNegros() {
         this.tiburon_negro=new TiburonNegro[num_peces];
         int cont=0;
-        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro();
-        ArrayList<String> lista_palabras=new ArrayList<String> ();
-        ArrayList<String>tibu= new ArrayList<String>();
-        tibu.add("mayken");
-        tibu.add("salava");
-        tibu.add("tutive");
-        System.out.println(palabras_tiburones.size());
+        int aleatorio_palabras;
+        
+        ArrayList<String> lista_palabras=new ArrayList<String>();
         System.out.println("NUMERO PECES:"+num_peces);
         for (int i = 0; i < this.num_peces; i++) {
-            //int num_palabras = (int) (Math.random ()*(2)+ 2);
-            int num_palabras = 2;
+            aleatorio_palabras=(int)(Math.random()*3+2);
+            lista_palabras=arreglo_palabras.arregloPalabrasTiburonesNegro();
+             if(aleatorio_palabras==2){
+                lista_palabras.remove(2);}
+             
+            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20,lista_palabras);
             
-            System.out.println("num palabras"+num_palabras);
-            for (int j = 0; j < num_palabras; j++) {
-
-                lista_palabras.add(palabras_tiburones.get(j));
-
-            }
-            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20, tibu);
-            
-            //this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20, lista_palabras);
-            palabras_tiburones.remove(0);
-            palabras_tiburones.remove(0);
-            palabras_tiburones.remove(0);
-            lista_palabras.clear();
             cont = cont + 90;
-            //this.tiburon_negro[i].start();
             
         }
     }
+     
     
-        
     
-    public void detenerHilosPeces(){
-        for(int i=0; i<peces_mar.size();i++){
-            peces_mar.get(i).setEstadoVida();
-        
-        }
-    }
-    
+  
+ 
     public void arregloDePirañas() {
         this.piraña=new Piraña[num_peces];
         int cont=0;
@@ -234,6 +214,18 @@ public class Mar extends Thread implements Observer{
         }
         //this.pulpo[0].start();
     }
+ 
+    
+       public void detenerHilosPeces(){
+        for(int i=0; i<peces_mar.size();i++){
+            peces_mar.get(i).setEstadoVida();
+        
+        }
+    }
+    
+    
+    
+    
     
     
     /*public void ubicarPecesMar(Pane mar,Pez pez[]){
