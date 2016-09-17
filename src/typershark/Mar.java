@@ -310,7 +310,7 @@ public class Mar extends Thread implements Observer{
     //int []numero=  {1,2,1,2,1,2,1,4};
    // int []numero=  {1,2,3,2,1,2,1,3};
     //  int []numero=  {4,4,4,4,4,4,4,4};
-     int []numero=  {1,4,1,2,2,4,1,1};
+        int []numero=  {1,4,1,2,2,4,1,1};
     
     Posicion pos;
     //int aleatorio=0;
