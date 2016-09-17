@@ -161,7 +161,8 @@ public class ArreglosPalabras {
     public ArrayList<String> palabraPulpo(){
       ArrayList<String> palabra= new ArrayList<>();
       ArrayList<String> palabras_pulpo = this.cargarPalabrasArchivo("PalabrasPulpo.txt");
-      int num=(int)Math.random()*8+0;
+      int num=(int)(Math.random()*9)+0;
+      System.out.println("NUMERO PALABRAS PULPO= "+num);
       palabra.add(palabras_pulpo.get(num));
       return palabra;
     }

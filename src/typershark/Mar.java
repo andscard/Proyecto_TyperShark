@@ -244,11 +244,12 @@ public class Mar extends Thread implements Observer{
     }
     
     public void pulpo (){
-        
+        int offset=0;
        this.pulpo=new Pulpo[this.num_peces];
         for(int i=0;i<this.num_peces;i++){
          ArrayList<String>palabra=arreglo_palabras.palabraPulpo();
-        this.pulpo[i]=new Pulpo(25,2.5,650,40,palabra);
+        this.pulpo[i]=new Pulpo(25,2.5,650,offset+40,palabra);
+        offset+=80;
         }
         //this.pulpo[0].start();
     }
@@ -332,7 +333,7 @@ public class Mar extends Thread implements Observer{
     this.pulpo();
     //this.arregloDeTiburonesNegros(); 
     //int []numero=  {1,2,1,2,1,2,1,4};
-    int []numero=  {1,3,1,3,3,2,1,3};
+    int []numero=  {1,2,3,2,1,2,1,3};
     
     Posicion pos;
     //int aleatorio=0;

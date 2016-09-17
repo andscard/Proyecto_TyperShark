@@ -285,7 +285,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         BufferedWriter bw=new BufferedWriter(new FileWriter(file));
          
         bw.write(infoJugador());
-        bw.newLine();
+        //bw.newLine();
         bw.flush();
         bw.close();
             
