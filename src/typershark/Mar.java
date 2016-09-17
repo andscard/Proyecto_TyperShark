@@ -280,14 +280,8 @@ public class Mar extends Thread implements Observer{
      }
     }
     
-    public void aumentarNivel(){
-        if((buceador.getMetros()%465)==0){
-            this.nivel=nivel+1;}
-        this.aumentarVelocidad();
-    }
-    
-    public void aumentarVelocidad(){
-    this.velocidad=velocidad+1;}
+    public void aumentarVelocidadPeces(){
+    this.velocidad+=3;}
     
     
     public void setId_Pez(int id){
@@ -413,8 +407,7 @@ public class Mar extends Thread implements Observer{
                 break;
             case "buceador_llega":
                 Buceador b=(Buceador) o;
-               
-                this.velocidad+=3;
+                aumentarVelocidadPeces();
                break;
                  }
    
