@@ -173,7 +173,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         }
     }
     
-    
+    /**
+     * El método ganarVidasExtras() permite aumentar una vida al
+     * buceador, si este se encuentra en un nivel multiplo 
+     * de tres
+     */
     public void ganarVidasExtras(){
         if (nivel%3==0){
             vidas=vidas+1;}

@@ -306,9 +306,11 @@ public class Mar extends Thread implements Observer{
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
-    //this.arregloDeTiburonesNegros(); 
+    this.arregloDeTiburonesNegros(); 
     //int []numero=  {1,2,1,2,1,2,1,4};
-    int []numero=  {1,2,3,2,1,2,1,3};
+   // int []numero=  {1,2,3,2,1,2,1,3};
+    //  int []numero=  {4,4,4,4,4,4,4,4};
+     int []numero=  {1,4,1,2,2,4,1,1};
     
     Posicion pos;
     //int aleatorio=0;
@@ -395,7 +397,6 @@ public class Mar extends Thread implements Observer{
        
     }
     
-   
     private class KeyPressed implements EventHandler<KeyEvent> {
         //private Pez pez[]=pez_mar;
         //ArrayList<Pez> peces= peces_mar;
@@ -469,7 +470,7 @@ public class Mar extends Thread implements Observer{
                   if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion)){
                        
                     if(posicion <peces_mar.get(palabra_activa).palabra.getLongitudPalabra()){
-                            if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion) ){
+                        if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion) ){
                        
                         peces_mar.get(palabra_activa).palabra.cambiarColorLetras(posicion);
                         posicion=posicion+1; 
@@ -482,15 +483,22 @@ public class Mar extends Thread implements Observer{
                            //pez[palabra_activa].setEstadoVida();
               
                           if(peces_mar.get(palabra_activa).palabra.getNum_palabras()>1){
-                           if(cont_palabras<peces_mar.get(palabra_activa).palabra.getNum_palabras()){
-                            cont_palabras=cont_palabras+1;
-                            posicion=0;
-                            peces_mar.get(palabra_activa).palabra.cargarPalabra(cont_palabras);
-                            peces_mar.get(palabra_activa).palabra.setEstado(0);
-                           }
-                           
-                            
-                         }
+                               peces_mar.get(palabra_activa).palabra.setEstado(-1);
+                               
+                               if(!peces_mar.get(palabra_activa).palabra.listaVaciaPalabras()){
+                                   
+                                  if(peces_mar.get(palabra_activa).palabra.getEstado()==-1){
+                                      peces_mar.get(palabra_activa).palabra.eliminarPalabra(0);
+                                        peces_mar.get(palabra_activa).palabra.panelPalabra().getChildren().clear();
+                                      peces_mar.get(palabra_activa).palabra.cargarPalabra(0);
+                                      
+                                      posicion=0;
+                                      
+                                      
+                                  }
+                                }//lista vacia
+                                                         
+                            }
                             
                             else{
                           
@@ -532,6 +540,7 @@ public class Mar extends Thread implements Observer{
             }
     }
     
+ 
  
     
     @Override

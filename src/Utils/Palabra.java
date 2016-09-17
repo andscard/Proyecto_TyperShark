@@ -17,7 +17,10 @@ import javafx.scene.text.Font;
  *
  * @author Mayken
  */
-    
+    /**
+     * 
+     * @author Mayken
+     */
 public class Palabra  {
     private int num_palabras;
     private ArrayList<String> lista_palabras;
@@ -39,7 +42,7 @@ public class Palabra  {
         this.palabra = palabras.get(0);
         this.posicion=0;
         this.estado=0;
-        this.llenarArregoLetras();
+        this.llenarArregloLetras();
         this.panel=new HBox(); 
         this.cargarPalabra(0);
     }
@@ -69,27 +72,21 @@ public class Palabra  {
     
     public void cargarPalabra(int indice_palabra) {
            this.setPalabra(this.lista_palabras.get(indice_palabra));
-           this.llenarArregoLetras();
+           this.setEstado(0);
+           this.llenarArregloLetras();
            this.addPalabraPanel();
     }
     
     
      public void eliminarPalabra(int indice_palabra) {
            this.lista_palabras.remove(indice_palabra);
-           
-    }
+           this.setNum_palabras(this.lista_palabras.size());
+  }
     
     
     
     
-     
-    public void cargarNuevaPalabra(int indice_palabra) {
-           this.setPalabra(this.lista_palabras.get(indice_palabra));
-           this.llenarArregoLetras();
-           this.panelPalabraNueva();
-           panelPalabra().setVisible(true);
-    }
-   
+    
     /**
      * El método getLongitudPalabra() permite conocer la longitud de la palabra
      * del Pez
@@ -110,7 +107,7 @@ public class Palabra  {
     
     
     
-    public void llenarArregoLetras(){
+    public void llenarArregloLetras(){
          label_letras= new Label[this.palabra.length()];
          String pal;         
          for( int i=0;i<palabra.length();i++){
@@ -135,6 +132,8 @@ public class Palabra  {
          return palabras;
     }*/
     
+    
+    
       /**
      * @param panel the panel to set
      */
@@ -143,15 +142,7 @@ public class Palabra  {
     }
 
        
-        
-   public void panelPalabraNueva(){
-         HBox nueva_palabra = new HBox();
-         nueva_palabra.getChildren().addAll(label_letras);
-         setPanel(nueva_palabra);
-        
-    }
-    
-    
+          
    public HBox panelPalabra(){
         return this.panel;}
     

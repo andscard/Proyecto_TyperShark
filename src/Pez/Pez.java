@@ -62,6 +62,13 @@ public class Pez extends Thread implements Subject{
             }
       }
 
+    /**
+     * @return the pane_palabra
+     */
+    public HBox getPane_palabra() {
+        return pane_palabra;
+    }
+
    
 
    
@@ -112,8 +119,8 @@ public class Pez extends Thread implements Subject{
     public void set_image(ImageView imagen){
     this.imagen=imagen;
     this.imagen.toBack();
-    this.pane.getChildren().addAll(this.imagen,this.pane_palabra);
-    this.pane_palabra.toFront();
+    this.pane.getChildren().addAll(this.imagen, this.getPane_palabra());
+    this.getPane_palabra().toFront();
     this.pane.autosize();
         
     }
@@ -188,67 +195,7 @@ public class Pez extends Thread implements Subject{
             return this.pane;
     }
      
-   /**
-     public boolean pezDentroDelMar() {
-        boolean en_el_mar;
-        if (pane.getTranslateX() <= -740) {
-            posicion.setPos_x(-740);
-            pane.setVisible(false);
-            return en_el_mar=false;
-        }else{
-            return en_el_mar=true;
-        }
-     }
-    
-    **/
-     
-     /**
-    @Override
-    public void run(){
-        
-            while(!stop){
-                Platform.runLater(new Runnable(){
-                    @Override
-                    public void run() {
-                       
-                            pane.setTranslateX(pane.getTranslateX()-velocidad );
-                            System.out.println(pane.getTranslateX());
-
-                           
-                           // if(pezDentroDelMar()==false){    
-                           // stop=true;
-
-                            
-                            if (pane.getTranslateX()==-720){
-                                posicion.setPos_x(-720);
-                                stop=true;
-                                pane.setVisible(false);
-                                
-                            }
-                            
-                            
-                            if(estado==Estado.MUERTO){
-                               pane.setVisible(false);
-                                stop=true;}
-                        
-                  // }
-                    
-               
-                try {
-                    Pez.sleep(200);
-                    } catch (InterruptedException ex) {
-                    Logger.getLogger(Pez.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                    }
-                    
-                });
-                        }
-    }
-    
-    **/
-     
-     
-     
+      
      @Override
     public void run(){
         
