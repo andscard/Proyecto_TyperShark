@@ -72,7 +72,23 @@ public class Palabra  {
            this.llenarArregoLetras();
            this.addPalabraPanel();
     }
-  
+    
+    
+     public void eliminarPalabra(int indice_palabra) {
+           this.lista_palabras.remove(indice_palabra);
+           
+    }
+    
+    
+    
+    
+     
+    public void cargarNuevaPalabra(int indice_palabra) {
+           this.setPalabra(this.lista_palabras.get(indice_palabra));
+           this.llenarArregoLetras();
+           this.panelPalabraNueva();
+           panelPalabra().setVisible(true);
+    }
    
     /**
      * El método getLongitudPalabra() permite conocer la longitud de la palabra
@@ -119,11 +135,30 @@ public class Palabra  {
          return palabras;
     }*/
     
-    public HBox panelPalabra(){
+      /**
+     * @param panel the panel to set
+     */
+    public void setPanel(HBox panel) {
+        this.panel = panel;
+    }
+
+       
+        
+   public void panelPalabraNueva(){
+         HBox nueva_palabra = new HBox();
+         nueva_palabra.getChildren().addAll(label_letras);
+         setPanel(nueva_palabra);
+        
+    }
+    
+    
+   public HBox panelPalabra(){
         return this.panel;}
     
     public void addPalabraPanel(){
     this.panel.getChildren().addAll(this.label_letras);}
+    
+    
     /**
      * @return posicion retorna un tipo de dato entero, indica la posicion 
      * de la letra a escribir por teclado. 
@@ -162,7 +197,7 @@ public class Palabra  {
         return this.lista_palabras.isEmpty();
     }
 
-       
+  
          
 
 

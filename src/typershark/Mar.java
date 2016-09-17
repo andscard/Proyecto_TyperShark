@@ -29,6 +29,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -164,9 +165,14 @@ public class Mar extends Thread implements Observer{
     
     
     public void arregloDeTiburonesNegros() {
+        this.tiburon_negro=new TiburonNegro[num_peces];
         int cont=0;
         ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro();
         ArrayList<String> lista_palabras=new ArrayList<String> ();
+        ArrayList<String>tibu= new ArrayList<String>();
+        tibu.add("mayken");
+        tibu.add("salava");
+        tibu.add("tutive");
         System.out.println(palabras_tiburones.size());
          System.out.println("NUMERO PECES:"+num_peces);
         for (int i = 0; i < this.num_peces; i++) {
@@ -179,7 +185,9 @@ public class Mar extends Thread implements Observer{
                 lista_palabras.add(palabras_tiburones.get(j));
 
             }
-            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20, lista_palabras);
+            //this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20, lista_palabras);
+            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20,tibu);
+            
             palabras_tiburones.remove(0);
             palabras_tiburones.remove(0);
             palabras_tiburones.remove(0);
@@ -244,12 +252,11 @@ public class Mar extends Thread implements Observer{
     }
     
     public void pulpo (){
-        int offset=0;
+        
        this.pulpo=new Pulpo[this.num_peces];
         for(int i=0;i<this.num_peces;i++){
          ArrayList<String>palabra=arreglo_palabras.palabraPulpo();
-        this.pulpo[i]=new Pulpo(25,2.5,650,offset+40,palabra);
-        offset+=80;
+        this.pulpo[i]=new Pulpo(25,2.5,650,40,palabra);
         }
         //this.pulpo[0].start();
     }
@@ -331,10 +338,10 @@ public class Mar extends Thread implements Observer{
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
-    //this.arregloDeTiburonesNegros(); 
+    this.arregloDeTiburonesNegros(); 
     //int []numero=  {1,2,1,2,1,2,1,4};
-    int []numero=  {1,2,3,2,1,2,1,3};
-    
+     int []numero=  {1,3,1,3,3,2,1,3};
+    //  int []numero=  {1,3,1,4,4,4,1,4};
     Posicion pos;
     //int aleatorio=0;
     
@@ -506,13 +513,28 @@ public class Mar extends Thread implements Observer{
                     //Posicion del curso es igual a la longitud de la palabra, aquí muere el pez
                       if(posicion ==peces_mar.get(palabra_activa).palabra.getLongitudPalabra()){
                            //pez[palabra_activa].setEstadoVida();
+                           
+                           
+                           
+                           
+                           
               
-                          if(peces_mar.get(palabra_activa).palabra.getNum_palabras()>1){
-                           if(cont_palabras<peces_mar.get(palabra_activa).palabra.getNum_palabras()){
-                            cont_palabras=cont_palabras+1;
-                            posicion=0;
-                            peces_mar.get(palabra_activa).palabra.cargarPalabra(cont_palabras);
-                            peces_mar.get(palabra_activa).palabra.setEstado(0);
+                   
+                         if(peces_mar.get(palabra_activa).palabra.getNum_palabras()>1){
+                             peces_mar.get(palabra_activa).palabra.setEstado(-1);
+                              
+                           //if(cont_palabras<peces_mar.get(palabra_activa).palabra.getNum_palabras()){
+                           for(int i=0; i<peces_mar.get(palabra_activa).palabra.getNum_palabras();i++){
+                                
+                               if(peces_mar.get(palabra_activa).palabra.getEstado()==-1){
+                                     cont_palabras=cont_palabras+1; 
+                            
+                                posicion=0;
+                                peces_mar.get(palabra_activa).palabra.panelPalabra().setVisible(false);
+                                peces_mar.get(palabra_activa).palabra.cargarPalabra(cont_palabras);
+                                peces_mar.get(palabra_activa).palabra.panelPalabra().setVisible(true);
+                          
+                                peces_mar.get(palabra_activa).palabra.setEstado(0);}
                            }
                            
                             
