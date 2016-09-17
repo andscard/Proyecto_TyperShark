@@ -7,6 +7,7 @@ package Buceador;
 
 import Pez.Pez;
 import Pez.Piraña;
+import Pez.Pulpo;
 import Utils.Observer;
 import Utils.Posicion;
 import Utils.Subject;
@@ -54,7 +55,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     private Label arma_string;
     private Label nivel_string;
     private ToolBar barra;
-    private final int puntaje_arma_especial=1000;
+    private final int puntaje_arma_especial=300;
     private final double profundidad_mar=45;
     private int pirañas_picadas;
     private ArrayList observers = new ArrayList();
@@ -253,11 +254,16 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                 this.pirañas_picadas=0;
                 }
                 }
-                // if(this.vidas<0){this.vidas=0;}
+                 if(this.vidas<0){this.vidas=0;}
                 System.out.println("Perdio una vida");
                 
                 break;
             case "pez_muere":
+                
+                if (p.getClass().equals(Pulpo.class)){
+                    setEstadoArmaEspecial(true);
+                }
+                
                 this.puntaje+=p.getPuntos();
                 System.out.println("Aumento "+p.getPuntos());
                 break;
@@ -319,17 +325,18 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                   if (puntaje>=puntaje_arma_especial){
                     setEstadoArmaEspecial(true);
                   }
-                  
+                  if (puntaje<0){ puntaje=0;}
                   
                   
                    
-                  String mensaje_arma="Presione ENTER";
+                  String mensaje_arma="(Presione ENTER)";
                     puntaje_string.setText(String.valueOf(puntaje));
                     vidas_string.setText(String.valueOf(vidas));
                     metros_string.setText(String.valueOf(metros));
                     nivel_string.setText(String.valueOf(nivel));
                     if (getEstadoArmaEspecial()==true){
                         arma_string.setText(estadoArma()+" "+mensaje_arma);
+                        arma_string.setTextFill(Color.ORANGERED);
                     }else{
                         arma_string.setText(estadoArma());
                     }
