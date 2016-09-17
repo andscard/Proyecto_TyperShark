@@ -165,6 +165,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     public void llegaFondoDelMar() {
         if (this.metros == this.profundidad_mar) {
             nivel=nivel+1;
+            ganarVidasExtras();
             this.metros=0;
             pane.setTranslateY(5);
             this.notifyObservers_buceador_llega_fondo();
@@ -172,6 +173,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         }
     }
     
+    
+    public void ganarVidasExtras(){
+        if (nivel%3==0){
+            vidas=vidas+1;}
+    }
      
     
     public String infoJugador(){
@@ -313,7 +319,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                   if (puntaje>=puntaje_arma_especial){
                     setEstadoArmaEspecial(true);
                   }
-                
+                  
                   
                   
                    
