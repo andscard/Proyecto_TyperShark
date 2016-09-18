@@ -1,0 +1,12 @@
+mjj 1 45
+mayken 1 140
+mayken 2 350
+mayken 3 275
+lucas 1 130
+lucas 2 140
+lucas 3 300
+camil 1 200
+camil 2 300
+camil 4 400
+camil 5 300
+camil 6 200

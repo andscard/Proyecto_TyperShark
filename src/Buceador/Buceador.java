@@ -61,6 +61,8 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     private final double profundidad_mar=45;
     private int pirañas_picadas;
     private ArrayList observers = new ArrayList();
+    private Button bt_pausa;
+    private Button bt_continuar;
     
     
    
@@ -115,6 +117,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
      * El método getVidas() retorna las vidas que tiene el jugador
      * @return vidas tipo entero
      */
+
+    public void setStopBuceador(boolean stop){
+    this.stop=stop;}
+    
+
     public int getVidas() {
         return vidas;
     }
@@ -159,7 +166,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
      * @return dato tipo booleano
      */
     public boolean isBuceadorAlive(){
-    if (this.vidas>0){
+    if (this.vidas!=0){
     return true;}
     else{
     return false;}
@@ -305,26 +312,52 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
        
         Button bt_guardar= new Button("GUARDAR");
         bt_guardar.setOnAction(new ClickHandler());
-        
+        bt_pausa=new Button("PAUSA");
+        bt_continuar=new Button("CONTINUAR");
         
         barra.getItems().addAll(coin, lb_puntaje, puntaje_string, new Separator(), heart, lb_vidas, vidas_string, new Separator(), 
-                lb_metros, metros_string, new Separator(), bomba, lb_arma, arma_string,new Separator(),lb_nivel,nivel_string,new Separator(),bt_guardar);
+                lb_metros, metros_string, new Separator(), bomba, lb_arma, arma_string,new Separator(),lb_nivel,nivel_string,new Separator(),
+                bt_guardar,new Separator(),bt_pausa,new Separator(),bt_continuar);
       
       
         return barra;
     }
     
-
+    public Button getButtonPausa(){
+        return this.bt_pausa;}
+    
+    public Button getButtonContinuar(){
+        return this.bt_continuar;}
+    
+    
     @Override
     public int compareTo(Buceador b1) {
-    if (this.puntaje<b1.puntaje){
-        return 1;
-    }else if(this.puntaje>b1.puntaje){
+        if (this.puntaje>b1.puntaje&&this.nivel==b1.nivel){
+              
+                   return 1;}
+    
+        else if(this.puntaje<b1.puntaje&&this.nivel==b1.nivel){
+        return -1;
+    }
+        
+        if (this.nivel==b1.nivel){
+              
+                   return 1;}
+    
+        else if(this.nivel<b1.nivel){
         return -1;
     }else{
-        return 0;}   
+        return 0;} 
+      
+        
     }
 
+    
+     
+        
+    
+        
+        
     @Override
     public void update(Subject o, String evento) {
         
@@ -436,9 +469,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                     
                     
                     if (vidas==0){
-                       
                      stop=true;
-                    }            
+                    }  
+                    
+                    if(isBuceadorAlive()==false){
+                        stop=true;}
                                
                 }
                 
@@ -475,3 +510,12 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     
    
 }
+
+
+
+
+
+
+
+
+
