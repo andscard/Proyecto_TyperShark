@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
- * Clase Tiburón, es una sulclase de la clase Pez
+ * Clase Tiburón, es una subclase de la clase Pez
  * Contiene una imagen representativa del tiburón y el método que permite verla
  * @author Mayken Salvarría
  * @author Andrea Cárdenas
