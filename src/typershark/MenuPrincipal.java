@@ -176,9 +176,10 @@ public class MenuPrincipal {
     private class ClickHandler4 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-            top.escribirArchivoTop(new Buceador("Mayken"));
+          //  top.escribirArchivoTop(new Buceador("Mayken"));
             top.listaTopJugadores();
             top.llenarListView();
+            top.llenarListJugadoresNiveles();
             stage3.show();
         }
     }

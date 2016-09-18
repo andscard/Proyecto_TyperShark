@@ -54,10 +54,17 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+
 /**
- *
- * @author User
+ * La Clase Mar almacena funciones útiles como obtener y modificar puntos (Valor de cada pez), 
+ * velocidad,estado del pez,posicion.
+ * @author Mayken Salavarría Tutivén
+ * @author Andrea Cárdenas Sumba
+ * 
+ * @version 2.0.0
+ * 
  */
+
 public class Mar extends Thread implements Observer{
     private MediaPlayer music;
     private BorderPane panel_mar;
@@ -80,10 +87,12 @@ public class Mar extends Thread implements Observer{
     private Button bt_regresar= new Button(" MENÚ PRINCIPAL ");
        
     
+    
     /**
-     * Constructor del Mar
+     * Constructor del Mar, asigna el panel, buceador( Jugador), nivel, 
+     * velocidad, inicializa los peces y setea el pa
      * 
-     * @param name 
+     * @param name tipo String, nombre del jugador
      */
     
     public Mar(String name){
@@ -120,6 +129,10 @@ public class Mar extends Thread implements Observer{
     System.out.println(this.buceador.getVidas());
     }
 
+    /**
+     * El método getNivel() permite obtener el nivel actual que cursa el jugador
+     * @return nivel tipo entero, nivel actual
+     */
     public int getNivel() {
         return nivel;
     }
@@ -133,6 +146,12 @@ public class Mar extends Thread implements Observer{
     
     
     
+    /**
+     * El método setPanelPeces(), ajusta la imagen del fondo del mar,ubica
+     * el panel que contiene a los peces y al buceador, además de inicializar
+     * el hilo del buceador.
+     * @return panel tipo Pane
+     */
     public Pane setPanelPeces(){
     panel_peces_buceador=new Pane();
     fondo=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/mar.jpg"),900,600,false,false));
@@ -152,8 +171,9 @@ public class Mar extends Thread implements Observer{
 
    
     /**
-     * 
-     * @return 
+     * El método BorderPane getMar() retorna el panel del mar, con todos 
+     * elementos que lo conforman (botones,peces, buceador).
+     * @return panel_mar tipo BorderPane, panel del juego
      */
     public BorderPane getMar() {
         return this.panel_mar;
@@ -178,7 +198,10 @@ public class Mar extends Thread implements Observer{
 
     }
 
-    
+    /**
+     * El método arregloDeTiburonesNegros() permite crear un arreglo de
+     * Tiburones Negros
+     */
    public void arregloDeTiburonesNegros() {
         this.tiburon_negro=new TiburonNegro[num_peces];
         int cont=0;
@@ -201,7 +224,9 @@ public class Mar extends Thread implements Observer{
      
     
     
-  
+  /**
+   * El método arregloDePirañas() permite crear un arreglo de pirañas.
+   */
  
     public void arregloDePirañas() {
         this.piraña=new Piraña[num_peces];
@@ -217,6 +242,9 @@ public class Mar extends Thread implements Observer{
         }
     }
     
+    /**
+     * El método pulpo() crea un pulpo.
+     */
     public void pulpo (){
         int offset=0;
        this.pulpo=new Pulpo[this.num_peces];
@@ -277,13 +305,7 @@ public class Mar extends Thread implements Observer{
     this.velocidad=(2*nivel)+(nivel-1);}
     
     
-    public void setId_Pez(int id){
-    this.id_pez=id;
-    }
-    
-    public int getId_Pez(){
-    return this.id_pez;
-    }
+ 
     
     /*private void generarPezAleatorio(){    
     this.arregloDeTiburones();
@@ -293,8 +315,7 @@ public class Mar extends Thread implements Observer{
     int []numero=  {1,2,3,1,2,3,4,1,2,3};
     //int aleatorio=(int)(new Random().nextDouble()*9+0);
     int aleatorio=2;
-    this.setId_Pez(numero[aleatorio]);
-
+    
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
@@ -312,6 +333,12 @@ public class Mar extends Thread implements Observer{
     
     }*/
     
+    
+    
+    /**
+     * El método generarPezAleatorio2() permite generar los peces de manera
+     * aleatoria ubicandondolos en el panel del mar.
+     */
     private void generarPezAleatorio2(){ 
     
     //this.pez_mar= new Pez[num_peces];
@@ -322,7 +349,7 @@ public class Mar extends Thread implements Observer{
     //int []numero=  {1,2,1,2,1,2,1,4};
    // int []numero=  {1,2,3,2,1,2,1,3};
     //  int []numero=  {4,4,4,4,4,4,4,4};
-    int []numero=  {1,2,3,4,1,2,2};
+       int []numero=  {1,2,3,4,1,2,2};
     
     Posicion pos;
     //int aleatorio=0;
@@ -332,7 +359,7 @@ public class Mar extends Thread implements Observer{
     double x=new Random().nextDouble()*740+700;
     double y=new Random().nextDouble()*90+20;
     pos=new Posicion(x,y);
-    this.setId_Pez(numero[aleatorio]);
+ 
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
@@ -358,6 +385,14 @@ public class Mar extends Thread implements Observer{
      this.ubicarPecesMar(panel_peces_buceador,peces_mar);
     }
     
+    
+    /**
+     * El método matarPecesConArmaEspecial() permite utilizar el arma
+     * especial y esta cambia el estado de vida ( VIVO a MUERTO),
+     * de todos los peces que se encuentren en juego, cuando se utiliza
+     * el arma especial el puntaje acumulado del buceador disminuye 
+     * 300 puntos (valor del arma especial).
+     */
     public void matarPecesConArmaEspecial(){
     if(buceador.getEstadoArmaEspecial()==true){
        
@@ -374,6 +409,10 @@ public class Mar extends Thread implements Observer{
     }
     }
     
+    /**
+     * El método nuevoNumeroAleatorioPeces(), genera un nuevo número 
+     * de peces para el panel mar.
+     */
    public void nuevoNumeroAleatorioPeces(){
        if (num_peces==0){
            this.num_peces=(int)(new Random().nextDouble()*5+1);
@@ -460,6 +499,17 @@ public class Mar extends Thread implements Observer{
         }
     }*/
     
+    
+    /**
+     * La clase KeyPressed implements EventHandler<KeyEvent>  implementa el 
+     * evento por teclado, su  función principal es recibir las letras
+     * y comparararlas con las palabras de los peces en juego. 
+     * Cuando la primera letra es comparada y coincide con el caracter inicial
+     * de una de las palabras de los peces, el pez es seleccionado  y este
+     * no puede ser eliminado hasta que toda su palabra sea completada. Cuando
+     * la palabra sea completada el pez desaparece y el buceador acumula puntos.
+     * 
+     */
     private class KeyPressed implements EventHandler<KeyEvent> {
         //private Pez pez[]=pez_mar;
         //ArrayList<Pez> peces= peces_mar;
@@ -604,7 +654,9 @@ public class Mar extends Thread implements Observer{
     }
     
  
- 
+ /**
+  * El método run() contiene 
+  */
     
     @Override
     public void run(){

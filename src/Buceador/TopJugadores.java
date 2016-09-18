@@ -41,11 +41,14 @@ import typershark.Ayuda;
 public class TopJugadores {
     private ListView<String> lista;
     private ArrayList <Buceador> top_buceadores;
+    private String[] buceadores_niveles;
+    
     private Pane panel;
     private Stage stage;
     private Button boton;
     private ImageView fondo;
     private ObservableList<String> nombres;
+    
     
     public TopJugadores (){
     this.panel=new Pane();
@@ -54,6 +57,7 @@ public class TopJugadores {
    // lista.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
     this.nombres =FXCollections.observableArrayList ();
     this.top_buceadores= new ArrayList<Buceador>(10);
+   
     this.boton=new Button(" SALIR ");
         boton.setTranslateX(700);
         boton.setTranslateY(490);
@@ -87,7 +91,7 @@ public class TopJugadores {
             
     public  ArrayList<Buceador> listaJugadores(){
     try {  
-    File file=new File ("TopJugadores.txt");
+    File file=new File ("JugadoresPorNiveles.txt");
     ArrayList<Buceador> lista_jugadores =new  ArrayList<Buceador>();
     Scanner scanner = new Scanner(file);
     Buceador b1;
@@ -95,7 +99,8 @@ public class TopJugadores {
                 String line = scanner.nextLine();
                 String[] info = line.split(" ");
                 b1=new Buceador(info[0]);
-                b1.cambiarPuntaje(Integer.parseInt(info[1]));
+                b1.setNivel(Integer.parseInt(info[1]));
+                b1.setPuntaje(Integer.parseInt(info[2]));
                 lista_jugadores.add(b1);
             }
             Collections.sort(lista_jugadores);
@@ -108,7 +113,7 @@ public class TopJugadores {
     
     public void listaTopJugadores(){
         ArrayList<Buceador> lista_jugadores=this.listaJugadores();
-        
+       /** 
         if (lista_jugadores.size()<10){
             for (int i=0; i<lista_jugadores.size();i++){
             this.top_buceadores.add(lista_jugadores.get(i));
@@ -117,21 +122,56 @@ public class TopJugadores {
             for (int i=0; i<10;i++){
                 this.top_buceadores.add(lista_jugadores.get(i));
             }
+        }**/
+       
+              for (int i=0; i<lista_jugadores.size();i++){
+            this.top_buceadores.add(lista_jugadores.get(i));
+            }
+        
         }
-    }
+       
+       
+    
     
     public void llenarListView(){
     int n=this.top_buceadores.size();
-        for (int i=0; i<n;i++){
-        nombres.add(top_buceadores.get(i).infoJugador());
-        this.lista.setItems(nombres);
+    this.buceadores_niveles= new String[top_buceadores.size()];
+        
+    for (int i=0; i<n;i++){
+        //buceadores_niveles[i]=(top_buceadores.get(i).infoJugador2());
+        //nombres.add(top_buceadores.get(i).infoJugador2());
+        //this.lista.setItems(nombres);
         lista.setStyle("-fx-text-fill: black;"+
     "-fx-font: Courier New;"+
     "-fx-font-family: Courier New;"+
     "-fx-font-weight: bold;"+
-    "-fx-font-size: 18;");}
+    "-fx-font-size: 18;");
+        lista.setMaxHeight(1000);
+        lista.setMaxWidth(700);}
     }
    
+    
+      public void llenarListJugadoresNiveles(){
+        int n=this.buceadores_niveles.length;
+      
+       try{
+        File file=new File ("TopJugadoresLevels.txt");
+        BufferedWriter bw=new BufferedWriter(new FileWriter(file));
+        
+        for (int i=0; i<n;i++){
+         
+        bw.write(buceadores_niveles[i]);
+        bw.newLine();
+        bw.flush();
+        bw.close();
+            
+    }}catch(IOException ex){
+        System.out.println("No se pudo escribir en el archivo TopJugadoresLevels.txt");}
+    }
+    
+       
+    
+    
    public Pane getTopJugadores(){
    return this.panel;}
    

@@ -37,9 +37,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- * 
- * @author Mayken
+ * La clase Buceador almacena 
+ * @author Sheyla Cárdenas Sumba
+ * @author Mayken Salavarria Tutivén
  */
+
 public class Buceador extends Thread implements Comparable<Buceador>, Observer, Subject {
     private String nombre;
     private int vidas;
@@ -66,6 +68,14 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     //private Button bt_continuar;
     
     
+   
+    
+    /**
+     * Constructor de la clase Buceador asigna el nombre del jugador, asigna 
+     * tres vidas al buceador, puntaje inicial, nivel, arma_especial,posicion
+     * del jugador, sea crean los labels que conformar la barra de herramientas.
+     * @param nombre tipo String, nombre del jugador
+     */
     public Buceador(String nombre){
     this.pane= new Pane();    
     this.archivo_partidas=new File ("Partidas.txt");
@@ -90,24 +100,49 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     this.pirañas_picadas=0;
     }
 
+    
+ /**
+  * El método getNombre() retorna el nombre del jugador actual.
+  * @return nombre tipo String, nombre del jugador
+  */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * El método setNombre(String nombre) permite cambiar el nombre del buceador.
+     * @param nombre tipo String, nombre del nuevo Jugador
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    /**
+     * El método getVidas() retorna las vidas que tiene el jugador
+     * @return vidas tipo entero
+     */
+
     public void setStopBuceador(boolean stop){
     this.stop=stop;}
     
+
     public int getVidas() {
         return vidas;
     }
-    
+
+    /**
+     * El método setVidas(int vidas) permite cambiar las vidas que posea el 
+     * buceador
+     * @param vidas  tipo entero
+     */
     public void setVidas(int vidas) {
         this.vidas = vidas;
     }
 
+    /**
+     * El método getPuntaje() permite conocer el puntaje del buceador
+     * @return puntaje tipo entero
+     */
     public int getPuntaje() {
         return puntaje;
     }
@@ -119,10 +154,20 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         this.puntaje = this.puntaje+puntos;
     }
 
+    /**
+     * El método getEstadoArmaEspecial() permite conocer si el buceador posee
+     * o no la arma especial
+     * @return arma_especia tipo booleno
+     */
     public boolean getEstadoArmaEspecial() {
         return arma_especial;
     }
     
+    /**
+     * El método BuceadorAlive() permite conocer si el buceador está vivo
+     * es decir que tiene vidas disponibles
+     * @return dato tipo booleano
+     */
     public boolean isBuceadorAlive(){
     if (this.vidas!=0){
     return true;}
@@ -130,31 +175,62 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     return false;}
     }
 
+    /**
+     * El método setEstadoArmaEspecial(boolean arma_especial) cambia el 
+     * estado actual de la arma especial
+     * @param arma_especial tipo booleano
+     */
     public void setEstadoArmaEspecial(boolean arma_especial) {
         this.arma_especial = arma_especial;
     }
 
+    /**
+     * El método getPosicion() permite conocer la posición actual del buceador
+     * @return posicion tipo Posicion
+     */
     public Posicion getPosicion() {
         return posicion;
     }
     
+    /**
+     * El método getPuntajeArmaEspecial() retorna el valor del arma especial
+     * @return puntaje del arma especial, dato tipo entero 
+     */
     public int getPuntajeArmaEspecial(){
         return this.puntaje_arma_especial;}
     
+    /**
+     * El método setPosicion(Posicion posicion) permite cambiar la posicion
+     * actual del buceador.
+     * @param posicion tipo Posicion
+     */
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
 
+    /**
+     * El método getMetros() retorna el número de metros que ha avanzado el 
+     * buceador
+     * @return metros, tipo double, metros avanzados
+     */
     public double getMetros() {
         return metros;
     }
     
+    /**
+     * El método getNivel() permite conocer el nivel actual del buceador.
+     * @return 
+     */
     public void setMetros(double metros){
     this.metros=metros;}
     
     public int getNivel(){
         return nivel;}
-    
+   
+    /**
+     * EL método setNivel(int nivel) permite aumentar el nivel
+     * @param nivel 
+     */
     public void setNivel(int nivel){
     this.nivel=nivel;}
     
@@ -181,6 +257,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         if (this.metros == this.profundidad_mar) {
             nivel=nivel+1;
             ganarVidasExtras();
+            jugadoresPorNiveles();
             this.metros=0;
             pane.setTranslateY(5);
             this.notifyObservers_buceador_llega_fondo();
@@ -276,16 +353,35 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         return null;
     }
     
+    
     @Override
     public int compareTo(Buceador b1) {
-    if (this.puntaje<b1.puntaje){
-        return 1;
-    }else if(this.puntaje>b1.puntaje){
+        if (this.puntaje>b1.puntaje&&this.nivel==b1.nivel){
+              
+                   return 1;}
+    
+        else if(this.puntaje<b1.puntaje&&this.nivel==b1.nivel){
+        return -1;
+    }
+        
+        if (this.nivel==b1.nivel){
+              
+                   return 1;}
+    
+        else if(this.nivel<b1.nivel){
         return -1;
     }else{
-        return 0;}   
+        return 0;} 
+      
+        
     }
 
+    
+     
+        
+    
+        
+        
     @Override
     public void update(Subject o, String evento) {
         
@@ -347,7 +443,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         BufferedWriter bw=new BufferedWriter(new FileWriter(archivo_partidas));
          
         bw.write(infoJugador());
-        //bw.newLine();
+        bw.newLine();
         bw.flush();
         bw.close();
             
@@ -393,6 +489,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                     
                     llegaFondoDelMar();
                     
+                    
                     if (vidas==0){
                      stop=true;
                     }  
@@ -417,7 +514,21 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     
     
     
+     public void jugadoresPorNiveles() {
+         try{
+        File file=new File ("JugadoresPorNiveles.txt");
+        BufferedWriter bw=new BufferedWriter(new FileWriter(file,true));
+        //bw.write(infoJugador2());
+        bw.newLine();
+        bw.flush();
+        bw.close();
+           
+        }catch(IOException ex){
+         System.out.println("No se pudo escribir en el archivo JugadoresPorNiveles.txt");}
+            
+        
     
+        }
     
    
 }
