@@ -105,9 +105,10 @@ public class Mar extends Thread implements Observer{
         this.pulpo=new Pulpo[this.num_peces];
         
         panel_peces_buceador=this.setPanelPeces();
-        
+
         this.peces_mar=new ArrayList<Pez>();
-        
+        buceador.getButtonPausa().setOnAction(new ClickHandler2());
+         buceador.getButtonPausa().setOnAction(new ClickHandler3());
         panel_mar.setCenter(panel_peces_buceador);
         panel_mar.setTop(barra);
         
@@ -219,15 +220,35 @@ public class Mar extends Thread implements Observer{
     }
  
     
-       public void detenerHilosPeces(){
+    public void detenerHilosPeces(){
         for(int i=0; i<peces_mar.size();i++){
-            peces_mar.get(i).setEstadoVida();
+            try {
+                peces_mar.get(i).wait();
+                
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Mar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
+        }
+    }
+    
+       public void detenerHiloJugador(){
+        try {
+            buceador.wait();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Mar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       }
+       
+    public void correrHilosPeces(){
+        for(int i=0; i<peces_mar.size();i++){
+            peces_mar.get(i).notify();
         
         }
     }
     
-    
-    
+       public void correrHiloJugador(){
+       buceador.notify();}
     
     
     
@@ -421,6 +442,24 @@ public class Mar extends Thread implements Observer{
         @Override
         public void handle(ActionEvent action) {
             System.exit(0);
+        }
+    }
+    
+    private class ClickHandler2 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            
+            detenerHilosPeces();
+            detenerHiloJugador();
+        }
+    }
+    
+    private class ClickHandler3 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+      
+         correrHilosPeces();
+         correrHiloJugador();
         }
     }
     

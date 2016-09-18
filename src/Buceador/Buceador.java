@@ -59,6 +59,8 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     private final double profundidad_mar=45;
     private int pirañas_picadas;
     private ArrayList observers = new ArrayList();
+    private Button bt_pausa;
+    private Button bt_continuar;
     
     
     public Buceador(String nombre){
@@ -222,16 +224,23 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
        
         Button bt_guardar= new Button("GUARDAR");
         bt_guardar.setOnAction(new ClickHandler());
-        
+        bt_pausa=new Button("PAUSA");
+        bt_continuar=new Button("CONTINUAR");
         
         barra.getItems().addAll(coin, lb_puntaje, puntaje_string, new Separator(), heart, lb_vidas, vidas_string, new Separator(), 
-                lb_metros, metros_string, new Separator(), bomba, lb_arma, arma_string,new Separator(),lb_nivel,nivel_string,new Separator(),bt_guardar);
+                lb_metros, metros_string, new Separator(), bomba, lb_arma, arma_string,new Separator(),lb_nivel,nivel_string,new Separator(),
+                bt_guardar,new Separator(),bt_pausa,new Separator(),bt_continuar);
       
       
         return barra;
     }
     
-
+    public Button getButtonPausa(){
+        return this.bt_pausa;}
+    
+    public Button getButtonContinuar(){
+        return this.bt_continuar;}
+    
     @Override
     public int compareTo(Buceador b1) {
     if (this.puntaje<b1.puntaje){
