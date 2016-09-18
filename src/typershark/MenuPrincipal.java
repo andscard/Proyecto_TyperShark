@@ -47,6 +47,7 @@ public class MenuPrincipal {
     private Stage stage_menu;
     private Scene scene1;
     private Scene scene2;
+    private Buceador buceador;
     
     
     public MenuPrincipal(){
@@ -57,7 +58,7 @@ public class MenuPrincipal {
     formulario.getBoton().setOnAction(new ClickHandler());
     scene1 = new Scene(this.getMenuPrincipal());
     scene2= new Scene (formulario.getFormulario());
-  
+    buceador=new Buceador("Anonimo");
     //stage1= formulario.crearStage();
     stage2= ayuda.crearStage();
     stage3= top.crearStage();
@@ -132,7 +133,6 @@ public class MenuPrincipal {
         mar=new Mar(formulario.getNombre()); 
         
         Scene scene2 = new Scene (mar.getMar());
-        //Scene scene3=new Scene(mar.mensajeGameOver());
         stage_menu.setScene(scene2);
         mar.start();
         mar.getButtonRegresar().setOnAction(new ClickHandler6());
@@ -150,8 +150,19 @@ public class MenuPrincipal {
      private class ClickHandler2 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-            
-            
+         String []info=buceador.leerArchivoPartidas();
+         mar=new Mar(info[0]);
+         boolean arma;
+         if (info[4]=="OFF"){arma=false;
+         }else{arma=true;}
+        mar.getBuceador().setInfoJugador(info[0],Integer.parseInt(info[1]),Integer.parseInt(info[2]),Double.parseDouble(info[3]),
+                arma,Integer.parseInt(info[5]));
+       
+        Scene scene2 = new Scene (mar.getMar());
+        stage_menu.setScene(scene2);
+        mar.start();
+        mar.getButtonRegresar().setOnAction(new ClickHandler6());
+         
         }
      }
     

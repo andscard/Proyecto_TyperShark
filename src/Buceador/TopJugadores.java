@@ -95,7 +95,7 @@ public class TopJugadores {
                 String line = scanner.nextLine();
                 String[] info = line.split(" ");
                 b1=new Buceador(info[0]);
-                b1.setPuntaje(Integer.parseInt(info[1]));
+                b1.cambiarPuntaje(Integer.parseInt(info[1]));
                 lista_jugadores.add(b1);
             }
             Collections.sort(lista_jugadores);

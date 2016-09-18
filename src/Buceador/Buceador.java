@@ -13,10 +13,12 @@ import Utils.Posicion;
 import Utils.Subject;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -59,12 +61,14 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     private final double profundidad_mar=45;
     private int pirañas_picadas;
     private ArrayList observers = new ArrayList();
-    private Button bt_pausa;
-    private Button bt_continuar;
+    private File archivo_partidas;
+    //private Button bt_pausa;
+    //private Button bt_continuar;
     
     
     public Buceador(String nombre){
     this.pane= new Pane();    
+    this.archivo_partidas=new File ("Partidas.txt");
     this.nombre=nombre;
     this.vidas=3;
     this.puntaje=0;
@@ -99,16 +103,19 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     public int getVidas() {
         return vidas;
     }
-
+    
     public void setVidas(int vidas) {
-        this.vidas = this.vidas+vidas;
+        this.vidas = vidas;
     }
 
     public int getPuntaje() {
         return puntaje;
     }
-
-    public void setPuntaje(int puntos) {
+    
+    public void setPuntaje(int puntaje){
+        this.puntaje=puntaje;}
+    
+    public void cambiarPuntaje(int puntos) {
         this.puntaje = this.puntaje+puntos;
     }
 
@@ -142,6 +149,9 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         return metros;
     }
     
+    public void setMetros(double metros){
+    this.metros=metros;}
+    
     public int getNivel(){
         return nivel;}
     
@@ -166,7 +176,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     return estado;
     }
     
-
+    
     public void llegaFondoDelMar() {
         if (this.metros == this.profundidad_mar) {
             nivel=nivel+1;
@@ -191,10 +201,18 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     
     public String infoJugador(){
   
-    String info=this.nombre+" "+this.puntaje+" "+this.vidas+" "+this.metros+" "+this.estadoArma();
+    String info=this.nombre+" "+this.puntaje+" "+this.vidas+" "+this.metros+" "+this.estadoArma()+" "+this.nivel;
     return info;
     }
     
+    public void setInfoJugador(String nombre,int puntaje,int vidas, double metros, boolean arma, int nivel){
+        this.setNombre(nombre);
+        this.setPuntaje(puntaje);
+        this.setVidas(vidas);
+        this.setMetros(metros);
+        this.setEstadoArmaEspecial(arma);
+        this.setNivel(nivel);
+    }
     public void formatoLabelsBarra(Label lb){
         lb.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
         lb.setTextFill(Color.DARKBLUE);
@@ -224,22 +242,39 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
        
         Button bt_guardar= new Button("GUARDAR");
         bt_guardar.setOnAction(new ClickHandler());
-        bt_pausa=new Button("PAUSA");
-        bt_continuar=new Button("CONTINUAR");
+        //bt_pausa=new Button("PAUSA");
+        //bt_continuar=new Button("CONTINUAR");
         
         barra.getItems().addAll(coin, lb_puntaje, puntaje_string, new Separator(), heart, lb_vidas, vidas_string, new Separator(), 
                 lb_metros, metros_string, new Separator(), bomba, lb_arma, arma_string,new Separator(),lb_nivel,nivel_string,new Separator(),
-                bt_guardar,new Separator(),bt_pausa,new Separator(),bt_continuar);
-      
+                bt_guardar);
+      //,new Separator(),bt_pausa,new Separator(),bt_continuar
       
         return barra;
     }
     
-    public Button getButtonPausa(){
+    /*public Button getButtonPausa(){
         return this.bt_pausa;}
     
     public Button getButtonContinuar(){
         return this.bt_continuar;}
+    */
+    public String [] leerArchivoPartidas(){
+    String[]info = null ;
+        try{
+     
+     Scanner scanner = new Scanner(this.archivo_partidas);
+        while(scanner.hasNext()){
+            String linea=scanner.nextLine();
+            info=linea.split(" ");
+            
+        }
+        return info;
+    }catch(FileNotFoundException e){
+        System.out.println("No se encontró el archivo");
+    }
+        return null;
+    }
     
     @Override
     public int compareTo(Buceador b1) {
@@ -308,8 +343,8 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         @Override
         public void handle(ActionEvent action) {
             try{
-        File file=new File ("Partidas.txt");
-        BufferedWriter bw=new BufferedWriter(new FileWriter(file));
+        
+        BufferedWriter bw=new BufferedWriter(new FileWriter(archivo_partidas));
          
         bw.write(infoJugador());
         //bw.newLine();

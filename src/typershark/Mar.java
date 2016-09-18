@@ -107,8 +107,8 @@ public class Mar extends Thread implements Observer{
         panel_peces_buceador=this.setPanelPeces();
 
         this.peces_mar=new ArrayList<Pez>();
-        buceador.getButtonPausa().setOnAction(new ClickHandler2());
-         buceador.getButtonPausa().setOnAction(new ClickHandler3());
+        //buceador.getButtonPausa().setOnAction(new ClickHandler2());
+         //buceador.getButtonPausa().setOnAction(new ClickHandler3());
         panel_mar.setCenter(panel_peces_buceador);
         panel_mar.setTop(barra);
         
@@ -123,6 +123,15 @@ public class Mar extends Thread implements Observer{
     public int getNivel() {
         return nivel;
     }
+    
+    public Buceador getBuceador (){
+    return this.buceador;}
+
+    public void setBuceador(Buceador buceador) {
+        this.buceador = buceador;
+    }
+    
+    
     
     public Pane setPanelPeces(){
     panel_peces_buceador=new Pane();
@@ -220,7 +229,7 @@ public class Mar extends Thread implements Observer{
     }
  
     
-    public void detenerHilosPeces(){
+    /*public void detenerHilosPeces(){
         for(int i=0; i<peces_mar.size();i++){
             try {
                 peces_mar.get(i).wait();
@@ -240,16 +249,11 @@ public class Mar extends Thread implements Observer{
         }
        }
        
-    public void correrHilosPeces(){
-        for(int i=0; i<peces_mar.size();i++){
-            peces_mar.get(i).notify();
-        
-        }
-    }
+   
     
        public void correrHiloJugador(){
-       buceador.notify();}
-    
+       buceador.notifyAll();}
+    */
     
     
     /*public void ubicarPecesMar(Pane mar,Pez pez[]){
@@ -269,16 +273,8 @@ public class Mar extends Thread implements Observer{
         }
     }
     
-    public void disminuirVidas(){
-    for (Pez t: tiburon){
-        if(t.getPosicion().getPos_x()==-720){
-            this.buceador.setVidas(-1);
-        }
-     }
-    }
-    
     public void aumentarVelocidadPeces(){
-    this.velocidad+=3;}
+    this.velocidad=(2*nivel)+(nivel-1);}
     
     
     public void setId_Pez(int id){
@@ -371,7 +367,7 @@ public class Mar extends Thread implements Observer{
             System.out.println("borraaar"+i);
            
         }
-        buceador.setPuntaje(-buceador.getPuntajeArmaEspecial());
+        buceador.cambiarPuntaje(-buceador.getPuntajeArmaEspecial());
          peces_mar.removeAll(peces_mar);
 
         buceador.setEstadoArmaEspecial(false);
@@ -402,6 +398,7 @@ public class Mar extends Thread implements Observer{
             case "buceador_llega":
                 Buceador b=(Buceador) o;
                 aumentarVelocidadPeces();
+                System.out.println("VELOCIAD: "+velocidad);
                break;
                  }
    
@@ -445,7 +442,7 @@ public class Mar extends Thread implements Observer{
         }
     }
     
-    private class ClickHandler2 implements EventHandler<ActionEvent> {
+   /* private class ClickHandler2 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
             
@@ -458,10 +455,10 @@ public class Mar extends Thread implements Observer{
         @Override
         public void handle(ActionEvent action) {
       
-         correrHilosPeces();
+        // correrHilosPeces();
          correrHiloJugador();
         }
-    }
+    }*/
     
     private class KeyPressed implements EventHandler<KeyEvent> {
         //private Pez pez[]=pez_mar;
@@ -575,7 +572,7 @@ public class Mar extends Thread implements Observer{
                        System.out.println("NUMERO DE PECES PRESENTES EN EL MAR= "+num_peces);
                       // puntos_pez=peces_mar.get(palabra_activa).getPuntos();
                        peces_mar.get(palabra_activa).palabra.setEstado(-1);
-                        //buceador.setPuntaje(pez[palabra_activa].getPuntos()); 
+                        //buceador.cambiarPuntaje(pez[palabra_activa].getPuntos()); 
                         System.out.println("Puntaje: "+buceador.getPuntaje());
                        peces_mar.get(palabra_activa).setEstadoVida();
                        peces_mar.get(palabra_activa).notifyObservers_pezmuere();
@@ -618,7 +615,7 @@ public class Mar extends Thread implements Observer{
                     @Override
                    
                     public void run() {
-                       
+                        nivel=buceador.getNivel();
                         nuevoNumeroAleatorioPeces();    
                         if (peces_mar.size()<1){
                         generarPezAleatorio2();
