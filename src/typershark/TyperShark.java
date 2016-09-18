@@ -27,7 +27,7 @@ import javafx.stage.Stage;
  * 
  */
 public class TyperShark extends Application {
-     MenuPrincipal menu=new MenuPrincipal(); 
+    MenuPrincipal menu=new MenuPrincipal(); 
     Stage stage_menu= menu.getStageMenu();
     @Override
     

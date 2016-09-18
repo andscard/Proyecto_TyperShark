@@ -91,7 +91,9 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    public void setStopBuceador(boolean stop){
+    this.stop=stop;}
+    
     public int getVidas() {
         return vidas;
     }
@@ -113,7 +115,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     }
     
     public boolean isBuceadorAlive(){
-    if (this.vidas>0){
+    if (this.vidas!=0){
     return true;}
     else{
     return false;}
@@ -174,7 +176,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         }
     }
     
-    
+    /**
+     * El método ganarVidasExtras() permite aumentar una vida al
+     * buceador, si este se encuentra en un nivel multiplo 
+     * de tres
+     */
     public void ganarVidasExtras(){
         if (nivel%3==0){
             vidas=vidas+1;}
@@ -344,9 +350,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                     llegaFondoDelMar();
                     
                     if (vidas==0){
-                       
                      stop=true;
-                    }            
+                    }  
+                    
+                    if(isBuceadorAlive()==false){
+                        stop=true;}
                                
                 }
                 
@@ -369,3 +377,12 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     
    
 }
+
+
+
+
+
+
+
+
+

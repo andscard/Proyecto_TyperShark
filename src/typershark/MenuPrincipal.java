@@ -45,15 +45,19 @@ public class MenuPrincipal {
     private TopJugadores top;
     private Stage stage1,stage2,stage3;
     private Stage stage_menu;
+    private Scene scene1;
+    private Scene scene2;
+    
     
     public MenuPrincipal(){
     panel= new Pane();
     formulario=new Formulario();
-    formulario.getBoton().setOnAction(new ClickHandler());
-    
     top=new TopJugadores();
     ayuda= new Ayuda();
-    
+    formulario.getBoton().setOnAction(new ClickHandler());
+    scene1 = new Scene(this.getMenuPrincipal());
+    scene2= new Scene (formulario.getFormulario());
+  
     //stage1= formulario.crearStage();
     stage2= ayuda.crearStage();
     stage3= top.crearStage();
@@ -108,7 +112,7 @@ public class MenuPrincipal {
         return this.panel;}
     
     public Stage getStageMenu(){
-      Scene scene1 = new Scene(this.getMenuPrincipal());
+      
       stage_menu.setTitle("Typer Shark");
       stage_menu.getIcons().add(new Image("/Imagenes/tiburon.png"));
       stage_menu.setResizable(true);
@@ -125,18 +129,20 @@ public class MenuPrincipal {
             formulario.setNombre("Anonimo");
         }
             //stage.close();
-        mar=new Mar(formulario.getNombre());   
+        mar=new Mar(formulario.getNombre()); 
+        
         Scene scene2 = new Scene (mar.getMar());
+        //Scene scene3=new Scene(mar.mensajeGameOver());
         stage_menu.setScene(scene2);
         mar.start();
-            
+        mar.getButtonRegresar().setOnAction(new ClickHandler6());
+       
         }
      }
     
     private class ClickHandler1 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-        Scene scene2 = new Scene (formulario.getFormulario());
         stage_menu.setScene(scene2);
         }
     }
@@ -170,8 +176,15 @@ public class MenuPrincipal {
     private class ClickHandler5 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-            Platform.exit();
+            System.exit(0);
         }
     }
     
+     private class ClickHandler6 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            
+            stage_menu.setScene(scene1);
+        }
+     }
 }

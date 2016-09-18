@@ -37,6 +37,14 @@ public class ArreglosPalabras {
         
     }
     
+     
+    /**
+     * El método cargarPalabrasArchivo pemite leer un archivo y crea
+     * un ArrayList con todas palabras leídas.
+     * @param file tipo File, archivo a leer
+     * @return retorna el arreglo con las palabras leidas
+     */
+
     public ArrayList<String> cargarPalabrasArchivo (String file) {
         try {
         File reviewFile = new File(file);
@@ -59,7 +67,11 @@ public class ArreglosPalabras {
     
 
    
-    
+    /**
+     * El método llenarArregloAbecedario() permite crear un arreglo y que
+     * este sea llenado con todas las letras del abecedario.
+     * @return ArralyList con las letras del abecedario 
+     */
     
       public ArrayList<String> llenarArregloAbecedario(){
      
@@ -96,7 +108,14 @@ public class ArreglosPalabras {
      return letras;
      }  
       
-   
+   /**
+    * El método generarAleatorio permite generar un numero aleatorio definido
+    * en un rango determinado
+    * @param num_final tipo entero numero final
+    * @param num_inicial tipo entero numero inicial
+    * @return retorna un numero tipo entero
+    */
+      
     public int generarAleatorio(int num_final, int num_inicial){
              Random  random = new Random();
              int generar;
@@ -124,39 +143,14 @@ public class ArreglosPalabras {
                 return palabras;
     }
     
-   
-     public ArrayList<String> arregloPalabrasTiburonesNegro(){
-    ArrayList<String> palabras1=this.arregloPalabrasTiburones(5);
-    ArrayList<String> palabras2=this.arregloPalabrasTiburones(5);
-    ArrayList<String> palabras3=this.arregloPalabrasTiburones(5);
-    ArrayList<String> arreglo_final=new ArrayList();
-        for (int i=0; i<5;i++){
-        arreglo_final.add(palabras1.get(i));
-        arreglo_final.add(palabras2.get(i));
-        arreglo_final.add(palabras2.get(i));}
-    
-    return arreglo_final;
+    public ArrayList<String> arregloPalabrasTiburonesNegro(){
+      ArrayList<String> palabras=this.arregloPalabrasTiburones(3);
+          
+    return palabras;
     }
     
     
-   /**
-    public ArrayList<String> arregloPalabrasTiburonesNegro(int num_tiburones){
-    ArrayList<String> palabras1=this.arregloPalabrasTiburones(num_tiburones);
-    ArrayList<String> palabras2=this.arregloPalabrasTiburones(num_tiburones);
-    ArrayList<String> palabras3=this.arregloPalabrasTiburones(num_tiburones);
-    ArrayList<String> arreglo_final=new ArrayList();
-        for (int i=0; i<num_tiburones;i++){
-        arreglo_final.add(palabras1.get(i));
-        arreglo_final.add(palabras2.get(i));
-        arreglo_final.add(palabras2.get(i));}
-
-    return arreglo_final;
-    }
-   
-   
-    
-    **/
-    
+  
     
     public ArrayList<String> palabraPulpo(){
       ArrayList<String> palabra= new ArrayList<>();

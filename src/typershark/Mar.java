@@ -68,8 +68,6 @@ public class Mar extends Thread implements Observer{
     private int nivel;
     private int num_peces;
     private int velocidad;
-    //private Pez tiburon_prueba;
-    //private Pez[] pez_mar;
     private ArrayList<Pez> peces_mar;
     private Pez[] tiburon;
     private Pez[] tiburon_negro;
@@ -77,7 +75,16 @@ public class Mar extends Thread implements Observer{
     private Pez[] pulpo;
     private Buceador buceador;
     private int id_pez; 
+    private boolean fin_juego;
+    private Button bt_salir= new Button (" SALIR ");
+    private Button bt_regresar= new Button(" MENÚ PRINCIPAL ");
+       
     
+    /**
+     * Constructor del Mar
+     * 
+     * @param name 
+     */
     
     public Mar(String name){
         panel_mar=new BorderPane();
@@ -85,11 +92,12 @@ public class Mar extends Thread implements Observer{
         buceador.addObserver(this);
         nivel=buceador.getNivel();
         velocidad=2;
-        //num_peces=(int)(new Randnum_pecesom().nextDouble()*5+1);
         num_peces=0;
+        fin_juego= false;
         System.out.println(this.num_peces);
-        //barra=this.crearToolBar();
         this.barra=buceador.getToolBar();
+        this.bt_salir= new Button (" SALIR ");
+        this.bt_regresar= new Button(" MENÚ PRINCIPAL ");
         arreglo_palabras= new ArreglosPalabras();
         this.tiburon= new Tiburon[this.num_peces];
         this.tiburon_negro= new TiburonNegro[this.num_peces];
@@ -99,11 +107,6 @@ public class Mar extends Thread implements Observer{
         panel_peces_buceador=this.setPanelPeces();
         
         this.peces_mar=new ArrayList<Pez>();
-        /*if(buceador.isBuceadorAlive()==true && num_peces==0){
-            num_peces=(int)(new Random().nextDouble()*5+1);
-            generarPezAleatorio2();
-        }*/
-        
         
         panel_mar.setCenter(panel_peces_buceador);
         panel_mar.setTop(barra);
@@ -146,6 +149,9 @@ public class Mar extends Thread implements Observer{
         return this.panel_mar;
     }
 
+    public Button getButtonRegresar(){
+    return this.bt_regresar;}
+    
     public void arregloDeTiburones() {
         this.tiburon=new Tiburon[num_peces];
         int cont=0;
@@ -163,73 +169,30 @@ public class Mar extends Thread implements Observer{
     }
 
     
-    
-    public void arregloDeTiburonesNegros() {
+   public void arregloDeTiburonesNegros() {
+        this.tiburon_negro=new TiburonNegro[num_peces];
         int cont=0;
-        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburonesNegro();
-        ArrayList<String> lista_palabras=new ArrayList<String> ();
-        System.out.println(palabras_tiburones.size());
-         System.out.println("NUMERO PECES:"+num_peces);
+        int aleatorio_palabras;
+        
+        ArrayList<String> lista_palabras=new ArrayList<String>();
+        System.out.println("NUMERO PECES:"+num_peces);
         for (int i = 0; i < this.num_peces; i++) {
-            //int num_palabras = (int) (Math.random ()*(2)+ 2);
-            int num_palabras = 2;
+            aleatorio_palabras=(int)(Math.random()*3+2);
+            lista_palabras=arreglo_palabras.arregloPalabrasTiburonesNegro();
+             if(aleatorio_palabras==2){
+                lista_palabras.remove(2);}
+             
+            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20,lista_palabras);
             
-            System.out.println("num palabras"+num_palabras);
-            for (int j = 0; j < num_palabras; j++) {
-
-                lista_palabras.add(palabras_tiburones.get(j));
-
-            }
-            this.tiburon_negro[i] = new TiburonNegro(30, velocidad + 2, 720, cont + 20, lista_palabras);
-            palabras_tiburones.remove(0);
-            palabras_tiburones.remove(0);
-            palabras_tiburones.remove(0);
-            lista_palabras.clear();
             cont = cont + 90;
-            //this.tiburon_negro[i].start();
             
         }
     }
+     
     
     
-    /**
-    
-      public void arregloDeTiburonesNegros() {
-        Random  random = new Random();  
-        int cont=0;
-        int size_peces_palabras=0;
-        int num_palabras;
-        
-        ArrayList<String> palabras_tiburones= arreglo_palabras.arregloPalabrasTiburones(num_peces*3);
-        ArrayList<String> lista_words= new ArrayList<String>();
-        
-        for (int i = 0; i < this.num_peces; i++) {
-            num_palabras=(int)(random.nextDouble()*3 +2);
-            for(int j=0; j<num_palabras; j++){
-                lista_words.add(palabras_tiburones.get(size_peces_palabras)); 
-                 size_peces_palabras=size_peces_palabras+1;
-            }// cierrej
-            this.tiburon_negro[i] = new TiburonNegro(10, velocidad+2,720,cont + 20,lista_words);
-            this.tiburon_negro[i].palabra.setNum_palabras(lista_words.size());
-            this.tiburon_negro[i].start();
-            lista_words.clear();
-            cont=cont+90;
-          
-        
-         }// cierre i
-            
-      }      
-               
-    **/       
-    
-    
-    public void detenerHilosPeces(){
-        for(int i=0; i<peces_mar.size();i++){
-            peces_mar.get(i).setEstadoVida();
-        
-        }
-    }
-    
+  
+ 
     public void arregloDePirañas() {
         this.piraña=new Piraña[num_peces];
         int cont=0;
@@ -254,6 +217,18 @@ public class Mar extends Thread implements Observer{
         }
         //this.pulpo[0].start();
     }
+ 
+    
+       public void detenerHilosPeces(){
+        for(int i=0; i<peces_mar.size();i++){
+            peces_mar.get(i).setEstadoVida();
+        
+        }
+    }
+    
+    
+    
+    
     
     
     /*public void ubicarPecesMar(Pane mar,Pez pez[]){
@@ -326,9 +301,11 @@ public class Mar extends Thread implements Observer{
     this.arregloDeTiburones();
     this.arregloDePirañas();
     this.pulpo();
-    //this.arregloDeTiburonesNegros(); 
+    this.arregloDeTiburonesNegros(); 
     //int []numero=  {1,2,1,2,1,2,1,4};
-    int []numero=  {1,2,3,2,1,2,1,3};
+   // int []numero=  {1,2,3,2,1,2,1,3};
+    //  int []numero=  {4,4,4,4,4,4,4,4};
+    int []numero=  {1,2,3,4,1,2,2};
     
     Posicion pos;
     //int aleatorio=0;
@@ -342,26 +319,18 @@ public class Mar extends Thread implements Observer{
     System.out.println("numero"+aleatorio);
     
     if(numero[aleatorio]==1) {
-        //pez_mar[i]=tiburon[i];
-        //pez_mar[i].setPosicion(pos);
        tiburon[i].setPosicion(pos);
        peces_mar.add(tiburon[i]);
     }
     if(numero[aleatorio]==2){
-        //pez_mar[i]=piraña[i];
-        //pez_mar[i].setPosicion(pos);
         piraña[i].setPosicion(pos);
         peces_mar.add(piraña[i]);
     }
     if (numero[aleatorio]==4){
-        //pez_mar[i]=tiburon_negro[i];
-        //pez_mar[i].setPosicion(pos);
        tiburon_negro[i].setPosicion(pos);
        peces_mar.add(tiburon_negro[i]);
-    }/*else{
-        pez_mar[i]=pulpo[i];
-        panel_peces_buceador.getChildren().add(pulpo[0].getPane());
-    }*/
+    }
+    
      if (numero[aleatorio]==3){
      pulpo[i].setPosicion(pos);
      peces_mar.add(pulpo[i]);
@@ -395,6 +364,9 @@ public class Mar extends Thread implements Observer{
        }
     
    }
+   
+   public boolean getFinJuego(){
+        return this.fin_juego;}
 
     @Override
     public void update(Subject o, String evento) {
@@ -415,27 +387,43 @@ public class Mar extends Thread implements Observer{
        
     }
     
-    public void mensajeGameOver(){
-        HBox hbox= new HBox(15);
-        VBox vbox = new VBox(5);
-        vbox.setPadding(new Insets(5));
-        ImageView mensaje = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/GameOver2.gif"),7000,300,true,true));
-        Button bt_salir= new Button (" SALIR ");
-        Button bt_regresar= new Button(" MENÚ PRINCIPAL ");
-        Label espacio= new Label("          ");
-        bt_salir.setFont(Font.font("Amble CN", FontWeight.MEDIUM, 18));
+
+    public Pane mensajeGameOver(){
+        HBox hbox= new HBox(100);
+        Pane panel = new Pane();
+        //panel.setTranslateY(-160);
+        ImageView fondo_mar=new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/mar.jpg"),900,600,false,false));
+        ImageView mensaje = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/fondo_gameover2.png"),700,500,true,true));
+        mensaje.setTranslateX(80);
+        
+        bt_salir.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
         bt_salir.setPrefSize(150, 50);
+        bt_salir.setStyle("-fx-base: #FA5858;");
+        bt_salir.setTextFill(Color.WHITE);
         
-        bt_regresar.setFont(Font.font("Amble CN", FontWeight.MEDIUM, 18));
-        bt_regresar.setPrefSize(150, 50);
+        bt_regresar.setFont(Font.font("Amble CN", FontWeight.BOLD, 16));
+        bt_regresar.setPrefSize(170, 50);
+        bt_regresar.setStyle("-fx-base: #FA5858;");
+        bt_regresar.setTextFill(Color.WHITE);
         
-        hbox.getChildren().addAll(espacio,bt_salir,bt_regresar);
-        vbox.getChildren().addAll(mensaje,hbox);
-        panel_mar.setBottom(vbox);
+        bt_salir.setOnAction(new ClickHandler1());
+        hbox.getChildren().addAll(bt_salir,bt_regresar);
+        panel.getChildren().addAll(fondo_mar,mensaje,hbox);
+        hbox.setTranslateX(210);
+        hbox.setTranslateY(400);
+        //panel_mar.setBottom(panel);
         
+        return panel;
     }
     
    
+    private class ClickHandler1 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            System.exit(0);
+        }
+    }
+    
     private class KeyPressed implements EventHandler<KeyEvent> {
         //private Pez pez[]=pez_mar;
         //ArrayList<Pez> peces= peces_mar;
@@ -509,7 +497,7 @@ public class Mar extends Thread implements Observer{
                   if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion)){
                        
                     if(posicion <peces_mar.get(palabra_activa).palabra.getLongitudPalabra()){
-                            if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion) ){
+                        if (event.getText().charAt(0)==peces_mar.get(palabra_activa).palabra.getPalabra().charAt(posicion) ){
                        
                         peces_mar.get(palabra_activa).palabra.cambiarColorLetras(posicion);
                         posicion=posicion+1; 
@@ -522,15 +510,22 @@ public class Mar extends Thread implements Observer{
                            //pez[palabra_activa].setEstadoVida();
               
                           if(peces_mar.get(palabra_activa).palabra.getNum_palabras()>1){
-                           if(cont_palabras<peces_mar.get(palabra_activa).palabra.getNum_palabras()){
-                            cont_palabras=cont_palabras+1;
-                            posicion=0;
-                            peces_mar.get(palabra_activa).palabra.cargarPalabra(cont_palabras);
-                            peces_mar.get(palabra_activa).palabra.setEstado(0);
-                           }
-                           
-                            
-                         }
+                               peces_mar.get(palabra_activa).palabra.setEstado(-1);
+                               
+                               if(!peces_mar.get(palabra_activa).palabra.listaVaciaPalabras()){
+                                   
+                                  if(peces_mar.get(palabra_activa).palabra.getEstado()==-1){
+                                      peces_mar.get(palabra_activa).palabra.eliminarPalabra(0);
+                                        peces_mar.get(palabra_activa).palabra.panelPalabra().getChildren().clear();
+                                      peces_mar.get(palabra_activa).palabra.cargarPalabra(0);
+                                      
+                                      posicion=0;
+                                      
+                                      
+                                  }
+                                }//lista vacia
+                                                         
+                            }
                             
                             else{
                           
@@ -573,11 +568,12 @@ public class Mar extends Thread implements Observer{
     }
     
  
+ 
     
     @Override
     public void run(){
-        
-            while(buceador.isBuceadorAlive()){
+           
+            while(!fin_juego){
                 
                 Platform.runLater(new Runnable(){
                     @Override
@@ -590,7 +586,11 @@ public class Mar extends Thread implements Observer{
                         }
 
                          panel_mar.setOnKeyPressed(new KeyPressed());
-                          mensajeGameOver(); 
+                         
+                         if (buceador.isBuceadorAlive()==false){
+                        panel_mar.setCenter(mensajeGameOver());
+                        fin_juego=true;
+                        }
                     }
                     
                 });
@@ -602,7 +602,7 @@ public class Mar extends Thread implements Observer{
                  
               
             }
-        
+       
             
     }
     
