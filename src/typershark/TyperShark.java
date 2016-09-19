@@ -30,7 +30,9 @@ public class TyperShark extends Application {
     MenuPrincipal menu=new MenuPrincipal(); 
     Stage stage_menu= menu.getStageMenu();
     @Override
-    
+    /**
+     * El método start ajusta la ventana a mostrar.
+     */
     public void start(Stage stage) {
      
       stage=stage_menu;

@@ -26,8 +26,11 @@ import javafx.stage.Stage;
 import typershark.MenuPrincipal;
 
 /**
- *
- * @author User
+ * La clase Formulario permite al jugador escribir y guardar su nombre de usuario
+ * 
+ * @author Sheyla Cárdenas Sumba
+ * @author Mayken Salavarría Tutivén
+ * @version 2.0.0
  */
 public class Formulario {
     private Pane panel;
@@ -38,7 +41,12 @@ public class Formulario {
     private VBox vbox;
     private ImageView fondo;
     private String nombre;
-
+/**
+ * Constructor del Formulario, venta que contiene un panel con la etiqueta Usuario,
+ * una caja de texto, donde el jugador podrá escribir su nombre, también tiene
+ * asignado un botón guardar con su respectivo evento, todos sus elementos
+ * son ajustados en el panel respectivo.
+ */
     public Formulario(){
         this.stage= new Stage();
         this.panel=new Pane();
@@ -57,31 +65,56 @@ public class Formulario {
         panel.getChildren().addAll(fondo,vbox);
     }
     
+    /**
+     * El método getFormulario() permite obtener el panel del formulario,
+     * con las etiquetas, caja de texto y botón ajustados.
+     * @return panel tipo Pane
+     */
     public Pane getFormulario(){
     return this.panel;}
     
+    /**
+     * El método getNombre() permite obtener el nombre del jugador.
+     * @return nombre tipo String
+     */
     public String getNombre(){
     return this.nombre;}
     
+    /**
+     * El método setNombre(String nombre) permite cambiar el nombre del jugador. 
+     * @param nombre tipo String
+     */
     public void setNombre(String nombre){
         this.nombre=nombre;}
     
-    
+    /**
+     * El método getText() retorna una caja de texto.
+     * @return text tipo TextField
+     */
     public TextField getTexto() {
         return text;
     }
 
+    /**
+     * El método setTexto permite cambiar una caja de texto
+     * @param text tipo TextField
+     */
     public void setTexto(TextField text) {
         this.text = text;
     }
 
+    /**
+     * El método getLabel() retorna un Label
+     * @return label tipo Label
+     */
+    
     public Label getLabel() {
         return label;
     }
 
     /**
-     * El método setLabel(Label label)
-     * @param label 
+     * El método setLabel(Label label) permite cambiar la etiqueta
+     * @param label tipo Label
      */
     public void setLabel(Label label) {
         this.label = label;

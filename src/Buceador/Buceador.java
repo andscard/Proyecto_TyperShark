@@ -42,9 +42,9 @@ import javafx.stage.Stage;
 
 /**
  * La clase Buceador almacena funciones útiles como obtener nombre del jugador,
- * setear el estado de vidas, conocer y setear el puntaje, activar o desactivar
- * el arma especial, conocer la posicion del buceador, ubicar su imagen respectiva
- * en el panel,  y detener su hilo.
+ * setear el estado de vidas, conocer ,aumentar o disminuir el puntaje, activar 
+ * o desactivar el arma especial, conocer la posicion del buceador, 
+ * ubicar su imagen respectiva en el panel,  y detener su hilo.
  * 
  * @author Sheyla Cárdenas Sumba
  * @author Mayken Salavarria Tutivén
@@ -83,7 +83,8 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     /**
      * Constructor de la clase Buceador asigna el nombre del jugador, asigna 
      * tres vidas al buceador, puntaje inicial, nivel, arma_especial,posicion
-     * del jugador, sea crean los labels que conformar la barra de herramientas.
+     * del jugador,metros que desciende, sea crean las etiquetas, 
+     * botones que conformar la barra de herramientas.
      * @param nombre tipo String, nombre del jugador
      */
     public Buceador(String nombre){
@@ -127,8 +128,10 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     }
 
     /**
-     * El método getVidas() retorna las vidas que tiene el jugador
-     * @return vidas tipo entero
+     * El método setStopBuceador(boolean stop) permite cambiar el hilo
+     * del buceador (detener o seguir).
+     * @param stop tipo booleano
+     * 
      */
 
     public void setStopBuceador(boolean stop){
@@ -198,7 +201,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
 
     /**
      * El método getEstadoArmaEspecial() permite conocer si el buceador posee
-     * o no la arma especial
+     * o no la arma especial.
      * @return arma_especia tipo booleno
      */
     public boolean getEstadoArmaEspecial() {
@@ -219,7 +222,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
 
     /**
      * El método setEstadoArmaEspecial(boolean arma_especial) cambia el 
-     * estado actual de la arma especial
+     * estado actual del arma especial.
      * @param arma_especial tipo booleano
      */
     public void setEstadoArmaEspecial(boolean arma_especial) {

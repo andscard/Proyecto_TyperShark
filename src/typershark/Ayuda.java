@@ -22,15 +22,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- *
- * @author User
+ * La clase Ayuda contiene las instrucciones del juego, y el valor de cada Pez.
+ * @author Sheyla Cárdenas Sumba
+ * @author Mayken Salavarria Tutivén
+ * @version 2.0.0
  */
 public class Ayuda {
     private Pane panel;
     private Stage stage;
     private Button boton;
     private ImageView fondo;
-
+/**
+ * Constructor de la clase Ayuda, se asigna el botón Salir, se ajusta
+ * el panel que contiene la información de las instrucciones y el 
+ * valor de cada pez.
+ */
     public Ayuda(){
         this.stage= new Stage();
         this.panel=new Pane();
@@ -43,9 +49,19 @@ public class Ayuda {
         panel.getChildren().addAll(fondo,boton);
     }
     
+    /**
+     * El método getAyuda() retorna el panel con todos los elementos
+     * que lo conforman.
+     * @return panel tipo Pane
+     */
     public Pane getAyuda(){
     return this.panel;}
     
+    /**
+     * El método crearStage() permite crear una ventana con todos los
+     * elementos: etiquetas, botones.
+     * @return 
+     */
     public Stage crearStage(){
         Scene scene1 = new Scene(this.getAyuda());
         stage.setTitle("TyperShark Help");
@@ -55,6 +71,10 @@ public class Ayuda {
         stage.initModality(Modality.APPLICATION_MODAL);
      return this.stage;}
     
+    /**
+     * Esta clase permite cerrar la ventana, si el jugador da clic en el botón 
+     * salir
+     */
     private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {

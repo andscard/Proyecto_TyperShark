@@ -32,8 +32,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- *
- * @author User
+ * La Clase MenúPrincipal contiene diferentes ventanas, posee un mar , un 
+ * formulario, un buceador, ayuda.
+ * @author Mayken Salavarría Tutivén
+ * @author Andrea Cárdenas Sumba
+ * 
+ * @version 2.0.0
+ * 
  */
 public class MenuPrincipal {
     
@@ -51,7 +56,12 @@ public class MenuPrincipal {
     private Scene scene2;
     private Buceador buceador;
     
-    
+    /**
+     * Constructor de la clase MenuPrincipal(), asigna a Buceador su nombre 
+     * de usuario, en caso que el jugador de clic en el boton guardaar
+     * sin registrarse este será almacenado como ANONIMO, crea botones,
+     * etiquetas, ubica los elementos en el panel.
+     */
     public MenuPrincipal(){
     panel= new Pane();
     formulario=new Formulario();
@@ -79,6 +89,12 @@ public class MenuPrincipal {
     panel.getChildren().addAll(fondo,vbox,bt_salir);
     }
     
+    /**
+     * El método  createVbox() crea el panel principal con todos los
+     * botones a presentar: NUEVO JUEGO, REANUDAR PARTIDA, AYUDA y TOP-SCORES,
+     * los ubica y se definen sus eventos.
+     * @return VBox
+     */
      public VBox createVbox(){
      vbox = new VBox(15);
      Ellipse elipse=new Ellipse(100,25);
@@ -100,6 +116,13 @@ public class MenuPrincipal {
      
         return vbox;
     }
+     
+     /**
+      * Este método ajusta los botones y define su funcionalidad
+      * @param boton tipo Button
+      * @param elipse tipo Ellipse
+      * @param click  EventHandler tipo ActionEvent
+      */
     public void formatoBotones(Button boton,Ellipse elipse,EventHandler<ActionEvent> click){
      boton.setPrefSize(150, 50);
      boton.setShape(elipse);
@@ -109,12 +132,18 @@ public class MenuPrincipal {
     }
      
     /**
-     * 
+     * Este método retorna el panel Principal
      * @return 
      */
     public Pane getMenuPrincipal(){
         return this.panel;}
     
+    
+    /**
+     * Este método ajusta la ventana, ubica la imagen de fondo, e indica que la ventana es reajustable
+     * 
+     * @return tipo Stage
+     */
     public Stage getStageMenu(){
       
       stage_menu.setTitle("Typer Shark");
@@ -126,6 +155,10 @@ public class MenuPrincipal {
     return this.stage_menu;}
     
     
+    /**
+     * Esta clase permite validar el el ingreso del nombre del jugador,
+     * en caso de no registrar este se almacena como ANONIMO
+     */
     public Stage mensajeNoExistenPartidas(){
     Stage stage=new Stage();
     VBox vbox=new VBox(15);
@@ -209,7 +242,10 @@ public class MenuPrincipal {
             stage2.show();
         }
     }
-    //Muestra 
+    
+     /**
+      * Top Jugadores
+      */
     private class ClickHandler4 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
@@ -221,7 +257,10 @@ public class MenuPrincipal {
         }
     }
     
-    //Salir del Juego completamnete, le pertece al botón SALIR del menú pirncipal
+    /**
+     * Esta clase permite salir del juego.
+     */
+    
     private class ClickHandler5 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
@@ -229,9 +268,10 @@ public class MenuPrincipal {
         }
     }
     
-     //Regesa a la escena del menú principal, le pertenece al botón MENÚ PRINCIPAL
-    //de la clase mar
-    private class ClickHandler6 implements EventHandler<ActionEvent> {
+    /**
+     * Muestra la ventana del MenúPrincipal
+     */
+     private class ClickHandler6 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
             

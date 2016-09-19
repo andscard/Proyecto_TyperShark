@@ -23,12 +23,12 @@ public class Pulpo extends Pez {
    
     /**
      * Constructor de la Clase Pulpo, asigna puntos, velocidad, su posicion
-     * en la coordenada x, su posicion en la coordenada y y su palabra.
-     * @param puntos
-     * @param velocidad
-     * @param x
-     * @param y
-     * @param palabra 
+     * en la coordenada x, su posicion en la coordenada y  su palabra.
+     * @param puntos tipo de dato entero
+     * @param velocidad tipo de dato double
+     * @param x tipo de dato double
+     * @param y tipo de dato double
+     * @param palabra tipo ArrayList String
      */
     public Pulpo(int puntos, double velocidad,double x, double y, ArrayList<String> palabra){
       
@@ -43,7 +43,7 @@ public class Pulpo extends Pez {
     
     /**
      * El Método getImagenPulpo retorna la imagen característica de un pulpo.
-     * @return imagen tiburón tipo ImageView
+     * @return imagen_pulpo tipo ImageView
      */
     public ImageView getImagenPulpo(){
     return this.imagen_pulpo;}

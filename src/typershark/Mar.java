@@ -60,8 +60,12 @@ import javafx.stage.Stage;
 
 
 /**
- * La Clase Mar almacena funciones útiles como obtener y modificar puntos (Valor de cada pez), 
- * velocidad,estado del pez,posicion.
+ * La Clase Mar almacena funciones útiles  ya que en esta clase se desarrolla el
+ * juego TyperShark.contiene método como: crear ArrayList de peces,
+ * crea tiburones, pirañas, pulpos, tiburones negros, permite obtener y
+ * modificar puntos (Valor de cada pez), velocidad,
+ * estado del pez,posicion, conocer el estado del buceador.
+ * 
  * @author Mayken Salavarría Tutivén
  * @author Andrea Cárdenas Sumba
  * 
@@ -94,7 +98,11 @@ public class Mar extends Thread implements Observer{
     
     /**
      * Constructor del Mar, asigna el panel, buceador( Jugador), nivel, 
-     * velocidad, inicializa los peces y setea el pa
+     * velocidad, inicializa el arraylist de los peces , genera 
+     * el numero de peces que apareceran por pantalla, inicializa a fin _juego
+     * en false ya que el buceador posee al inicio del juego sus tres vidas completas,
+     * indica que el bucead
+     * 
      * 
      * @param name tipo String, nombre del jugador
      */
@@ -140,10 +148,18 @@ public class Mar extends Thread implements Observer{
     public int getNivel() {
         return nivel;
     }
-    
+   
+    /**
+     * El método getBuceador () retorna un buceador.
+     * @return  buceador tipo Buceador
+     */
     public Buceador getBuceador (){
     return this.buceador;}
 
+    /**
+     * El método setBuceador(Buceador buceador) permite cambiar al buceador actual
+     * @param buceador tipo Buceador 
+     */
     public void setBuceador(Buceador buceador) {
         this.buceador = buceador;
     }
@@ -183,9 +199,20 @@ public class Mar extends Thread implements Observer{
         return this.panel_mar;
     }
 
+    
+    /**
+     * El método permite obtener un botón
+     * @return boton tipo Button
+     */
     public Button getButtonRegresar(){
     return this.bt_regresar;}
     
+    
+    
+    /**
+     * El método arregloDeTiburones() permite crear un arreglo de
+     * Tiburones, de acuerdo al numero de peces
+     */
     public void arregloDeTiburones() {
         this.tiburon=new Tiburon[num_peces];
         int cont=0;
@@ -204,7 +231,7 @@ public class Mar extends Thread implements Observer{
 
     /**
      * El método arregloDeTiburonesNegros() permite crear un arreglo de
-     * Tiburones Negros
+     * Tiburones Negros, estos poseerán de 2 a 3 palabras.
      */
    public void arregloDeTiburonesNegros() {
         this.tiburon_negro=new TiburonNegro[num_peces];
@@ -296,6 +323,13 @@ public class Mar extends Thread implements Observer{
         }
     }*/
     
+    
+    /**
+     * El método ubicarPecesMar permite determinar al Buceador como Observador
+     * y a los peces como sujetos a ser observados
+     * @param mar tipo Pane
+     * @param peces_mar  ArrayList tipo Pez
+     */
     public void ubicarPecesMar(Pane mar, ArrayList<Pez> peces_mar){
         for (Pez pez : peces_mar){
             pez.addObserver(buceador);
@@ -305,6 +339,10 @@ public class Mar extends Thread implements Observer{
         }
     }
     
+    /**
+     * El método aumentarVelocidadPeces() permite aumentar
+     * la velocidad de los peces de acuerdo al nivel.
+     */
     public void aumentarVelocidadPeces(){
     this.velocidad=(2*nivel)+(nivel-1);}
     
@@ -425,9 +463,20 @@ public class Mar extends Thread implements Observer{
     
    }
    
+   /**
+    * El método getFinJuego() nos permite conocer si el juego finalizó.
+    * @return dato tipo booleano
+    */
    public boolean getFinJuego(){
         return this.fin_juego;}
 
+   
+   /**
+    * El método update, permite al mar analizar los sujetos
+    * (buceador y peces)y  el evento a analizar.
+    * @param o tipo Subject
+    * @param evento tipo String
+    */
     @Override
     public void update(Subject o, String evento) {
    
@@ -455,7 +504,13 @@ public class Mar extends Thread implements Observer{
        
     }
     
-
+/**
+ * El método mensajeGameOver(), es un panel que indica 
+ * que el juego ha finalizado , posee dos botones que permiten
+ * salir del juego o regresar al Menu Principal. 
+ * 
+ * @return panel tipo Pane 
+ */
     public Pane mensajeGameOver(){
         HBox hbox= new HBox(100);
         Pane panel = new Pane();
@@ -498,6 +553,10 @@ public class Mar extends Thread implements Observer{
         System.out.println("No se pudo escribir en el archivo TopJugadores.txt");}
     }
     
+    /**
+     * Esta clase permite salir del juego, cuando el usuario presiona
+     * el boton Salir
+     */
    
     private class ClickHandler1 implements EventHandler<ActionEvent> {
         @Override
@@ -680,7 +739,9 @@ public class Mar extends Thread implements Observer{
     
  
  /**
-  * El método run() contiene 
+  * El método run() genera el panel con los peces de manera aleatorio,
+  * posee el evento de escribir por teclado, detiene el juego
+  * cuando el muere el hilo del buceador.
   */
     
     @Override

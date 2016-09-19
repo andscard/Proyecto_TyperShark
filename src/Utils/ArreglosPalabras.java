@@ -15,7 +15,9 @@ import java.util.logging.Logger;
 
 
 /**
- *
+ *La clase ArreglosPalabras tiene almacenada funciones como: leer archivo
+ * con las palabras y guardalas en archivos de acuerdo al numero de peces
+ * que se generen.
  * @author User
  */
 public class ArreglosPalabras {
@@ -25,7 +27,9 @@ public class ArreglosPalabras {
     private ArrayList<String> letras ;
     
     /**
-     * 
+     * Constructor de la clase ArregloPalabras crea diferenetes arraylist de
+     * con palabras de los tiburones, pulpo y las letras de abecedario
+     * que son los caracteres que poseen las pirañas.
      */
      public ArreglosPalabras(){
         this.palabras_archivo=this.cargarPalabrasArchivo("ListaPalabras.txt");
@@ -70,7 +74,7 @@ public class ArreglosPalabras {
     /**
      * El método llenarArregloAbecedario() permite crear un arreglo y que
      * este sea llenado con todas las letras del abecedario.
-     * @return ArralyList con las letras del abecedario 
+     * @return ArrayList con las letras del abecedario 
      */
     
       public ArrayList<String> llenarArregloAbecedario(){
@@ -123,7 +127,13 @@ public class ArreglosPalabras {
              return generar;
     }
     
-    
+    /**
+     * El método arregloPalabrasTiburones(int num_tiburones) nos retorna
+     * un ArrayList con las palabras de los tiburones, de acuerdo al 
+     * numero de peces tipo Tiburon que aparecerán en el panel.
+     * @param num_tiburones tipo entero
+     * @return ArrayList con palabras para los tiburones
+     */
     public ArrayList<String> arregloPalabrasTiburones(int num_tiburones){
         ArrayList<String> palabras_archivo=this.cargarPalabrasArchivo("ListaPalabras.txt");
         ArrayList<String> palabras=new ArrayList<String>();
@@ -143,6 +153,13 @@ public class ArreglosPalabras {
                 return palabras;
     }
     
+      /**
+     * El método arregloPalabrasTiburonesNegros() nos retorna
+     * un ArrayList con tres palabras para cada pez tipo TiburonNegro que
+     * aparecerá en el panel/
+     * 
+     * @return ArrayList con palabras para los tiburones
+     */
     public ArrayList<String> arregloPalabrasTiburonesNegro(){
       ArrayList<String> palabras=this.arregloPalabrasTiburones(3);
           
@@ -150,7 +167,12 @@ public class ArreglosPalabras {
     }
     
     
-  
+  /**
+     * El método palabraPulpo() nos retorna
+     * un ArrayList la palabra de Pulpo, extraída de una archivo
+     * 
+     * @return ArrayList con palabras para los tiburones
+     */
     
     public ArrayList<String> palabraPulpo(){
       ArrayList<String> palabra= new ArrayList<>();
@@ -161,7 +183,15 @@ public class ArreglosPalabras {
       return palabra;
     }
     
-    
+   
+     /**
+     * El método  arregloLetrasPirañas(int num_pirañas) nos retorna
+     * un ArrayList con las letras de las pirañas, de acuerdo al 
+     * numero de peces tipo Piraña que aparecerán en el panel.
+     * @param num_pirañas tipo entero
+     * @return ArrayList con letras para las pirañas
+     */
+   
     public ArrayList<String> arregloLetrasPirañas(int num_pirañas){
         ArrayList<String> letras = new ArrayList<String>();
         ArrayList<String> abecedario = this.llenarArregloAbecedario();
@@ -178,6 +208,8 @@ public class ArreglosPalabras {
     
 
     /**
+     * El método getPalabras() nos retorna el ArrayList de las palabras para
+     * los tiburones extraídas del archivo.
      * @return the palabras_archivo
      */
     public ArrayList<String> getPalabras() {
@@ -185,6 +217,7 @@ public class ArreglosPalabras {
     }
 
     /**
+     * El método setPalabras cambia el ArrayList a leer.
      * @param palabras the palabras_archivo to set
      */
     public void setPalabras(ArrayList<String> palabras) {
@@ -192,14 +225,18 @@ public class ArreglosPalabras {
     }
 
     /**
-     * @return the letras
+     * El método getLetras() retorna el ArrayList con las letras
+     * para las pirañas
+     * @return the letras tipo ArrayList
      */
     public ArrayList<String> getLetras() {
         return letras;
     }
 
     /**
-     * @param letras the letras to set
+     * El método setLetras() permite cambiar el ArrayList con las letras
+     * para las pirañas que saldrán en otro nivel.
+     * @param letras tipo ArrayList String
      */
     public void setLetras(ArrayList<String> letras) {
         this.letras = letras;
@@ -216,6 +253,12 @@ public class ArreglosPalabras {
      public ArrayList<String> arregloTiburonesNegros(){
     }*/
     
+    
+    /**
+     * El método getPalabrasPulpo() retorna el ArrayList con las palabras
+     * para el pulpo.
+     * @return the letras tipo ArrayList
+     */
      public ArrayList<String> getPalabrasPulpo() {
         return palabras_pulpo;
     }
