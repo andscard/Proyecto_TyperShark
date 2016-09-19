@@ -37,14 +37,28 @@ public class Pez extends Thread implements Subject{
     private Estado estado;
     private ArrayList observers = new ArrayList();
    
+    /**
+     * Este método permite añadir a un observador
+     * @param o tipo Observer
+     */
     @Override
     public void addObserver( Observer o ) {
             observers.add( o );
       }
+    /**
+     * Este método permite eliminar un Observador
+     * @param o 
+     */
       @Override
       public void removeObserver( Observer o ) {
             observers.remove( o );
       }
+      
+      
+      /**
+       * El método  notifyObservers_pezllegafinal() , le notifica 
+       * al observador que el pez ha pasado su zona límite.
+       */
       public void notifyObservers_pezllegafinal() {
             // loop through and notify each observer
             Iterator i = observers.iterator();
@@ -53,6 +67,12 @@ public class Pez extends Thread implements Subject{
                   o.update( this , "pez_llega");
             }
       }
+      
+      /**
+       * El método  notifyObservers_pezmuere(), le notifica 
+       * al observador que el pez ha sido eliminado, y por ende debe 
+       * aumentar puntos.
+       */
     public void notifyObservers_pezmuere() {
             // loop through and notify each observer
             Iterator i = observers.iterator();
@@ -61,13 +81,10 @@ public class Pez extends Thread implements Subject{
                   o.update( this , "pez_muere");
             }
       }
+    
+   
 
-    /**
-     * @return the pane_palabra
-     */
-    public HBox getPane_palabra() {
-        return pane_palabra;
-    }
+    
 
    
 
@@ -108,7 +125,14 @@ public class Pez extends Thread implements Subject{
         
     }
 
-    
+    /**
+     * El método getPane_palabra(), nos permite obtener el panel de la 
+     * palabra del pez.
+     * @return the pane_palabra
+     */
+    public HBox getPane_palabra() {
+        return pane_palabra;
+    }
    
     
     /**
@@ -134,14 +158,28 @@ public class Pez extends Thread implements Subject{
         return puntos;
     }
 
+    /**
+     * El método setPuntos(int puntos) permite cambiar el valor del puntaje 
+     * del pez
+     * @param puntos tipo entero 
+     */
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
     
+    /**
+     * El método addAListaPalabras(String word) permite añadir una palabra
+     * a la lista de palabras que contiene el pez.
+     * @param word 
+     */
     public void addAListaPalabras(String word){
     this.lista_words.add(word);
     }
     
+    /**
+     * El método setListaPalabras permite cambiar la lista de palabras que posea el pez
+     * @param lista_words  ArrayList tipo String 
+     */
     public void setListaPalabras(ArrayList <String> lista_words){
         this.lista_words=lista_words;
     } 
@@ -149,19 +187,24 @@ public class Pez extends Thread implements Subject{
     
     
     /**
-     *  El método setEstadoVida, cambia el estado de VIVO A MUERTO
+     *  El método setEstadoVida(), cambia el estado de VIVO A MUERTO
      * 
      */
     public void setEstadoVida(){
     this.estado=Estado.MUERTO;}
     
+    /**
+     * El método getEstado(), nos retorna el estado de vida del Pez 
+     * VIVA O MUERTO
+     * @return estado tipo Estado
+     */
     public Estado getEstado(){
     return this.estado;}
 
     /**
-     * El método getVelocidad retorna la velocidad (pixeles a moverse)
+     * El método getVelocidad() retorna la velocidad (pixeles a moverse)
      * de cada pez
-     * @return velocidad tipo decimal.
+     * @return velocidad tipo double.
      */
     public double getVelocidad() {
         return velocidad;
@@ -169,8 +212,8 @@ public class Pez extends Thread implements Subject{
 
     
     /**
-     * El método setVelocidad, modifica la velocidad del pez cuando un caracter
-     * ha sido mal escrito o cuando existe un cambio de nivel.
+     * El método setVelocidad(double velocidad), modifica la velocidad del pez
+     * cuando un caracter ha sido mal escrito o cuando existe un cambio de nivel.
      * @param velocidad tipo de dato entero
      */
     public void setVelocidad(double velocidad) {
@@ -178,11 +221,17 @@ public class Pez extends Thread implements Subject{
     }
     
     /**
-     * El método getPosicion nos permite conocer la posicion actual de un Pez.
+     * El método getPosicion(), nos permite conocer la posicion actual de un Pez.
      * @return posicion tipo Posicion 
      */
     public Posicion getPosicion (){
         return this.posicion;}
+    
+    /**
+     * El método setPosicion(Posicion pos), permite  cammbiar la posición del
+     * Pes
+     * @param pos tipo Posicion
+     */
     public void setPosicion(Posicion pos){
         this.posicion=pos;}
     
@@ -195,6 +244,10 @@ public class Pez extends Thread implements Subject{
             return this.pane;
     }
      
+     /**
+      * El método run() permite transladar el panel del pez, cuando
+      * el pez pasa su zona límite este debe desaparecer.
+     */
       
      @Override
     public void run(){

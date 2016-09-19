@@ -1,27 +1,10 @@
-mjj 1 45
-mayken 1 140
-mayken 2 350
-mayken 3 275
-lucas 1 130
-lucas 2 140
-lucas 3 300
-camil 1 200
-camil 2 300
-camil 4 400
-camil 5 300
-camil 6 200
-
-
-
-
-
-
-
-
-
-
-Anonimo 1 95
-Cabo 1 215
-Cabo 2 345
-Cabo 3 400
-Cabo 4 195
+Anonimo 1 245
+Anonimo 2 500
+Anonimo 3 235
+Mayken 1 100
+Mayken 2 300
+Mayken 3 500
+Camila 1 100 
+Camila 2 300
+Camila 3 100
+Camila 4 500
