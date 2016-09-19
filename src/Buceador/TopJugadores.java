@@ -41,7 +41,7 @@ import typershark.Ayuda;
 public class TopJugadores {
     private ListView<String> lista;
     private ArrayList <Buceador> top_buceadores;
-    private String[] buceadores_niveles;
+    private ArrayList <Buceador> buceadores_niveles;
     
     private Pane panel;
     private Stage stage;
@@ -104,6 +104,7 @@ public class TopJugadores {
                 lista_jugadores.add(b1);
             }
             Collections.sort(lista_jugadores);
+            buceadores_niveles=lista_jugadores;
             return lista_jugadores;
         } catch (IOException ex) {
             System.out.println("El archivo no existe");
@@ -135,12 +136,11 @@ public class TopJugadores {
     
     public void llenarListView(){
     int n=this.top_buceadores.size();
-    this.buceadores_niveles= new String[top_buceadores.size()];
-        
+      
     for (int i=0; i<n;i++){
-        //buceadores_niveles[i]=(top_buceadores.get(i).infoJugador2());
-        //nombres.add(top_buceadores.get(i).infoJugador2());
-        //this.lista.setItems(nombres);
+       
+        nombres.add(top_buceadores.get(i).infoJugador2());
+        this.lista.setItems(nombres);
         lista.setStyle("-fx-text-fill: black;"+
     "-fx-font: Courier New;"+
     "-fx-font-family: Courier New;"+
@@ -152,15 +152,15 @@ public class TopJugadores {
    
     
       public void llenarListJugadoresNiveles(){
-        int n=this.buceadores_niveles.length;
-      
+        int n=this.buceadores_niveles.size();
+        Buceador buceador;
        try{
         File file=new File ("TopJugadoresLevels.txt");
         BufferedWriter bw=new BufferedWriter(new FileWriter(file));
         
         for (int i=0; i<n;i++){
          
-        bw.write(buceadores_niveles[i]);
+        bw.write(buceadores_niveles.get(i).infoJugador2());
         bw.newLine();
         bw.flush();
         bw.close();

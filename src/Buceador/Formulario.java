@@ -79,30 +79,59 @@ public class Formulario {
         return label;
     }
 
+    /**
+     * El método setLabel(Label label)
+     * @param label 
+     */
     public void setLabel(Label label) {
         this.label = label;
     }
 
+    /***
+     * El método getBoton() nos retorna un botón.
+     * @return boton tipo Button
+     */
     public Button getBoton() {
         return boton;
     }
 
+    /**
+     * El método setBoton( Button boton) cambia el botón
+     * @param boton  tipo Button
+     */
     public void setBoton( Button boton) {
         this.boton = boton;
     }
 
+    /**
+     * El método getVbox() nos retorna un panel.
+     * @return  vbox tipo VBox
+     */
     public VBox getVbox() {
         return vbox;
     }
 
+    /**
+     * El método setVbox(VBox vbox) cambia el panel actual.
+     * @param vbox tipo setVbox.
+     */
     public void setVbox(VBox vbox) {
         this.vbox = vbox;
     }
 
+    /**
+     * El método getFondo() nos retorna la imagen de fondo a visualizar.
+     * @return fondo tipo ImageView
+     */
     public ImageView getFondo() {
         return fondo;
     }
 
+    /**
+     * El método setFondo(ImageView fondo) recibe la imagen del fondo de panel
+     * a visualizar
+     * @param fondo tipo ImageView 
+     */
     public void setFondo(ImageView fondo) {
         this.fondo = fondo;
     }
