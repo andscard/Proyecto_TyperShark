@@ -488,7 +488,12 @@ public class Mar extends Thread implements Observer{
                 aumentarVelocidadPeces();
                 System.out.println("VELOCIAD: "+velocidad);
                break;
-                 }
+            
+                
+                
+        }
+        
+    
    
        
     }

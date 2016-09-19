@@ -25,6 +25,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -32,9 +34,11 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 /**
  * La clase Buceador almacena funciones útiles como obtener nombre del jugador,
@@ -63,6 +67,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     private Label metros_string;
     private Label arma_string;
     private Label nivel_string;
+    
     private ToolBar barra;
     private final int puntaje_arma_especial=300;
     private final double profundidad_mar=45;
@@ -102,7 +107,6 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     this.pane.setLayoutX(posicion.getPos_x());
     this.pane.setLayoutY(posicion.getPos_y());
     this.barra=this.crearToolBar();
-    
     this.pirañas_picadas=0;
     }
 
@@ -133,6 +137,24 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     public void setStopBuceador(boolean stop){
     this.stop=stop;}
     
+    public Stage mensajeGuardarPartida(){
+    Stage stage=new Stage();
+    VBox vbox=new VBox(15);
+    vbox.setPadding(new Insets(15));
+    Label mensaje_guardar=new Label("!Su partida se ha guardada con éxito!");;
+    Button bt_aceptar= new Button(" ACEPTAR ");
+    bt_aceptar.setOnAction(new ClickHandler0());
+    bt_aceptar.setTranslateX(70);
+    mensaje_guardar.setFont(Font.font("Myriad Pro", FontWeight.SEMI_BOLD, 16));
+    mensaje_guardar.setTextFill(Color.DARKBLUE);
+    vbox.getChildren().addAll(mensaje_guardar,bt_aceptar);
+    Scene scene= new Scene(vbox);
+    stage.setTitle("Typer Shark");
+    stage.getIcons().add(new Image("/Imagenes/tiburon.png"));
+    stage.setScene(scene);
+    
+    return stage;
+    }
 
     /**
      * El método getVidas() retorna el número de vidas del buceador.
@@ -403,6 +425,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
        
         Button bt_guardar= new Button("GUARDAR");
         bt_guardar.setOnAction(new ClickHandler());
+        //bt_guardar.getProperties().addListener(null);
         //bt_pausa=new Button("PAUSA");
         //bt_continuar=new Button("CONTINUAR");
         
@@ -564,6 +587,16 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
        * de clic en el boton guardar, la información actual del buceador
        * es almacenada en un archivo.
        */
+     
+      
+       private class ClickHandler0 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            System.exit(0);
+        }
+       }
+      
+  ////////////////////////////////////////////////////////////////////////
      private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
@@ -575,12 +608,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         bw.newLine();
         bw.flush();
         bw.close();
-            
+          
         }catch(IOException ex){
          System.out.println("No se pudo escribir en el archivo Partidas.txt");}
-            
-        
-    
+     
+         mensajeGuardarPartida().showAndWait();
         }
     }
     

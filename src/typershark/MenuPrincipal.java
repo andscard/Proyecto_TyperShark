@@ -147,6 +147,7 @@ public class MenuPrincipal {
       stage_menu.getIcons().add(new Image("/Imagenes/tiburon.png"));
       stage_menu.setResizable(true);
       stage_menu.setScene(scene1);
+     
     
     return this.stage_menu;}
     
@@ -168,6 +169,7 @@ public class MenuPrincipal {
         
         Scene scene2 = new Scene (mar.getMar());
         stage_menu.setScene(scene2);
+        stage_menu.setMaximized(false);
         mar.start();
         mar.getButtonRegresar().setOnAction(new ClickHandler6());
        
