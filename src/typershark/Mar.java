@@ -16,6 +16,10 @@ import Utils.ArreglosPalabras;
 import Utils.Observer;
 import Utils.Posicion;
 import Utils.Subject;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.Random;
@@ -436,6 +440,8 @@ public class Mar extends Thread implements Observer{
                 break;
             case "buceador_llega":
                 Buceador b=(Buceador) o;
+                this.escribirArchivoTopJugadores(buceador);
+                b.setNivel(nivel+1);
                 aumentarVelocidadPeces();
                 System.out.println("VELOCIAD: "+velocidad);
                break;
@@ -476,6 +482,20 @@ public class Mar extends Thread implements Observer{
         //panel_mar.setBottom(panel);
         
         return panel;
+    }
+    
+    public void escribirArchivoTopJugadores(Buceador buceador ){
+    try{
+        
+        BufferedWriter bw=new BufferedWriter(new FileWriter(new File("TopJugadores.txt"),true));
+         
+        bw.write(buceador.infoJugador());
+        bw.newLine();
+        bw.flush();
+        bw.close();
+            
+    }catch(IOException ex){
+        System.out.println("No se pudo escribir en el archivo TopJugadores.txt");}
     }
     
    
@@ -681,6 +701,7 @@ public class Mar extends Thread implements Observer{
                          panel_mar.setOnKeyPressed(new KeyPressed());
                          
                          if (buceador.isBuceadorAlive()==false){
+                        escribirArchivoTopJugadores(buceador);
                         panel_mar.setCenter(mensajeGameOver());
                         fin_juego=true;
                         }

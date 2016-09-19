@@ -14,8 +14,10 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +45,7 @@ public class MenuPrincipal {
     private Formulario formulario;
     private Ayuda ayuda;
     private TopJugadores top;
-    private Stage stage1,stage2,stage3;
+    private Stage stage1,stage2,stage3,stage4;
     private Stage stage_menu;
     private Scene scene1;
     private Scene scene2;
@@ -62,6 +64,7 @@ public class MenuPrincipal {
     //stage1= formulario.crearStage();
     stage2= ayuda.crearStage();
     stage3= top.crearStage();
+    stage4=this.mensajeNoExistenPartidas();
     stage_menu=new Stage();
     vbox = this.createVbox();
     Button bt_salir = new Button(" SALIR ");
@@ -122,6 +125,29 @@ public class MenuPrincipal {
     
     return this.stage_menu;}
     
+    
+    public Stage mensajeNoExistenPartidas(){
+    Stage stage=new Stage();
+    VBox vbox=new VBox(15);
+    vbox.setPadding(new Insets(15));
+    Label mensaje_guardar=new Label("!No existen partidas guardadas!");
+    Button bt_aceptar= new Button(" ACEPTAR ");
+    bt_aceptar.setOnAction(new ClickHandler7());
+    bt_aceptar.setTranslateX(70);
+    mensaje_guardar.setFont(Font.font("Myriad Pro", FontWeight.SEMI_BOLD, 16));
+    mensaje_guardar.setTextFill(Color.DARKBLUE);
+    vbox.getChildren().addAll(mensaje_guardar,bt_aceptar);
+    Scene scene= new Scene(vbox);
+    stage.setTitle("Typer Shark");
+    stage.getIcons().add(new Image("/Imagenes/tiburon.png"));
+    stage.setScene(scene);
+    
+    return stage;
+    }
+    
+    
+    //Muestra la escena del mar (nuevo juego) 
+    //Le pertenece al botón "GUARDAR"del formulario
     private class ClickHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
@@ -138,10 +164,12 @@ public class MenuPrincipal {
         stage_menu.setMaximized(false);
         mar.start();
         mar.getButtonRegresar().setOnAction(new ClickHandler6());
-       
+        formulario.getTexto().clear();
         }
      }
     
+    //Muestra la escena del formulario en la que el jugador escribe su nombre de usuario
+    //Le pertece al botón NUEVO NUEGO
     private class ClickHandler1 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
@@ -149,10 +177,16 @@ public class MenuPrincipal {
         }
     }
     
+    //Reanuda un juego, cargando una partida guardada, si no existen partices, aparece una ventana
+    //emergente diciendo que no hay partidas guardadas, le pertenece al botón REANUDAR PARTIDA
      private class ClickHandler2 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
          String []info=buceador.leerArchivoPartidas();
+         if(info==null){
+            stage4.show();
+         return;
+         }
          mar=new Mar(info[0]);
          boolean arma;
          if (info[4]=="OFF"){arma=false;
@@ -167,26 +201,27 @@ public class MenuPrincipal {
          
         }
      }
-    
+     
+    //Muestra la ventana de ayuda , le pertence al botón AYUDA del menú principal
      private class ClickHandler3 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
             stage2.show();
         }
     }
-    
+    //Muestra 
     private class ClickHandler4 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
-          //  top.escribirArchivoTop(new Buceador("Mayken"));
-            top.listaTopJugadores();
-            top.llenarListView();
-            top.llenarListJugadoresNiveles();
+          //  top.escribirArchivoTopJugadores(new Buceador("Mayken"));
+            //top.listaTop10Puntajes();
+            //top.llenarListViewTopPuntaje();
+            //top.llenarListJugadoresNiveles();
             stage3.show();
         }
     }
     
-    
+    //Salir del Juego completamnete, le pertece al botón SALIR del menú pirncipal
     private class ClickHandler5 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
@@ -194,11 +229,23 @@ public class MenuPrincipal {
         }
     }
     
-     private class ClickHandler6 implements EventHandler<ActionEvent> {
+     //Regesa a la escena del menú principal, le pertenece al botón MENÚ PRINCIPAL
+    //de la clase mar
+    private class ClickHandler6 implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent action) {
             
             stage_menu.setScene(scene1);
+        }
+     }
+     
+     //Cierra la venta emergente que indica que no hay partidas guardadas,
+     //Le pertene al botón ACEPTAR de dicha ventana
+     private class ClickHandler7 implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent action) {
+            
+           stage4.close();
         }
      }
 }

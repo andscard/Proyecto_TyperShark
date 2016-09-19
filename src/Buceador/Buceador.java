@@ -326,12 +326,13 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
      */
     public void llegaFondoDelMar() {
         if (this.metros == this.profundidad_mar) {
-            nivel=nivel+1;
+            this.notifyObservers_buceador_llega_fondo();
+            //nivel=nivel+1;
             ganarVidasExtras();
             jugadoresPorNiveles();
             this.metros=0;
             pane.setTranslateY(5);
-            this.notifyObservers_buceador_llega_fondo();
+            
           
         }
     }
@@ -474,20 +475,10 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
      */
     @Override
     public int compareTo(Buceador b1) {
-        if (this.puntaje>b1.puntaje&&this.nivel==b1.nivel){
-              
-                   return 1;}
-    
-        else if(this.puntaje<b1.puntaje&&this.nivel==b1.nivel){
-        return -1;
-    }
-        
-        if (this.nivel==b1.nivel){
-              
-                   return 1;}
-    
-        else if(this.nivel<b1.nivel){
-        return -1;
+    if (this.puntaje>b1.puntaje){
+                   return -1;
+    }else if(this.puntaje<b1.puntaje){
+        return 1;
     }else{
         return 0;} 
       
@@ -680,8 +671,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
      * @return información tipo String
      */
      public String infoJugador2(){
-    int level= this.nivel-1;
-    String info=this.nombre+" "+level+" "+this.puntaje;
+    String info="- "+this.getNombre()+": "+this.getPuntaje()+" (nivel "+this.getNivel()+")";
     return info;
     }
     

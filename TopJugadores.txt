@@ -1,1 +1,13 @@
-Mayken 0 3 0.0 OFF
+andrea 10 0 4.0 OFF 2
+mayken 205 1 0.0 ON 2
+mayken 175 0 26.0 OFF 3
+julio 0 0 24.0 OFF 1
+angel 300 1 0.0 OFF 3
+angel 120 0 10.0 OFF 2
+Anonimo 100 2 45.0 OFF 1
+Anonimo 210 2 45.0 OFF 2
+Anonimo 235 0 35.0 OFF 3
+luis 80 0 15.0 OFF 1
+luis 200 0 10.0 OFF 2
+luis 300 0 50.0 OFF 3
+luis 500 0 10.0 OFF 4
