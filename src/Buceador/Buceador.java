@@ -41,9 +41,14 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
- * La clase Buceador almacena 
+ * La clase Buceador almacena funciones útiles como obtener nombre del jugador,
+ * setear el estado de vidas, conocer y setear el puntaje, activar o desactivar
+ * el arma especial, conocer la posicion del buceador, ubicar su imagen respectiva
+ * en el panel,  y detener su hilo.
+ * 
  * @author Sheyla Cárdenas Sumba
  * @author Mayken Salavarria Tutivén
+ * @version 2.0.0
  */
 
 public class Buceador extends Thread implements Comparable<Buceador>, Observer, Subject {
@@ -148,6 +153,10 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     return stage;
     }
 
+    /**
+     * El método getVidas() retorna el número de vidas del buceador.
+     * @return vidas  tipo de dato entero 
+     */
     public int getVidas() {
         return vidas;
     }
@@ -169,9 +178,20 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         return puntaje;
     }
     
+    /**
+     * El método  setPuntaje(int puntaje) cambia el puntaje actual del buceador
+     * @param puntaje tipo de dato entero
+     */
     public void setPuntaje(int puntaje){
         this.puntaje=puntaje;}
     
+    
+    /**
+     * El método cambiarPuntaje(int puntos) permite aumentar el puntaje del 
+     * buceador, el puntaje se acumulada de acuerdo al valor del pez
+     * eliminado.
+     * @param puntos tipo de dato entero
+     */
     public void cambiarPuntaje(int puntos) {
         this.puntaje = this.puntaje+puntos;
     }
@@ -240,11 +260,18 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     }
     
     /**
-     * El método getNivel() permite conocer el nivel actual del buceador.
-     * @return 
+     * El método setMetros(double metros) se actualiza según los metros
+     * que ha avanzado el buceador.
+     * @param metros tipo de dato double
      */
     public void setMetros(double metros){
     this.metros=metros;}
+    
+    
+    /**
+     * El método getNivel() permite conocer el nivel actual del buceador.
+     *  @return  nivel tipo de dato entero
+     */
     
     public int getNivel(){
         return nivel;}
@@ -256,13 +283,28 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     public void setNivel(int nivel){
     this.nivel=nivel;}
     
+    /**
+     * El método getPane() permite retornar el panel del buceador.
+     * @return pane tipo Pane
+     */
      public Pane getPane(){
             return this.pane;
     }
     
+     /**
+      * El método getImagenBuceador() retorna la imagen del buceador.
+      * @return imagen_buceador tipo ImageView. 
+      */
     public ImageView getImagenBuceador(){
     return this.imagen_buceador;}
     
+    /**
+     * El método estadoArma() permite conocer si el buceador posee arma especial.
+     * Si retorna "OFF" significa que el buceador no dispone de arma especial.
+     * Si retorna "ON" significa que el buceador dispone de arma espacial, y esta
+     * esta lista para ser utilizada.
+     * @return estado tipo de dato String
+     */
     public String estadoArma(){
     String estado;
         if (this.arma_especial==false){
@@ -274,7 +316,14 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     return estado;
     }
     
-    
+    /**
+     * El método llegaFondoDelMar() permite actualizar la toolBar: se observa el
+     * cambio de nivel, el buceador gana vidas extras si el nivel es multiplo 
+     * de 3, además de guardar en un archivo la situación actual del buceador, 
+     * se notifica al observador Mar,que el buceador ha llegado al final 
+     * esto significa un cambio de nivel por ende los peces aumentarán su
+     * velocidad.
+     */
     public void llegaFondoDelMar() {
         if (this.metros == this.profundidad_mar) {
             nivel=nivel+1;
@@ -297,13 +346,28 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
             vidas=vidas+1;}
     }
      
-    
+    /**
+     * El método infoJugador() obtiene la información actual del
+     * buceador nombre, puntaje, vidas, metros, estado del Arma Especial
+     * y nivel.
+     * @return información tipo de String
+     */
     public String infoJugador(){
   
     String info=this.nombre+" "+this.puntaje+" "+this.vidas+" "+this.metros+" "+this.estadoArma()+" "+this.nivel;
     return info;
     }
     
+    /**
+     * El método setInfoJugador(String nombre,int puntaje,int vidas, double metros, boolean arma, int nivel)
+     * permite setear la información actual del jugador.
+     * @param nombre tipo String
+     * @param puntaje tipo entero
+     * @param vidas tipo entero
+     * @param metros tipo double
+     * @param arma tipo booleano
+     * @param nivel  tipo entero
+     */
     public void setInfoJugador(String nombre,int puntaje,int vidas, double metros, boolean arma, int nivel){
         this.setNombre(nombre);
         this.setPuntaje(puntaje);
@@ -312,14 +376,31 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         this.setEstadoArmaEspecial(arma);
         this.setNivel(nivel);
     }
+    
+    /**
+     *  El método formatoLabelsBarra(Label lb) ajusta el tipo de fuente
+     * y setea el color del texto que posee el Label.
+     * @param lb tipo Label 
+     */
     public void formatoLabelsBarra(Label lb){
         lb.setFont(Font.font("Myriad Pro", FontWeight.BOLD, 14));
         lb.setTextFill(Color.DARKBLUE);
     }
     
+    /**
+     * El método getToolBar() retorna la barra de herramientas del buceador.
+     * @return  barra tipo ToolBar
+     */
     public ToolBar getToolBar(){
     return this.barra;} 
     
+    /**
+     * El método crearToolBar(), crea una barra de herramientas con todos 
+     * los elementos a visualizar: etiquetas indicando el puntaje, número
+     * de vidas, metros descendidos, disponibilidad del arma especial, el 
+     * nivel y el botón  guardar.
+     * @return barra tipo ToolBar
+     */
     public ToolBar crearToolBar() {
         ToolBar barra = new ToolBar();
         ImageView coin = new ImageView(new Image(getClass().getResourceAsStream("/Imagenes/coin.gif"), 25, 25, true, true));
@@ -359,6 +440,12 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     public Button getButtonContinuar(){
         return this.bt_continuar;}
     */
+    
+    /**
+     * El método leerArchivoPartidas() permite leer el archivo que contiene
+     * la última partida guardada  por el jugador.
+     * @return info tipo String informacion del jugador
+     */
     public String [] leerArchivoPartidas(){
     String[]info = null ;
         try{
@@ -376,7 +463,15 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         return null;
     }
     
-    
+    /**
+     * El método int compareTo(Buceador b1) permite comparar 
+     * a dos buceadores, serán ordenados de acuerdo al nivel y puntaje
+     * @param b1 tipo de dato Buceador, buceador 2
+     * @return tipo de dato entero 1, -1,0
+     *  1 si ambos buceadores están en el mismo nivel y el buceador 1 tiene mayor puntaje
+     * -1 si ambos buceadores están en el mismo nivel y el buceador 1 tiene menor puntaje
+     *  0 los dos buceadores se encuentran en aniveles diferentes.
+     */
     @Override
     public int compareTo(Buceador b1) {
         if (this.puntaje>b1.puntaje&&this.nivel==b1.nivel){
@@ -402,7 +497,18 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
     
      
         
-    
+    /**
+     * El método update(Subject o, String evento) , recibe al Observador Pez
+     * y al evento, de acuerdo al evento realizará las funciones establecidas.
+     * Tipos de eventos:
+     * "pez_llega": si el tipo de Pez es una piraña, y el buceador ha sido
+     * tocado por tres de ellas, el número de vidas debe disminuir en uno.
+     * 
+     * "pez_muere": si el Pez es eliminado, el puntaje del buceador debe
+     * aumentar de acuerdo al valor que posea el pez.
+     * @param o tipo Observador
+     * @param evento tipo String  
+     */
         
         
     @Override
@@ -427,6 +533,7 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                 System.out.println("Perdio una vida");
                 
                 break;
+                
             case "pez_muere":
                 
                 if (p.getClass().equals(Pulpo.class)){
@@ -440,15 +547,29 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         
     }
     ////// funciones del observador/////
+    /**
+     * El método addObserver( Observer o ) añade un Observador
+     * @param o tipo Observer
+     */
      @Override
     public void addObserver( Observer o ) {
             observers.add( o );
       }
+    /**
+     * El método removeObserver( Observer o ) elimina un Observador
+     * @param o tipo Observer
+     */
       @Override
       public void removeObserver( Observer o ) {
             observers.remove( o );
       }
 /////// funcion que notifica a los observadores///
+      
+      /**
+       * El método notifyObservers_buceador_llega_fondo(), le indica a los Observadores
+       * en este caso el Buceador y el Mar que el buceador ha llegado a la profundidad del mar,
+       * por ende hay un cambio de nivel y un aumento de velocidad en los peces.
+       */
       public void notifyObservers_buceador_llega_fondo() {
             // loop through and notify each observer
             Iterator i = observers.iterator();
@@ -457,6 +578,12 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
                   o.update( this , "buceador_llega");
             }
       }
+    
+      /**
+       * La clase ClickHandler implementa un EventHandler en caso que el jugador
+       * de clic en el boton guardar, la información actual del buceador
+       * es almacenada en un archivo.
+       */
      
       
        private class ClickHandler0 implements EventHandler<ActionEvent> {
@@ -486,6 +613,11 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         }
     }
     
+     /**
+      * El método run() nos ayuda a que el buceador descienda en el panel mar
+      * y notifica al jugador si dispone de arma especial, si el buceador
+      * muere se detiene su hilo.
+      */
     @Override
     public void run(){
         while(!stop){
@@ -542,14 +674,27 @@ public class Buceador extends Thread implements Comparable<Buceador>, Observer, 
         }
     }
     
+    /**
+     * El método infoJugador2() contiene información resumida del buceador
+     * como: nombre del jugador, nivel actual, puntaje actual.
+     * @return información tipo String
+     */
+     public String infoJugador2(){
+    int level= this.nivel-1;
+    String info=this.nombre+" "+level+" "+this.puntaje;
+    return info;
+    }
     
     
-    
+     /**
+      * El método jugadoresPorNiveles() nos permite conocer la informacion del
+      * jugador por niveles, y esta es guardada en un archivo.
+      */
      public void jugadoresPorNiveles() {
          try{
         File file=new File ("JugadoresPorNiveles.txt");
         BufferedWriter bw=new BufferedWriter(new FileWriter(file,true));
-        //bw.write(infoJugador2());
+        bw.write(infoJugador2());
         bw.newLine();
         bw.flush();
         bw.close();
